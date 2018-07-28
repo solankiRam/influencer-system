@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
+import { InfluencerViewPage } from '../influencer-view/influencer-view'
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -46,7 +47,11 @@ export class HomePage {
     public goToAdd() {
         this.nav.push('InfluencerAddPage');
     }
-    public goToView() {
+    public goToView(user) {
+        console.log("Users",user.id)
+        this.nav.push('InfluencerViewPage', {
+            id: user.id, param2: 'Johnson'
+        });
         this.nav.push('InfluencerViewPage');
     }
 

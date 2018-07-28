@@ -23,6 +23,7 @@ export class RegisterPage {
 
   imgPreview = 'assets/imgs/logo.png';
   registerModel:any = {};
+  influencerTypes:any = [];
   registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,

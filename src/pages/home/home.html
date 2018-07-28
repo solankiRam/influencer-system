@@ -37,7 +37,7 @@
       </ion-col>
 </ion-row>
   <ion-list>
-    <ion-item *ngFor="let user of users" (click)='goToView()'>
+    <ion-item *ngFor="let user of users" (click)='goToView(user)'>
 
       <ion-card [ngClass]="{'active':user.status == 'Active'}">
 
@@ -50,7 +50,7 @@
           <b>Address:</b>
           <p>{{user.address}}</p>
           <div class="phone">
-            <span>{{user.home_phone}}</span>
+            <span>{{user.work_phone}}</span>
           </div>
           <button class="delete"></button>
         </ion-item>

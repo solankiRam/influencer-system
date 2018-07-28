@@ -29,13 +29,7 @@
           <ion-item class="field">
             <ion-label>Type</ion-label>
             <ion-select placeholder="Influencer type*" [disabled]='!isEdit' formControlName="influencertype_id">
-              <ion-option value="6">Plumber</ion-option>
-              <ion-option value="7">Eletrician</ion-option>
-              <ion-option value="8">arcsitect</ion-option>
-              <ion-option value="9">carpenter</ion-option>
-              <ion-option value="10">consultant</ion-option>
-              <ion-option value="11">sales</ion-option>
-              <ion-option value="12">analysts</ion-option>
+              <ion-option value="{{type.InfluencerType.id}}" *ngFor="let types of influencerTypes">{{type.InfluencerType.name}}</ion-option>
             </ion-select>
           </ion-item>
         </ion-list>

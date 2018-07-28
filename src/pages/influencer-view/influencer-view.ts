@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -24,7 +24,8 @@ import moment from 'moment';
 export class InfluencerViewPage {
 
   createSuccess = false;
-
+  influencerTypes: any = [];
+  public influencerId: any;
   private editForm: FormGroup;
   private currentDate = moment().format('YYYY-MM-DD');
 
@@ -35,8 +36,14 @@ export class InfluencerViewPage {
   registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
-    public geolocation: Geolocation, public geocoder: NativeGeocoder) {
-    this.getInfluencer();
+    public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
+    this.influencerId = this.navParams.get('id');
+    localStorage.setItem('influencerId',this.influencerId)
+    console.log("ID",this.influencerId);
+    setTimeout(()=>{
+      this.getInfluencer();
+    },5000)
+    
     this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -108,14 +115,15 @@ export class InfluencerViewPage {
           branch: value.branch,
           zone: value.zone,
           status: 0,
-          image:'',
-          adharfront:'',
-          adharback:''
+          image: '',
+          adharfront: '',
+          adharback: ''
         }
       }
-      this.auth.editInfluencer(params,3).subscribe(success => {
+      this.auth.editInfluencer(params, 3).subscribe(success => {
         if (success) {
           this.showPopup("Success", "Update successfully.");
+          this.nav.push('HomePage');
         } else {
           this.showPopup("Error", "Problem while updating influencer.");
         }
@@ -174,10 +182,11 @@ export class InfluencerViewPage {
   }
 
   getInfluencer() {
-    this.auth.getInfluencer(1).subscribe(success => {
+    // console.log("getInfluencer",id)
+    this.auth.getInfluencer(this.influencerId).subscribe(success => {
       if (success.status) {
         let data = success.data.Influencer;
-        console.log("data.influencertype_id", data.name)
+        this.influencerTypes = success.data.InfluencerType;
         this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
         this.editForm.controls['firstName'].setValue(data.name);
         this.editForm.controls['lastName'].setValue(data.surname);

@@ -18,6 +18,7 @@ export class AuthServiceProvider {
     static readonly REGISTER_URL = 'http://54.71.128.110/influencer_system_api/admin/Influencers/add';
     static readonly EDIT_URL = 'http://54.71.128.110/influencer_system_api/admin/Influencers/edit/';
     static readonly getInfluencer = 'http://54.71.128.110/influencer_system_api/admin/influencers/search_user';
+    static readonly getInfluencerType = 'http://54.71.128.110/influencer_system_api/admin/influencerTypes/index';
     static readonly getSingleInfluencer = 'http://54.71.128.110/influencer_system_api/admin/influencers/view/';
 
     access: boolean;
@@ -94,6 +95,7 @@ export class AuthServiceProvider {
                 });
         }, err => console.error(err));
     }
+
     public searchUser(data) {
         return Observable.create(observer => {
             let headers = new Headers();
@@ -111,6 +113,18 @@ export class AuthServiceProvider {
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             this.http.get(AuthServiceProvider.getSingleInfluencer + id)
+                .map(res => res.json())
+                .subscribe(data => {
+                    observer.next(data);
+                });
+        }, err => console.error(err));
+    }
+
+    public getInfluencerTypes() {
+        return Observable.create(observer => {
+            let headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            this.http.get(AuthServiceProvider.getInfluencerType)
                 .map(res => res.json())
                 .subscribe(data => {
                     observer.next(data);
