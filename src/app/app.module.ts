@@ -8,6 +8,8 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+
+import { IonicStorageModule } from '@ionic/storage';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 // import { InfluencerAddPage } from '../pages/influencer-add/influencer-add';
 // import { ForgotPasswordPage} from '../pages/forgot-password/forgot-password';
@@ -42,6 +44,7 @@ import { OnlyNumber } from '../directives/number.directive';
     BrowserModule,
     HttpModule,
     // CommonModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
