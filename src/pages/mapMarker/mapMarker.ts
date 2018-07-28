@@ -10,55 +10,48 @@ import { GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPositio
 export class MapMarkerPage {
     map: GoogleMap;
     markerlatlong = {};
+    coords: any;
 
     private callback: any;
     constructor(private nav: NavController, private alertCtrl: AlertController, public navParams: NavParams) {
 
-        this.callback = this.navParams.get("callback")
+        this.callback = this.navParams.get("callback");
+        this.coords = this.navParams.get("coords");
     }
-
-    loadMap() {
-        console.log('load map');
-        // Create a map after the view is ready and the native platform is ready.
-        this.map = GoogleMaps.create('map_canvas');
-
-        this.getAllAddress();
-
-        // No longer wait GoogleMapsEvent.MAP_READY event
-        // ( except you use map.getVisibleRegion() )
-    }
-
-
 
     ionViewDidLoad() {
-        console.log('ionViewDidLoad RegisterPage');
         this.loadMap();
     }
 
+    loadMap() {
+        let mapOptions: GoogleMapOptions = {
+            camera: {
+                target: {
+                    lat: this.coords.latitude,
+                    lng: this.coords.longitude
+                },
+                zoom: 18
+            }
+        };
+        this.map = GoogleMaps.create('map_canvas', mapOptions);
+        this.getAllAddress();
+    }
+
     getAllAddress() {
-        alert('asd1')
         this.map.one(GoogleMapsEvent.MAP_READY)
             .then(() => {
-                alert('asd2')
                 this.map.addMarker({
                     title: 'Address',
-                    icon: 'blue',
                     animation: 'DROP',
                     draggable: true,
                     position: {
-
-                        lat: 43.0741904,
-                        lng: -89.3809802
+                        lat: this.coords.latitude,
+                        lng: this.coords.longitude
                     }
                 }).then(marker => {
-                    alert('asd3')
                     marker.on(GoogleMapsEvent.MARKER_DRAG_END).subscribe(() => {
-                        this.markerlatlong = marker.getPosition();
-                        console.log(this.markerlatlong)
-                        alert(JSON.stringify(this.markerlatlong))
-                        alert(JSON.stringify(marker))
                         this.callback({
-                            "marker": marker,
+                            "marker": marker.getPosition(),
                         }).then((data) => {
                             this.nav.pop();
                         })

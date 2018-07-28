@@ -102,35 +102,43 @@ export class RegisterPage {
   }
 
   geolocate() {
+    // let options = {
+    //   enableHighAccuracy: true
+    // };
+
+    // this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+    //   this.getcountry(position);
+    // }).catch((err) => {
+    //   alert(err);
+    // })
+
+  }
+
+  getcountry(lat, lng) {
+
+    this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
+      console.log(res);
+      alert(JSON.stringify(res))
+    })
+  }
+
+  getAllAddress() {
     let options = {
       enableHighAccuracy: true
     };
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.getcountry(position);
-    }).catch((err) => {
-      alert(err);
-    })
-
-  }
-
-  getcountry(pos) {
-
-    this.geocoder.reverseGeocode(pos.coords.latitude, pos.coords.longitude).then((res: any) => {
-      console.log(res);
-    })
-  }
-
-  getAllAddress() {
-    this.nav.push('MapMarkerPage', {
-
-      callback: (data) => {
-        return new Promise((resolve, reject) => {
-          console.log(data)
+      this.nav.push('MapMarkerPage', {
+        coords: position.coords,
+        callback: (data) => {
           alert(JSON.stringify(data))
-          resolve();
-        });
-      }
+          return new Promise((resolve, reject) => {
+            alert(JSON.stringify(data))
+            this.getcountry(data.marker.lat, data.marker.lng)
+            resolve();
+          });
+        }
+      });
     });
   }
 }
