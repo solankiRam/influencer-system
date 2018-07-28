@@ -92,4 +92,8 @@
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Use geocoder service" />
     </plugin>
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.3.8">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc" />
+        <variable name="API_KEY_FOR_IOS" value="AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc" />
+    </plugin>
 </widget>
