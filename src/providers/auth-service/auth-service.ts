@@ -16,7 +16,10 @@ export class AuthServiceProvider {
     static readonly LOGIN_URL = 'http://54.71.128.110/influencer_system_api/users/login';
     // Change to this http://ed43bb3b.ngrok.io/api/register
     static readonly REGISTER_URL = 'http://54.71.128.110/influencer_system_api/admin/Influencers/add';
+    static readonly EDIT_URL = 'http://54.71.128.110/influencer_system_api/admin/Influencers/edit/';
     static readonly getInfluencer = 'http://54.71.128.110/influencer_system_api/admin/influencers/search_user';
+    static readonly getSingleInfluencer = 'http://54.71.128.110/influencer_system_api/admin/influencers/view/';
+
     access: boolean;
     token: string;
 
@@ -56,6 +59,17 @@ export class AuthServiceProvider {
         }
     }
 
+    public editInfluencer(credentials, id) {
+        return Observable.create(observer => {
+            this.http.post(AuthServiceProvider.EDIT_URL + id, credentials)
+                .map(res => res.json())
+                .subscribe(data => {
+                    observer.next(true);
+                    observer.complete();
+                });
+
+        });
+    }
     // Get Token
     public getToken() {
         return 'hjghghj123456';
@@ -85,6 +99,18 @@ export class AuthServiceProvider {
             let headers = new Headers();
             headers.append('Content-Type', 'application/json');
             this.http.post(AuthServiceProvider.getInfluencer, data, { headers: headers })
+                .map(res => res.json())
+                .subscribe(data => {
+                    observer.next(data);
+                });
+        }, err => console.error(err));
+    }
+
+    public getInfluencer(id) {
+        return Observable.create(observer => {
+            let headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            this.http.get(AuthServiceProvider.getSingleInfluencer + id)
                 .map(res => res.json())
                 .subscribe(data => {
                     observer.next(data);

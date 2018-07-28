@@ -25,6 +25,7 @@ import { LocationsProvider } from '../providers/locations/locations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
 import { OnlyNumber } from '../directives/number.directive';
+// import { CommonModule } from '@angular/common'; 
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { OnlyNumber } from '../directives/number.directive';
   imports: [
     BrowserModule,
     HttpModule,
+    // CommonModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
