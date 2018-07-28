@@ -20,10 +20,10 @@
       <ion-col col-8>
         <ion-list inset>
           <ion-item class="field">
-            <ion-input placeholder="First Name*" formControlName="firstName"></ion-input>
+            <ion-input placeholder="First Name*" formControlName="firstName" maxlength="100"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Last Name*" formControlName="lastName"></ion-input>
+            <ion-input placeholder="Last Name*" formControlName="lastName" maxlength="100"></ion-input>
           </ion-item>
           <ion-item class="field">
             <ion-label>Type</ion-label>
@@ -69,26 +69,30 @@
               [max]="currentDate"></ion-datetime>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" OnlyNumber="true" maxlength="12"></ion-input>
+            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" 
+            [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo" limit-to="12"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Bank Account No" formControlName="bankAccountNo"></ion-input>
+            <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo"
+            [(ngModel)]="registerModel.bankAccountNo" (ngModelChange)="registerModel.bankAccountNo" ></ion-input>
+          </ion-item>  
+          <ion-item class="field">
+            <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="IFSC Code" formControlName="ifscCode"></ion-input>
+            <ion-input placeholder="Branch*" formControlName="branch" maxlength="50"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Branch*" formControlName="branch"></ion-input>
+            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Email" formControlName="email"></ion-input>
-          </ion-item>
-          <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" OnlyNumber="true" maxlength="10"></ion-input>
+            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10"
+            [(ngModel)]="registerModel.homePhone" (ngModelChange)="registerModel.homePhone"></ion-input>
           </ion-item>
 
           <ion-item class="field">
-            <ion-input placeholder="Mobile*" formControlName="mobile" OnlyNumber="true" maxlength="10"></ion-input>
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10"
+            [(ngModel)]="registerModel.mobile" (ngModelChange)="registerModel.mobile"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -100,31 +104,32 @@
         </ion-title>
         <ion-list inset>
           <ion-item class="field">
-            <ion-input placeholder="Address Line1*" formControlName="address1"></ion-input>
+            <ion-input placeholder="Address Line1*" formControlName="address1" maxlength="150"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Place" formControlName="place"></ion-input>
+            <ion-input placeholder="Place" formControlName="place" maxlength="100"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="City*" formControlName="city"></ion-input>
+            <ion-input placeholder="City*" formControlName="city" maxlength="50"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="State*" formControlName="state"></ion-input>
+            <ion-input placeholder="State*" formControlName="state" maxlength="50"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Country*" formControlName="country"></ion-input>
+            <ion-input placeholder="Country*" formControlName="country" maxlength="50"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Pin Code*" formControlName="zipcode" ></ion-input>
+            <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6"
+            [(ngModel)]="registerModel.zipcode" (ngModelChange)="registerModel.zipcode"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Lattitude" formControlName="lattitude"></ion-input>
+            <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Longitude" formControlName="longitude"></ion-input>
+            <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Zone*" formControlName="zone"></ion-input>
+            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
