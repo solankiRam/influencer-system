@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+
+import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -24,7 +26,7 @@ export class AuthServiceProvider {
     access: boolean;
     token: string;
 
-    constructor(public http: Http) { }
+    constructor(public http: Http, private storage: Storage) { }
 
     // Login
     public login(credentials) {
@@ -76,12 +78,28 @@ export class AuthServiceProvider {
         return 'hjghghj123456';
     }
 
+    loginData(data): void {
+        console.log(data)
+        if (data.id) {
+            localStorage.setItem('id', data.id);
+        }
+        this.storage.set('data', data);
+    }
+
     // Logout
     public logout() {
         return Observable.create(observer => {
             observer.next(true);
+            this.clearAll();
             observer.complete();
         });
+    }
+
+    clearAll() {
+
+        localStorage.clear();
+        this.storage.remove('data');
+        localStorage.clear();
     }
 
     public getinfluencerList(data) {
@@ -130,5 +148,18 @@ export class AuthServiceProvider {
                     observer.next(data);
                 });
         }, err => console.error(err));
+    }
+
+    authenticated() {
+        return new Promise(resolve => {
+            this.storage.get('data').then(token => {
+                if (token == null) {
+                    resolve(false);
+                }
+                else {
+                    resolve(true);
+                }
+            });
+        });
     }
 }

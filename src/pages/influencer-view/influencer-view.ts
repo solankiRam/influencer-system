@@ -9,12 +9,6 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
-/**
- * Generated class for the InfluencerViewPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -29,7 +23,7 @@ export class InfluencerViewPage {
   private editForm: FormGroup;
   private currentDate = moment().format('YYYY-MM-DD');
 
-  isEdit: boolean = false;
+  isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
   registerModel: any = {};
 
@@ -70,6 +64,41 @@ export class InfluencerViewPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InfluencerViewPage');
+  }
+
+  
+  getInfluencer() {
+    this.auth.getInfluencer(1).subscribe(success => {
+      if (success.status) {
+        let data = success.data.Influencer;
+        console.log("data.influencertype_id", data.name)
+        this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
+        this.editForm.controls['firstName'].setValue(data.name);
+        this.editForm.controls['lastName'].setValue(data.surname);
+        this.editForm.controls['email'].setValue(data.email);
+        this.editForm.controls['homePhone'].setValue(data.home_phone);
+        this.editForm.controls['mobile'].setValue(data.work_phone);
+        this.editForm.controls['birthDate'].setValue(data.birthdate);
+        this.editForm.controls['adharNo'].setValue(data.adhar_card);
+        this.editForm.controls['bankAccountNo'].setValue(data.bank_account);
+        this.editForm.controls['ifscCode'].setValue(data.ifsc_code);
+        this.editForm.controls['branch'].setValue(data.branch);
+        this.editForm.controls['zone'].setValue(data.zone);
+        this.editForm.controls['longitude'].setValue(data.longitude);
+        this.editForm.controls['lattitude'].setValue(data.lattitude);
+        this.editForm.controls['address1'].setValue(data.address);
+        this.editForm.controls['place'].setValue(data.place);
+        this.editForm.controls['city'].setValue(data.city);
+        this.editForm.controls['state'].setValue(data.state);
+        this.editForm.controls['country'].setValue(data.country);
+        this.editForm.controls['zipcode'].setValue(data.zipcode);
+        this.isEdit = false;
+      }
+    });
+  }
+
+  test(editForm) {
+    console.log(editForm)
   }
 
   getPhoto() {
@@ -151,20 +180,8 @@ export class InfluencerViewPage {
     alert.present();
   }
 
-  editEbanle() {
+  editEnable() {
     this.isEdit = true;
-  }
-  geolocate() {
-    // let options = {
-    //   enableHighAccuracy: true
-    // };
-
-    // this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-    //   this.getcountry(position);
-    // }).catch((err) => {
-    //   alert(err);
-    // })
-
   }
 
   getcountry(lat, lng) {
@@ -181,36 +198,6 @@ export class InfluencerViewPage {
     })
   }
 
-  getInfluencer() {
-    // console.log("getInfluencer",id)
-    this.auth.getInfluencer(this.influencerId).subscribe(success => {
-      if (success.status) {
-        let data = success.data.Influencer;
-        this.influencerTypes = success.data.InfluencerType;
-        this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
-        this.editForm.controls['firstName'].setValue(data.name);
-        this.editForm.controls['lastName'].setValue(data.surname);
-        this.editForm.controls['email'].setValue(data.email);
-        this.editForm.controls['homePhone'].setValue(data.home_phone);
-        this.editForm.controls['mobile'].setValue(data.work_phone);
-        this.editForm.controls['birthDate'].setValue(data.birthdate);
-        this.editForm.controls['adharNo'].setValue(data.adhar_card);
-        this.editForm.controls['bankAccountNo'].setValue(data.bank_account);
-        this.editForm.controls['ifscCode'].setValue(data.ifsc_code);
-        this.editForm.controls['branch'].setValue(data.branch);
-        this.editForm.controls['zone'].setValue(data.zone);
-        this.editForm.controls['longitude'].setValue(data.longitude);
-        this.editForm.controls['lattitude'].setValue(data.lattitude);
-        this.editForm.controls['address1'].setValue(data.address);
-        this.editForm.controls['place'].setValue(data.place);
-        this.editForm.controls['city'].setValue(data.city);
-        this.editForm.controls['state'].setValue(data.state);
-        this.editForm.controls['country'].setValue(data.country);
-        this.editForm.controls['zipcode'].setValue(data.zipcode);
-
-      }
-    });
-  }
 
   getAllAddress() {
     let options = {

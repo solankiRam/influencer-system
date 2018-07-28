@@ -27,6 +27,7 @@ export class LoginPage {
     ) { }
 
     public createAccount() {
+        console.log('RegisterPage')
         this.nav.push('RegisterPage');
     }
 
@@ -39,6 +40,8 @@ export class LoginPage {
                 if (allowed.group_id == "3" || allowed.group_id == "4") {
                     localStorage.setItem('token', allowed.token);
                     localStorage.setItem('id', allowed.id);
+                    
+                    this.auth.loginData(allowed);
                     this.nav.setRoot(HomePage);
                 } else {
                     this.showError("You have no rights to use this app");
