@@ -18,6 +18,7 @@ export class MyApp {
     platform.ready().then(() => {
 
       this.authService.authenticated().then(tokenStatus => {
+        console.log(tokenStatus)
         if (tokenStatus) {
           this.rootPage = HomePage;
         } else {

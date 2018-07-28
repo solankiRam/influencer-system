@@ -27,6 +27,7 @@ export class LoginPage {
     ) { }
 
     public createAccount() {
+        console.log('RegisterPage')
         this.nav.push('RegisterPage');
     }
 
