@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar>
+ 
+    <ion-title>
+      Member Area
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-row class="search-box">
+      <ion-col col-11>
+          <ion-searchbar
+          [(ngModel)]="searchKeyWord"
+          [showCancelButton]="shouldShowCancel"
+          (ionInput)="onInput(searchKeyWord)"
+          (ionCancel)="onCancel($event)">
+        </ion-searchbar>
+      </ion-col>
+      <ion-col col-1>
+        <div class="filter-box">
+          <i class="ion-ios-funnel-outline"></i>
+            <ion-select [(ngModel)]="gaming">
+                <ion-option value="nes">NES</ion-option>
+                <ion-option value="n64">Nintendo64</ion-option>
+                <ion-option value="ps">PlayStation</ion-option>
+                <ion-option value="genesis">Sega Genesis</ion-option>
+                <ion-option value="saturn">Sega Saturn</ion-option>
+                <ion-option value="snes">SNES</ion-option>
+              </ion-select>
+            </div>
+      </ion-col>
+</ion-row>
+  <ion-list>
+    <ion-item *ngFor="let user of users" (click)='goToView()'>
+
+      <ion-card [ngClass]="{'active':user.status == 'Active'}">
+
+        <ion-item class="card-detail">
+          <ion-avatar item-start>
+            <img src="assets/imgs/marty-avatar.png">
+          </ion-avatar>
+          <h2>{{user.name}}</h2>
+          <p>{{user.InfluencerType}}</p>
+          <b>Address:</b>
+          <p>{{user.address}}</p>
+          <div class="phone">
+            <span>{{user.home_phone}}</span>
+          </div>
+          <button class="delete"></button>
+        </ion-item>
+      </ion-card>
+    </ion-item>
+    
+  </ion-list>
+  <ion-fab right bottom (click)="goToAdd()">
+    <button ion-fab><ion-icon name="add-circle" ></ion-icon></button>
+  </ion-fab>
+</ion-content>

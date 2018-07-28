@@ -1,0 +1,85 @@
+page-home {
+    .active {
+        .card-detail {
+            border-right: solid 10px rgb(71, 160, 59);
+        }
+    }
+    .search-box {
+        background-color: #f3f3f3;
+        .filter-box {
+            text-align: right;
+            height: 30px;
+            width: 30px;
+            float: right;
+            overflow: hidden;
+            position: relative;
+            margin: 15px 10px 0 0;
+            .ion-ios-funnel-outline {
+                font-style: normal;
+                &::before {
+                    content: "\f181";
+                    font-family: Ionicons;
+                    font-size: 30px;
+                }
+            }
+            .item-cover {
+                position: absolute;
+                height: 30px;
+                widows: 30px;
+            }
+            
+        }
+    }
+    
+    .card-detail {
+        padding-right: 10px;
+        border-right: solid 10px #f97272;
+        h2 {
+            color: #979cc1;
+            font-weight: 600;
+            padding-right: 120px;
+            white-space: normal;
+        }
+        b {
+            font-size: 1.4rem;
+            display: block;
+            margin-top: 7px;
+        }
+        p {
+            white-space: normal;
+            line-height: 1.6rem;
+            padding-right: 15px;
+        }
+        .phone {
+            position: absolute;
+            padding: 5px 0 0 20px;
+            top: 10px;
+            right: 15px;
+            &::after {
+                content: "\f13d";
+                font-family: "Ionicons";
+                position: absolute;
+                left: 0;
+                font-size: 20px;
+                top: 0;
+            }
+            span {
+                display: block;
+                font-size: 1.4rem;
+            }
+        }
+        .delete {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 24px;
+            color: red;
+            background: transparent;
+            &::before {
+                content: "\f4c4";
+                font-family: Ionicons;
+            }
+        }
+       
+    }
+}

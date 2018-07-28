@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Influencer Add</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="register" padding>
+  <form (ngSubmit)="save()" #registerForm="ngForm">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+          <ion-item class="img-box">
+
+            <ion-avatar class="avatars">
+              <img src="{{imgPreview}}" (click)="getPhoto()">
+            </ion-avatar>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="First Name" name="firstName" [(ngModel)]="registerCredentials.name" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Last Name" name="lastName" [(ngModel)]="registerCredentials.surname" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Address" name="mapAddress" [(ngModel)]="registerCredentials.mapAddress" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Address" name="address" [(ngModel)]="registerCredentials.address" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Address" name="address2" [(ngModel)]="registerCredentials.place" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter City" name="city" [(ngModel)]="registerCredentials.city" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter State" name="state" [(ngModel)]="registerCredentials.state" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Country" name="country" [(ngModel)]="registerCredentials.country" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Zip Code" name="zip" [(ngModel)]="registerCredentials.zipcode" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Lattitude" name="lattitude" [(ngModel)]="registerCredentials.lattitude" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Longitude" name="longitude" [(ngModel)]="registerCredentials.longitude" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Email" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
+          </ion-item>
+
+
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Home Phone No." name="homePhone" [(ngModel)]="registerCredentials.homePhone" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Birth Date" name="BirthDate" [(ngModel)]="registerCredentials.birthDate" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Adhar Card No" name="adharNo" [(ngModel)]="registerCredentials.adharNo" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Bank Account No" name="bankAccountNo" [(ngModel)]="registerCredentials.bankAccountNo"
+              required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter IFSC Code" name="ifscCode" [(ngModel)]="registerCredentials.ifscCode" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Barnch" name="email" [(ngModel)]="registerCredentials.barnch" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter zone" name="zone" [(ngModel)]="registerCredentials.zone" required></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input type="text" placeholder="Enter Username (Phone No)" name="username" [(ngModel)]="registerCredentials.username"
+              required></ion-input>
+          </ion-item>
+          
+            <ion-item>
+              <ion-label>Type</ion-label>
+              <ion-select [(ngModel)]="registerCredentials.influencertype_id" name="type">
+                <ion-option value="6">Plumber</ion-option>
+                <ion-option value="7">Eletrician</ion-option>
+                <ion-option value="8">arcsitect</ion-option>
+                <ion-option value="9">carpenter</ion-option>
+                <ion-option value="10">consultant</ion-option>
+                <ion-option value="11">sales</ion-option>
+                <ion-option value="12">analysts</ion-option>
+              </ion-select>
+            </ion-item>
+          
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="signup-col">
+        <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Save</button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>

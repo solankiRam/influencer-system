@@ -1,0 +1,123 @@
+.login {
+    background: #9CECFB;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .logo-img {
+        margin: 40px 0 40px 0;
+    }
+    form {
+        padding: 0 15px;
+        .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+            border: none;
+            box-shadow: none;
+        }
+        .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner{
+            border: none;
+            box-shadow: none;
+        }
+        .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus):last-child{
+            border: none;
+            box-shadow: none;
+        }
+        .col {
+            padding: 0;
+            .list {
+                padding: 0;
+                margin: 0;
+                .item {
+                    background: transparent;
+                    margin-bottom: 15px;
+                    &.email {
+                        &::after {
+                            content: "\f419";
+                            font-family: "Ionicons";
+                            color: #fff;
+                            position: absolute;
+                            left: 0;
+                            font-size: 2.4rem;
+                            top: 10px;
+                        }
+                    }
+                    &.password {
+                        &::after {
+                            content: "\f1a6";
+                            font-family: "Ionicons";
+                            color: #fff;
+                            position: absolute;
+                            left: 0;
+                            font-size: 2.4rem;
+                            top: 10px;
+                        }
+                    }
+                    .item-inner {
+                        padding: 0;
+                        border: none;
+                        &:focus {
+                            border: none;
+                        }
+                        .input-wrapper {
+                            border: none;
+                            input {
+                                border-bottom: solid 1px #fff;
+                                padding-left: 35px;
+                                margin: 0;
+                                font-size: 2rem;
+                                color: #fff;
+                                height: 40px;
+                                width: 100%;
+                                &::placeholder {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .submit-btn {
+            background: #fff;
+            opacity: 1;
+            color: #000;
+            box-shadow: none;
+            height: 40px;
+            line-height: 40px;
+            padding: 0;
+            margin: 20px 0 0 0;
+            border-radius: 5px;
+            font-size: 1.5rem;
+        }
+        .forgot {
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            text-decoration: underline;
+            text-align: center;
+            width: 130px;
+            margin: auto;
+            text-transform: capitalize;
+        }
+        .signup-box {
+            text-align: center;
+            margin-top: 40px;
+            .lbl {
+                display: block;
+                width: 100%;
+                color: #fff;
+                font-size: 1.5rem;
+                text-transform: uppercase;
+            }
+            .register-btn {
+                background: #378db7;
+                opacity: 1;
+                color: #fff;
+                box-shadow: none;
+                height: 40px;
+                line-height: 40px;
+                padding: 0;
+                margin: 8px 0 0 0;
+                border-radius: 5px;
+                font-size: 1.5rem;
+            }
+        }
+    }
+}
