@@ -24,6 +24,7 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
+import { OnlyNumber } from '../directives/number.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage,
+    LoginPage
     // InfluencerAddPage
     // ForgotPasswordPage
   ],
