@@ -116,6 +116,7 @@ export class InfluencerViewPage {
     });
   }
 
+  
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
