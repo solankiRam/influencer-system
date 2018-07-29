@@ -25,8 +25,8 @@
       <ion-col col-1>
         <div class="filter-box">
           <i class="ion-ios-funnel-outline"></i>
-            <ion-select [(ngModel)]="gaming">
-                <ion-option  *ngFor="let type of influencerType" (change)="infoTypeFilter()" value="type.InfluencerType.id">{{type.InfluencerType.name}}</ion-option>
+            <ion-select interface="popover" (ionChange)="infoTypeFilter($event)" [(ngModel)]="influencerFilterData">
+                <ion-option  *ngFor="let type of influencerType"  value="{{type.InfluencerType.id}}">{{type.InfluencerType.name}}</ion-option>
               </ion-select>
             </div>
       </ion-col>
