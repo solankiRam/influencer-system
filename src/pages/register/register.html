@@ -10,7 +10,7 @@
   <form (ngSubmit)="register()" [formGroup]="registerForm" name="registerForm">
     <ion-row>
       <ion-col col-4>
-        <ion-item class="img-box user-img">
+        <ion-item class="img-box user-img"  [class.ng-invalid]="!registerForm.get('userimage').valid">
           <ion-avatar class="avatars">
             <img [src]="imgPreview" *ngIf="!influencer?.userimage" (click)="getPhoto('userimage')">
             <img [src]="influencer?.userimage" *ngIf="influencer?.userimage" (click)="getPhoto('userimage')">
@@ -46,7 +46,7 @@
         </ion-title>
       </ion-col>
       <ion-col col-6>
-        <ion-item class="img-box">
+        <ion-item class="img-box"   [class.ng-invalid]="!registerForm.get('adharfront').valid">
           <ion-avatar class="avatars">
             <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
             <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
@@ -55,7 +55,7 @@
         </ion-item>
       </ion-col>
       <ion-col col-6>
-        <ion-item class="img-box">
+        <ion-item class="img-box"   [class.ng-invalid]="!registerForm.get('adharback').valid">
           <ion-avatar class="avatars">
             <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
             <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">

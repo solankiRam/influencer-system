@@ -124,20 +124,23 @@ export class InfluencerViewPage {
     this.loading.present();
   }
   getPhoto(param) {
-    let imageOption: CameraOptions = {
-      quality: 90,
-      targetWidth: 1024,
-      targetHeight: 1024,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      correctOrientation: true,
-      sourceType: 0
-    };
-    this.camera.getPicture(imageOption).then((imageData) => {
-      let image = "data:image/jpeg;base64," + imageData;
-      this.influencer[param] = image;
-      this.editForm.controls[param].setValue(image);
-    });
+    if (this.isEdit) {
+
+      let imageOption: CameraOptions = {
+        quality: 90,
+        targetWidth: 1024,
+        targetHeight: 1024,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        correctOrientation: true,
+        sourceType: 0
+      };
+      this.camera.getPicture(imageOption).then((imageData) => {
+        let image = "data:image/jpeg;base64," + imageData;
+        this.influencer[param] = image;
+        this.editForm.controls[param].setValue(image);
+      });
+    }
   }
   public register() {
     let value = this.editForm.value;
