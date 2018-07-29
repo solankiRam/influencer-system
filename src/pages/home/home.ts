@@ -79,7 +79,7 @@ export class HomePage {
         });
     }
     infoTypeFilter(param){
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, data: { search: { name: param, status: null } } }).subscribe(allowed => {
+        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, data: { search: { influencer_type: param, status: null } } }).subscribe(allowed => {
             if (allowed) {
                 this.users = allowed.data;
             }
