@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { InfluencerViewPage } from './influencer-view';
-import { LimitToDirective } from '../../directives/number.directive';
+import { AllDirectivesModule } from '../../directives/directive.module';
 
 @NgModule({
   declarations: [
     InfluencerViewPage,
-    // LimitToDirective
   ],
   imports: [
+    AllDirectivesModule,
     IonicPageModule.forChild(InfluencerViewPage),
   ],
 })

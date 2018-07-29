@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content class="register" padding>
@@ -12,7 +12,8 @@
       <ion-col col-4>
         <ion-item class="img-box user-img">
           <ion-avatar class="avatars">
-            <img src="{{imgPreview}}" (click)="getPhoto()">
+            <img [src]="imgPreview" *ngIf="!influencer?.userimage" (click)="getPhoto('userimage')">
+            <img [src]="influencer?.userimage" *ngIf="influencer?.userimage" (click)="getPhoto('userimage')">
           </ion-avatar>
           <label class="lbl">Change Logo</label>
         </ion-item>
@@ -47,17 +48,19 @@
       <ion-col col-6>
         <ion-item class="img-box">
           <ion-avatar class="avatars">
-            <img src="{{imgPreview}}" (click)="getPhoto()">
+            <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
+            <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
           </ion-avatar>
-          <label class="lbl">Upload Adhar</label>
+          <label class="lbl">Adhar card front image</label>
         </ion-item>
       </ion-col>
       <ion-col col-6>
         <ion-item class="img-box">
           <ion-avatar class="avatars">
-            <img src="{{imgPreview}}" (click)="getPhoto()">
+            <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
+            <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
           </ion-avatar>
-          <label class="lbl">Upload Adhar</label>
+          <label class="lbl">Adhar card back image</label>
         </ion-item>
       </ion-col>
       <ion-col col-12>
@@ -69,13 +72,13 @@
               [max]="currentDate"></ion-datetime>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" 
-            [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo" limit-to="12"></ion-input>
+            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
+              limit-to="12"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo"
-            [(ngModel)]="registerModel.bankAccountNo" (ngModelChange)="registerModel.bankAccountNo" ></ion-input>
-          </ion-item>  
+            <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
+              (ngModelChange)="registerModel.bankAccountNo"></ion-input>
+          </ion-item>
           <ion-item class="field">
             <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
           </ion-item>
@@ -86,13 +89,13 @@
             <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10"
-            [(ngModel)]="registerModel.homePhone" (ngModelChange)="registerModel.homePhone"></ion-input>
+            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
+              (ngModelChange)="registerModel.homePhone"></ion-input>
           </ion-item>
 
           <ion-item class="field">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10"
-            [(ngModel)]="registerModel.mobile" (ngModelChange)="registerModel.mobile"></ion-input>
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
+              (ngModelChange)="registerModel.mobile"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -119,8 +122,8 @@
             <ion-input placeholder="Country*" formControlName="country" maxlength="50"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6"
-            [(ngModel)]="registerModel.zipcode" (ngModelChange)="registerModel.zipcode"></ion-input>
+            <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6" [(ngModel)]="registerModel.zipcode"
+              (ngModelChange)="registerModel.zipcode"></ion-input>
           </ion-item>
           <ion-item class="field">
             <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30"></ion-input>

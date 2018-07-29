@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
@@ -27,9 +27,10 @@ export class InfluencerViewPage {
   imgPreview = 'assets/imgs/logo.png';
   registerModel: any = {};
 
-  registerCredentials = { avatar: '', adharfront: '', adharback: '' };
+
+  influencer = { userimage: '', adharfront: '', adharback: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
-    private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
+    private camera: Camera, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
     this.influencerId = this.navParams.get('insId');
 
@@ -59,6 +60,9 @@ export class InfluencerViewPage {
       lattitude: [''],
       longitude: [''],
       zone: ['', [Validators.required]],
+      userimage: ['', [Validators.required]],
+      adharback: ['', [Validators.required]],
+      adharfront: ['', [Validators.required]],
     });
   }
 
@@ -68,6 +72,7 @@ export class InfluencerViewPage {
 
 
   getInfluencer() {
+
     console.log("this.influencerId", this.influencerId)
     this.auth.getInfluencerTypes().subscribe(success => {
       if (success.status) {
@@ -99,36 +104,32 @@ export class InfluencerViewPage {
         this.editForm.controls['state'].setValue(data.state);
         this.editForm.controls['country'].setValue(data.country);
         this.editForm.controls['zipcode'].setValue(data.zipcode);
+        this.editForm.controls['userimage'].setValue(data.userimage);
+        this.editForm.controls['adharback'].setValue(data.adharback);
+        this.editForm.controls['adharfront'].setValue(data.adharfront);
+        this.influencer.userimage = data.userimage;
+        this.influencer.adharback = data.adharback;
+        this.influencer.adharfront = data.adharfront;
         this.isEdit = false;
       }
     });
   }
 
-  test(editForm) {
-    console.log(editForm)
-  }
-
   getPhoto(param) {
-    let options = {
-      maximumImagesCount: 1
+    let imageOption: CameraOptions = {
+      quality: 90,
+      targetWidth: 1024,
+      targetHeight: 1024,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      correctOrientation: true,
+      sourceType: 0
     };
-    this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        this.imgPreview = results[i];
-        this.base64.encodeFile(results[i]).then((base64File: string) => {
-          if(param == 'userimage'){
-            this.registerCredentials.avatar = base64File;
-          }else if(param == 'adharfront'){
-            this.registerCredentials.adharfront = base64File;
-          }else if(param == 'adharback'){
-            this.registerCredentials.adharback = base64File;
-          }
-          
-        }, (err) => {
-          console.log(err);
-        });
-      }
-    }, (err) => { });
+    this.camera.getPicture(imageOption).then((imageData) => {
+      let image = "data:image/jpeg;base64," + imageData;
+      this.influencer[param] = image;
+      this.editForm.controls[param].setValue(image);
+    });
   }
   public register() {
     let value = this.editForm.value;
@@ -155,9 +156,9 @@ export class InfluencerViewPage {
         branch: value.branch,
         zone: value.zone,
         status: 0,
-        image: this.registerCredentials.avatar,
-        adharfront: this.registerCredentials.adharfront,
-        adharback: this.registerCredentials.adharback
+        image: value.userimage,
+        adharfront: value.adharfront,
+        adharback: value.adharback
       }
     }
     this.auth.editInfluencer(params, 3).subscribe(success => {
@@ -170,7 +171,6 @@ export class InfluencerViewPage {
     }, error => {
       this.showPopup("Error", error);
     });
-
   }
 
   showPopup(title, text) {

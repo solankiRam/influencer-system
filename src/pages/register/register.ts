@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Camera } from '@ionic-native/camera';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
@@ -22,8 +22,10 @@ export class RegisterPage {
   private currentDate = moment().format('YYYY-MM-DD');
 
   imgPreview = 'assets/imgs/logo.png';
-  registerModel:any = {};
-  influencerTypes:any = [];
+  registerModel: any = {};
+  influencerTypes: any = [];
+  influencer = { userimage: '', adharfront: '', adharback: '' };
+
   registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
@@ -50,6 +52,9 @@ export class RegisterPage {
       lattitude: [''],
       longitude: [''],
       zone: ['', [Validators.required]],
+      image: ['', [Validators.required]],
+      adharfront: ['', [Validators.required]],
+      adharback: ['', [Validators.required]],
     });
   }
 
@@ -57,21 +62,24 @@ export class RegisterPage {
 
   }
 
-  getPhoto() {
-    let options = {
-      maximumImagesCount: 1
+  getPhoto(param) {
+
+    let imageOption: CameraOptions = {
+      quality: 90,
+      targetWidth: 1024,
+      targetHeight: 1024,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      correctOrientation: true,
+      sourceType: 0
     };
-    this.imagePicker.getPictures(options).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-        this.imgPreview = results[i];
-        this.base64.encodeFile(results[i]).then((base64File: string) => {
-          this.registerCredentials.avatar = base64File;
-        }, (err) => {
-          console.log(err);
-        });
-      }
-    }, (err) => { });
+    this.camera.getPicture(imageOption).then((imageData) => {
+      let image = "data:image/jpeg;base64," + imageData;
+      this.influencer[param] = image;
+      this.registerForm.controls[param].setValue(image);
+    });
   }
+
   public register() {
     if (this.registerCredentials.password != this.registerCredentials.confirmation_password) {
       this.showPopup("Error", 'The password confirmation does not match.');
@@ -100,6 +108,9 @@ export class RegisterPage {
           branch: value.branch,
           zone: value.zone,
           status: 0,
+          image: value.userimage,
+          adharfront: value.adharfront,
+          adharback: value.adharback
         }
       }
       this.auth.register(params).subscribe(success => {
@@ -132,19 +143,6 @@ export class RegisterPage {
       ]
     });
     alert.present();
-  }
-
-  geolocate() {
-    // let options = {
-    //   enableHighAccuracy: true
-    // };
-
-    // this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-    //   this.getcountry(position);
-    // }).catch((err) => {
-    //   alert(err);
-    // })
-
   }
 
   getcountry(lat, lng) {
