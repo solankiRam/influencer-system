@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { RegisterPage } from './register';
-import { LimitToDirective } from '../../directives/number.directive';
+import { AllDirectivesModule } from '../../directives/directive.module';
 
 @NgModule({
   declarations: [
-    RegisterPage,
-    // LimitToDirective
+    RegisterPage
   ],
   imports: [
+    AllDirectivesModule,
     IonicPageModule.forChild(RegisterPage),
   ]
 })

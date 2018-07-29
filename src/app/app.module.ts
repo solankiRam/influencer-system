@@ -26,8 +26,6 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
-import { OnlyNumber } from '../directives/number.directive';
-import { LimitToDirective } from '../directives/number.directive';
 // import { CommonModule } from '@angular/common'; 
 
 @NgModule({
@@ -37,8 +35,7 @@ import { LimitToDirective } from '../directives/number.directive';
     ContactPage,
     HomePage,
     TabsPage,
-    LoginPage,
-    LimitToDirective
+    LoginPage
     // InfluencerAddPage
     // ForgotPasswordPage
   ],
