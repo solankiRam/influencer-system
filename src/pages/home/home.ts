@@ -17,6 +17,7 @@ export class HomePage {
     searchKeyWord;
     loading: Loading;
     influencerType:any = [];
+    influencerFilterData:any=[];
     constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http, private loadingCtrl: LoadingController) {
         this.getUsers();
         this.getInfluencerType();
@@ -77,8 +78,14 @@ export class HomePage {
 
         });
     }
-    infoTypeFilter(){
-        
+    infoTypeFilter(param){
+        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, data: { search: { name: param, status: null } } }).subscribe(allowed => {
+            if (allowed) {
+                this.users = allowed.data;
+            }
+        }, error => {
+
+        });
     }
 
 }

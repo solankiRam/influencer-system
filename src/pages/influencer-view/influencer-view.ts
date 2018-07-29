@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
@@ -19,6 +19,7 @@ export class InfluencerViewPage {
 
   createSuccess = false;
   influencerTypes: any = [];
+  loading: Loading;
   public influencerId: any;
   private editForm: FormGroup;
   private currentDate = moment().format('YYYY-MM-DD');
@@ -30,7 +31,7 @@ export class InfluencerViewPage {
 
   influencer = { userimage: '', adharfront: '', adharback: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
-    private camera: Camera, private formBuilder: FormBuilder,
+    private camera: Camera, private formBuilder: FormBuilder, private loadingCtrl: LoadingController,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
     this.influencerId = this.navParams.get('insId');
 
@@ -72,16 +73,16 @@ export class InfluencerViewPage {
 
 
   getInfluencer() {
-
+    this.showLoading();
     console.log("this.influencerId", this.influencerId)
     this.auth.getInfluencerTypes().subscribe(success => {
       if (success.status) {
         this.influencerTypes = success.data;
       }
-      console.log("success", success);
       // this.influencerTypes =success
     });
     this.auth.getInfluencer(this.influencerId).subscribe(success => {
+      this.loading.dismiss();
       if (success.status) {
         let data = success.data.Influencer;
         this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
@@ -115,6 +116,13 @@ export class InfluencerViewPage {
     });
   }
 
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
   getPhoto(param) {
     let imageOption: CameraOptions = {
       quality: 90,
