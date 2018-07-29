@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,3 +12,26 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.item-md {
+  padding-left: 0;
+  .datetime-md {
+    padding: 13px 8px 13px 0px;
+    width: 100%;
+    border-bottom: solid 1px #fff;
+    padding-left: 0;
+    margin: 0;
+    font-size: 14px;
+    outline: none;
+    color: #fff;
+    height: 40px;
+    width: 100%;
+    .datetime-placeholder {
+      color: #fff;
+    }
+  }
+  &.ng-invalid {
+    .datetime-md {
+      border-bottom: solid 1px #ce0808;
+    }
+  }
+}
