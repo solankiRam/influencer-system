@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -15,12 +15,17 @@ export class HomePage {
 
     users;
     searchKeyWord;
-    constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http) {
+    loading: Loading;
+    influencerType:any = [];
+    constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http, private loadingCtrl: LoadingController) {
         this.getUsers();
+        this.getInfluencerType();
     }
     public getUsers() {
+        this.showLoading()
         this.auth.getinfluencerList({ start: 0, length: 50, draw: 1 }).subscribe(allowed => {
             if (allowed) {
+                this.loading.dismiss();
                 this.users = allowed.data;
             }
         }, error => {
@@ -53,15 +58,27 @@ export class HomePage {
             insId: user.id, param2: 'Johnson'
         });
     }
-
+    showLoading() {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange: true
+        });
+        this.loading.present();
+    }
+    
     getInfluencerType() {
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1 }).subscribe(allowed => {
-            if (allowed) {
-                this.users = allowed.data;
+        this.auth.getInfluencerTypes().subscribe(allowed => {
+           
+            if (allowed.status) {
+                this.influencerType = allowed.data;
+                console.log("all",this.influencerType);
             }
         }, error => {
 
         });
+    }
+    infoTypeFilter(){
+        
     }
 
 }

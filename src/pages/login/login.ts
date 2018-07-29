@@ -34,13 +34,10 @@ export class LoginPage {
     public login() {
         this.showLoading()
         this.auth.login(this.registerCredentials).subscribe(allowed => {
-            console.log("allowed", allowed)
             if (allowed !== undefined && allowed.group_id !== undefined) {
-                console.log("allowed.group_id ", allowed.group_id)
                 if (allowed.group_id == "3" || allowed.group_id == "4") {
                     localStorage.setItem('token', allowed.token);
                     localStorage.setItem('id', allowed.id);
-                    
                     this.auth.loginData(allowed);
                     this.nav.setRoot(HomePage);
                 } else {
@@ -63,6 +60,14 @@ export class LoginPage {
         this.loading.present();
     }
 
+    hideLoading() {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange: true
+        });
+        this.loading.present();
+    }
+
     showError(text) {
         this.loading.dismiss();
 
@@ -73,6 +78,7 @@ export class LoginPage {
         });
         alert.present();
     }
+    
 
     public goToForgotPassword() {
         this.nav.push('ForgotPasswordPage');
