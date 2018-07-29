@@ -6,7 +6,7 @@ import { LimitToDirective } from '../../directives/number.directive';
 @NgModule({
   declarations: [
     InfluencerViewPage,
-    LimitToDirective
+    // LimitToDirective
   ],
   imports: [
     IonicPageModule.forChild(InfluencerViewPage),

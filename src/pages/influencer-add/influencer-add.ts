@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Camera } from '@ionic-native/camera';
 import { ImagePicker } from '@ionic-native/image-picker';
 import { Base64 } from '@ionic-native/base64';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Validator } from '../../providers/validator/validator';
+import moment from 'moment';
+
 /**
  * Generated class for the InfluencerAddPage page.
  *
@@ -19,21 +25,70 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class InfluencerAddPage {
 
   createSuccess = false;
+  public influencerTypes: any;
+  public influencerId: any;
+  private editForm: FormGroup;
+  private currentDate = moment().format('YYYY-MM-DD');
+
+  isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
-  registerCredentials = { 'homePhone': '', 'birthDate': '',influencertype_id:'', adharNo: '', bankAccountNo: '', ifscCode: '', barnch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
-  constructor(
-    private nav: NavController,
-    private auth: AuthServiceProvider,
-    private alertCtrl: AlertController,
-    private camera: Camera,
-    private imagePicker: ImagePicker,
-    private base64: Base64
-  ) { }
+  registerModel: any = {};
+
+  registerCredentials = { avatar: '', adharfront: '', adharback: '' };
+  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
+    private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
+    public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
+   
+    // setTimeout(() => {
+    this.getInfluencer();
+    // }, 5000)
+
+    this.editForm = this.formBuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      influencertype_id: [6, [Validators.required]],
+      birthDate: [''],
+      adharNo: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(12)]],
+      bankAccountNo: [''],
+      ifscCode: [''],
+      branch: ['', [Validators.required]],
+      email: Validator.emailNotReqValidator,
+      homePhone: ['', [Validators.minLength(9), Validators.maxLength(10)]],
+      mobile: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(10)]],
+      address1: ['', [Validators.required]],
+      place: [''],
+      city: ['', [Validators.required]],
+      state: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      zipcode: ['', [Validators.required]],
+      lattitude: [''],
+      longitude: [''],
+      zone: ['', [Validators.required]],
+    });
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad InfluencerAddPage');
   }
-  getPhoto() {
+  getInfluencer() {
+    console.log("this.influencerId", this.influencerId)
+    this.auth.getInfluencerTypes().subscribe(success => {
+      if (success.status) {
+        console.log
+        this.influencerTypes = success.data;
+        console.log("ss",this.influencerTypes[0].InfluencerType);
+      }
+      console.log("success", success);
+      // this.influencerTypes =success
+    });
+    
+  }
+
+  test(editForm) {
+    console.log(editForm)
+  }
+
+  getPhoto(param) {
     let options = {
       maximumImagesCount: 1
     };
@@ -41,56 +96,60 @@ export class InfluencerAddPage {
       for (var i = 0; i < results.length; i++) {
         this.imgPreview = results[i];
         this.base64.encodeFile(results[i]).then((base64File: string) => {
-          this.registerCredentials.avatar = base64File;
+          if (param == 'userimage') {
+            this.registerCredentials.avatar = base64File;
+          } else if (param == 'adharfront') {
+            this.registerCredentials.adharfront = base64File;
+          } else if (param == 'adharback') {
+            this.registerCredentials.adharback = base64File;
+          }
+
         }, (err) => {
           console.log(err);
         });
       }
     }, (err) => { });
   }
-  public save() {
-
-    if (this.registerCredentials.password != this.registerCredentials.confirmation_password) {
-      this.showPopup("Error", 'The password confirmation does not match.');
-    } else {
-      let params = {
-        Influencer: {
-          influencertype_id: 3,
-          name: this.registerCredentials.name,
-          surname: this.registerCredentials.surname,
-          email: this.registerCredentials.email,
-          address: this.registerCredentials.address,
-          place: this.registerCredentials.place,
-          city: this.registerCredentials.city,
-          zipcode: this.registerCredentials.zipcode,
-          state: this.registerCredentials.state,
-          country: this.registerCredentials.country,
-          lattitude: this.registerCredentials.lattitude,
-          longitude: this.registerCredentials.longitude,
-          home_phone: this.registerCredentials.homePhone,
-          work_phone: this.registerCredentials.username,
-          birthdate: this.registerCredentials.birthDate,
-          adhar_card: this.registerCredentials.adharNo,
-          bank_account: this.registerCredentials.bankAccountNo,
-          ifsc_code: this.registerCredentials.ifscCode,
-          branch: this.registerCredentials.barnch,
-          zone: this.registerCredentials.zone,
-          status: 0,
-        }
+  public register() {
+    let value = this.editForm.value;
+    let params = {
+      Influencer: {
+        influencertype_id: value.influencertype_id,
+        name: value.firstName,
+        surname: value.lastName,
+        email: value.email,
+        address: value.address1,
+        place: value.place,
+        city: value.city,
+        zipcode: value.zipcode,
+        state: value.state,
+        country: value.country,
+        lattitude: value.lattitude,
+        longitude: value.longitude,
+        home_phone: value.homePhone,
+        work_phone: value.mobile,
+        birthdate: value.birthDate,
+        adhar_card: value.adharNo,
+        bank_account: value.bankAccountNo,
+        ifsc_code: value.ifscCode,
+        branch: value.branch,
+        zone: value.zone,
+        status: 0,
+        image: this.registerCredentials.avatar,
+        adharfront: this.registerCredentials.adharfront,
+        adharback: this.registerCredentials.adharback
       }
-      this.auth.register(params).subscribe(success => {
-        if (success) {
-          this.createSuccess = true;
-          
-          this.showPopup("Success", "Account created.");
-        } else {
-          this.showPopup("Error", "Problem creating account.");
-        }
-      },
-        error => {
-          this.showPopup("Error", error);
-        });
     }
+    this.auth.editInfluencer(params, 3).subscribe(success => {
+      if (success) {
+        this.showPopup("Success", "Update successfully.");
+        this.nav.push('HomePage');
+      } else {
+        this.showPopup("Error", "Problem while updating influencer.");
+      }
+    }, error => {
+      this.showPopup("Error", error);
+    });
 
   }
 
@@ -104,12 +163,48 @@ export class InfluencerAddPage {
           handler: data => {
             if (this.createSuccess) {
               this.nav.popToRoot();
-              this.nav.push('LoginPage');
             }
           }
         }
       ]
     });
     alert.present();
+  }
+
+  editEnable() {
+    this.isEdit = true;
+  }
+
+  getcountry(lat, lng) {
+
+    this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
+      this.editForm.controls['address1'].setValue(res[0].subLocality);
+      this.editForm.controls['place'].setValue(res[0].locality);
+      this.editForm.controls['city'].setValue(res[0].subAdministrativeArea);
+      this.editForm.controls['state'].setValue(res[0].administrativeArea);
+      this.editForm.controls['country'].setValue(res[0].countryName);
+      this.editForm.controls['zipcode'].setValue(res[0].postalCode);
+      this.editForm.controls['lattitude'].setValue(lat);
+      this.editForm.controls['lattitude'].setValue(lng);
+    })
+  }
+
+
+  getAllAddress() {
+    let options = {
+      enableHighAccuracy: true
+    };
+
+    this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+      this.nav.push('MapMarkerPage', {
+        coords: position.coords,
+        callback: (data) => {
+          return new Promise((resolve, reject) => {
+            this.getcountry(data.marker.lat, data.marker.lng)
+            resolve();
+          });
+        }
+      });
+    });
   }
 }

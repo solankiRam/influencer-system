@@ -27,17 +27,17 @@ export class InfluencerViewPage {
   imgPreview = 'assets/imgs/logo.png';
   registerModel: any = {};
 
-  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
+  registerCredentials = { avatar: '', adharfront: '', adharback: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
-    this.influencerId = this.navParams.get('id');
-    localStorage.setItem('influencerId',this.influencerId)
-    console.log("ID",this.influencerId);
-    setTimeout(()=>{
-      this.getInfluencer();
-    },5000)
-    
+    this.influencerId = this.navParams.get('insId');
+
+    console.log("ID", this.influencerId);
+    // setTimeout(() => {
+    this.getInfluencer();
+    // }, 5000)
+
     this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -66,12 +66,19 @@ export class InfluencerViewPage {
     console.log('ionViewDidLoad InfluencerViewPage');
   }
 
-  
+
   getInfluencer() {
-    this.auth.getInfluencer(1).subscribe(success => {
+    console.log("this.influencerId", this.influencerId)
+    this.auth.getInfluencerTypes().subscribe(success => {
+      if (success.status) {
+        this.influencerTypes = success.data;
+      }
+      console.log("success", success);
+      // this.influencerTypes =success
+    });
+    this.auth.getInfluencer(this.influencerId).subscribe(success => {
       if (success.status) {
         let data = success.data.Influencer;
-        console.log("data.influencertype_id", data.name)
         this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
         this.editForm.controls['firstName'].setValue(data.name);
         this.editForm.controls['lastName'].setValue(data.surname);
@@ -101,7 +108,7 @@ export class InfluencerViewPage {
     console.log(editForm)
   }
 
-  getPhoto() {
+  getPhoto(param) {
     let options = {
       maximumImagesCount: 1
     };
@@ -109,7 +116,14 @@ export class InfluencerViewPage {
       for (var i = 0; i < results.length; i++) {
         this.imgPreview = results[i];
         this.base64.encodeFile(results[i]).then((base64File: string) => {
-          this.registerCredentials.avatar = base64File;
+          if(param == 'userimage'){
+            this.registerCredentials.avatar = base64File;
+          }else if(param == 'adharfront'){
+            this.registerCredentials.adharfront = base64File;
+          }else if(param == 'adharback'){
+            this.registerCredentials.adharback = base64File;
+          }
+          
         }, (err) => {
           console.log(err);
         });
@@ -117,49 +131,46 @@ export class InfluencerViewPage {
     }, (err) => { });
   }
   public register() {
-    if (this.registerCredentials.password != this.registerCredentials.confirmation_password) {
-      this.showPopup("Error", 'The password confirmation does not match.');
-    } else {
-      let value = this.editForm.value;
-      let params = {
-        Influencer: {
-          influencertype_id: value.influencertype_id,
-          name: value.firstName,
-          surname: value.lastName,
-          email: value.email,
-          address: value.address1,
-          place: value.place,
-          city: value.city,
-          zipcode: value.zipcode,
-          state: value.state,
-          country: value.country,
-          lattitude: value.lattitude,
-          longitude: value.longitude,
-          home_phone: value.homePhone,
-          work_phone: value.mobile,
-          birthdate: value.birthDate,
-          adhar_card: value.adharNo,
-          bank_account: value.bankAccountNo,
-          ifsc_code: value.ifscCode,
-          branch: value.branch,
-          zone: value.zone,
-          status: 0,
-          image: '',
-          adharfront: '',
-          adharback: ''
-        }
+    let value = this.editForm.value;
+    let params = {
+      Influencer: {
+        influencertype_id: value.influencertype_id,
+        name: value.firstName,
+        surname: value.lastName,
+        email: value.email,
+        address: value.address1,
+        place: value.place,
+        city: value.city,
+        zipcode: value.zipcode,
+        state: value.state,
+        country: value.country,
+        lattitude: value.lattitude,
+        longitude: value.longitude,
+        home_phone: value.homePhone,
+        work_phone: value.mobile,
+        birthdate: value.birthDate,
+        adhar_card: value.adharNo,
+        bank_account: value.bankAccountNo,
+        ifsc_code: value.ifscCode,
+        branch: value.branch,
+        zone: value.zone,
+        status: 0,
+        image: this.registerCredentials.avatar,
+        adharfront: this.registerCredentials.adharfront,
+        adharback: this.registerCredentials.adharback
       }
-      this.auth.editInfluencer(params, 3).subscribe(success => {
-        if (success) {
-          this.showPopup("Success", "Update successfully.");
-          this.nav.push('HomePage');
-        } else {
-          this.showPopup("Error", "Problem while updating influencer.");
-        }
-      }, error => {
-        this.showPopup("Error", error);
-      });
     }
+    this.auth.editInfluencer(params, 3).subscribe(success => {
+      if (success) {
+        this.showPopup("Success", "Update successfully.");
+        this.nav.push('HomePage');
+      } else {
+        this.showPopup("Error", "Problem while updating influencer.");
+      }
+    }, error => {
+      this.showPopup("Error", error);
+    });
+
   }
 
   showPopup(title, text) {

@@ -48,11 +48,20 @@ export class HomePage {
         this.nav.push('InfluencerAddPage');
     }
     public goToView(user) {
-        console.log("Users",user.id)
+        console.log("Users", user.id)
         this.nav.push('InfluencerViewPage', {
-            id: user.id, param2: 'Johnson'
+            insId: user.id, param2: 'Johnson'
         });
-        this.nav.push('InfluencerViewPage');
+    }
+
+    getInfluencerType() {
+        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1 }).subscribe(allowed => {
+            if (allowed) {
+                this.users = allowed.data;
+            }
+        }, error => {
+
+        });
     }
 
 }

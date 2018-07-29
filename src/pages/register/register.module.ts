@@ -6,7 +6,7 @@ import { LimitToDirective } from '../../directives/number.directive';
 @NgModule({
   declarations: [
     RegisterPage,
-    LimitToDirective
+    // LimitToDirective
   ],
   imports: [
     IonicPageModule.forChild(RegisterPage),
