@@ -41,3 +41,54 @@
     }
   }
 }
+
+.toolbar-background {
+  background-color: color($colors, primary);
+}
+
+ion-header {
+  ion-navbar {
+    .back-button-text {
+      display: none;
+    }
+  }
+  ion-title {
+    span,
+    div,
+    .toolbar-title-md {
+      color: color($colors, light);
+      font-weight: normal;
+      font-size: 17px;
+    }
+    div {
+      font-size: 15px;
+    }
+  }
+  ion-icon {
+    color: color($colors, light);
+    vertical-align: middle;
+  }
+}
+
+.popover-md {
+  .popover-content {
+    border-radius: 7px;
+    .item-md {
+      padding-left: 10px;
+      background-color: #cdcdcd;
+    }
+    .list-md {
+      .item-block {
+        .item-inner {
+          border-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.item-md {
+  .radio-icon {
+    display: none;
+  }
+}

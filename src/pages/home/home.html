@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
- 
+
     <ion-title>
       Member Area
     </ion-title>
@@ -13,24 +13,20 @@
 </ion-header>
 
 <ion-content>
-    <ion-row class="search-box">
-      <ion-col col-11>
-          <ion-searchbar
-          [(ngModel)]="searchKeyWord"
-          [showCancelButton]="shouldShowCancel"
-          (ionInput)="onInput(searchKeyWord)"
-          (ionCancel)="onCancel($event)">
-        </ion-searchbar>
-      </ion-col>
-      <ion-col col-1>
-        <div class="filter-box">
-          <i class="ion-ios-funnel-outline"></i>
-            <ion-select interface="popover" (ionChange)="infoTypeFilter($event)" [(ngModel)]="influencerFilterData">
-                <ion-option  *ngFor="let type of influencerType"  value="{{type.InfluencerType.id}}">{{type.InfluencerType.name}}</ion-option>
-              </ion-select>
-            </div>
-      </ion-col>
-</ion-row>
+  <ion-row class="search-box">
+    <ion-col col-11>
+      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+    </ion-col>
+    <ion-col col-1>
+      <div class="filter-box">
+        <i class="ion-ios-funnel-outline"></i>
+        <ion-select interface="popover" (ionChange)="infoTypeFilter($event)" [(ngModel)]="influencerFilterData">
+          <ion-option *ngFor="let type of influencerType" value="{{type.InfluencerType.id}}">{{type.InfluencerType.name}}</ion-option>
+        </ion-select>
+      </div>
+    </ion-col>
+  </ion-row>
   <ion-list>
     <ion-item *ngFor="let user of users" (click)='goToView(user)'>
 
@@ -51,9 +47,11 @@
         </ion-item>
       </ion-card>
     </ion-item>
-    
+
   </ion-list>
   <ion-fab right bottom (click)="goToAdd()">
-    <button ion-fab><ion-icon name="add-circle" ></ion-icon></button>
+    <button ion-fab>
+      <ion-icon name="add-circle"></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>

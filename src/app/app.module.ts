@@ -26,6 +26,7 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
+import { AlertProvider } from '../providers/alert';
 // import { CommonModule } from '@angular/common'; 
 
 @NgModule({
@@ -58,7 +59,7 @@ import { GeocoderProvider } from '../providers/geocoder/geocoder';
     // ForgotPasswordPage
   ],
   providers: [
-    StatusBar,
+    StatusBar, AlertProvider,
     SplashScreen,
     Camera,
     ImagePicker,

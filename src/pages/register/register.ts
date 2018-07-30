@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Base64 } from '@ionic-native/base64';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -28,7 +27,7 @@ export class RegisterPage {
 
   registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
-    private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
+    private camera: Camera, private alertProvider: AlertProvider, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public geocoder: NativeGeocoder) {
 
     this.registerForm = this.formBuilder.group({
@@ -160,6 +159,7 @@ export class RegisterPage {
   }
 
   getAllAddress() {
+    this.alertProvider.showLoader('');
     let options = {
       enableHighAccuracy: true
     };

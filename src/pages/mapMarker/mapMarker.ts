@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
-import { GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions } from '@ionic-native/google-maps';
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -13,7 +14,8 @@ export class MapMarkerPage {
     coords: any;
 
     private callback: any;
-    constructor(private nav: NavController, private alertCtrl: AlertController, public navParams: NavParams) {
+    constructor(private nav: NavController, private alertCtrl: AlertController, public navParams: NavParams,
+        private alertProvider: AlertProvider) {
 
         this.callback = this.navParams.get("callback");
         this.coords = this.navParams.get("coords");
@@ -34,6 +36,7 @@ export class MapMarkerPage {
             }
         };
         this.map = GoogleMaps.create('map_canvas', mapOptions);
+        this.alertProvider.hideLoader();
         this.getAllAddress();
     }
 
