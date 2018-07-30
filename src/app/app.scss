@@ -12,21 +12,26 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+ion-app.md [padding] {
+  .scroll-content {
+    padding: 5px 10px;
+  }
+}
+
 .item-md {
   padding-left: 0;
   .datetime-md {
     padding: 13px 8px 13px 0px;
     width: 100%;
-    border-bottom: solid 1px #fff;
+    border-bottom: solid 1px #cdcdcd;
     padding-left: 0;
     margin: 0;
     font-size: 14px;
-    outline: none;
-    color: #fff;
+    outline: none; // color: #fff;
     height: 40px;
     width: 100%;
     .datetime-placeholder {
-      color: #fff;
+      // color: #fff;
     }
   }
   &.ng-invalid {

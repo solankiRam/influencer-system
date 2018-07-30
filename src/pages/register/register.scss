@@ -27,7 +27,7 @@
             margin: 0;
             .lbl {
                 font-size: 14px;
-                color: #fff;
+                // color: #fff;
                 text-align: center;
                 display: block;
                 margin: 5px 0 0 0;
@@ -48,7 +48,7 @@
     }
     .field-title .toolbar-title {
         background-color: rgba(0, 0, 0, 0.3);
-        color: #fff;
+        // color: #fff;
         font-size: 16px;
         text-transform: uppercase;
         border-left: solid 5px #cccac9;
@@ -58,16 +58,16 @@
     .field {
         background-color: transparent;
         input {
-            border-bottom: solid 1px #fff;
+            border-bottom: solid 1px #cdcdcd;
             padding-left: 0;
             margin: 0;
             font-size: 14px;
             outline: none;
-            color: #fff;
+            // color: #fff;
             height: 40px;
             width: 100%;
             &::placeholder {
-                color: #fff;
+                // color: #fff;
             }
         } 
         &.ng-invalid {
@@ -94,15 +94,15 @@
                 outline: none;
             }
             .select-text {
-                color: #fff;
+                // color: #fff;
                 font-size: 14px;
             }
         }
     }
     .submit-btn {
-        background: #fff;
+        // background: #fff;
         opacity: 1;
-        color: #000;
+        // color: #000;
         box-shadow: none;
         height: 40px;
         line-height: 40px;
