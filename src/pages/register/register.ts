@@ -55,17 +55,14 @@ export class RegisterPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
+    this.getInfluencer();
   }
 
   getInfluencer() {
     this.auth.getInfluencerTypes().subscribe(success => {
       if (success.status) {
-        console.log
         this.influencerTypes = success.data;
-        console.log("ss", this.influencerTypes[0].InfluencerType);
       }
-      console.log("success", success);
-      // this.influencerTypes =success
     });
 
   }

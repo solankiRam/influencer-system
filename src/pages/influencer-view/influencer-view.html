@@ -15,7 +15,7 @@
   <form (ngSubmit)="register()" [formGroup]="editForm" name="editForm">
     <ion-row>
       <ion-col col-4>
-        <ion-item class="img-box user-img"  [class.ng-invalid]="!editForm.get('userimage').valid && isEdit">
+        <ion-item class="img-box user-img" [class.ng-invalid]="!editForm.get('userimage').valid && isEdit">
           <ion-avatar class="avatars">
             <img [src]="imgPreview" *ngIf="!influencer?.userimage" (click)="getPhoto('userimage')">
             <img [src]="influencer?.userimage" *ngIf="influencer?.userimage" (click)="getPhoto('userimage')">
@@ -33,7 +33,7 @@
           </ion-item>
           <ion-item class="field">
             <ion-label>Type</ion-label>
-            <ion-select placeholder="Influencer type*" [disabled]='!isEdit' formControlName="influencertype_id">
+            <ion-select interface="popover" placeholder="Influencer type*" [disabled]='!isEdit' formControlName="influencertype_id">
               <ion-option [value]="type?.InfluencerType?.id" *ngFor="let type of influencerTypes">
                 {{type?.InfluencerType?.name}}</ion-option>
             </ion-select>
@@ -46,7 +46,7 @@
         </ion-title>
       </ion-col>
       <ion-col col-6>
-        <ion-item class="img-box"  [class.ng-invalid]="!editForm.get('adharfront').valid && isEdit">
+        <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharfront').valid && isEdit">
           <ion-avatar class="avatars">
             <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
             <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
@@ -55,7 +55,7 @@
         </ion-item>
       </ion-col>
       <ion-col col-6>
-        <ion-item class="img-box"  [class.ng-invalid]="!editForm.get('adharback').valid && isEdit">
+        <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid && isEdit">
           <ion-avatar class="avatars">
             <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
             <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
@@ -71,6 +71,17 @@
             <ion-datetime displayFormat="DD MMM YYYY" [disabled]='!isEdit' placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
               [max]="currentDate"></ion-datetime>
           </ion-item>
+          <ion-item class="field">
+            <ion-input placeholder="Email" [disabled]='!isEdit' formControlName="email" maxlength="100"></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input placeholder="Landline" formControlName="homePhone" [disabled]='!isEdit' type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
+              (ngModelChange)="registerModel.homePhone"></ion-input>
+          </ion-item>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" [disabled]='!isEdit' limit-to="10" [(ngModel)]="registerModel.mobile"
+              (ngModelChange)="registerModel.mobile"></ion-input>
+          </ion-item>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
             <ion-input placeholder="Adhar Card No*" formControlName="adharNo" [disabled]='!isEdit' type="number" [(ngModel)]="registerModel.adharNo"
               (ngModelChange)="registerModel.adharNo" limit-to="12"></ion-input>
@@ -85,17 +96,8 @@
           <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
             <ion-input placeholder="Branch*" formControlName="branch" maxlength="50" [disabled]='!isEdit'></ion-input>
           </ion-item>
-          <ion-item class="field">
-            <ion-input placeholder="Email" [disabled]='!isEdit' formControlName="email" maxlength="100"></ion-input>
-          </ion-item>
-          <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" [disabled]='!isEdit' type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
-          </ion-item>
-
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" [disabled]='!isEdit' limit-to="10" [(ngModel)]="registerModel.mobile"
-              (ngModelChange)="registerModel.mobile"></ion-input>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
+            <ion-input placeholder="Zone*" [disabled]='!isEdit' formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -130,9 +132,6 @@
           </ion-item>
           <ion-item class="field">
             <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30" [disabled]='!isEdit'></ion-input>
-          </ion-item>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
-            <ion-input placeholder="Zone*" [disabled]='!isEdit' formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>

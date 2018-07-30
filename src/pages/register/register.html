@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Add</ion-title>
+    <ion-title>Register</ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content class="register" padding>
@@ -27,7 +27,8 @@
             <ion-input placeholder="Last Name*" formControlName="lastName" maxlength="100"></ion-input>
           </ion-item>
           <ion-item class="field">
-            <ion-select placeholder="Influencer type*" formControlName="influencertype_id">
+            <ion-label>Type</ion-label>
+            <ion-select interface="popover" placeholder="Influencer type*" formControlName="influencertype_id">
               <ion-option [value]="type?.InfluencerType?.id" *ngFor="let type of influencerTypes">
                 {{type?.InfluencerType?.name}}</ion-option>
             </ion-select>
@@ -58,12 +59,22 @@
         </ion-item>
       </ion-col>
       <ion-col col-12>
-
         <ion-list inset>
-
           <ion-item class="field">
             <ion-datetime displayFormat="DD MMM YYYY" placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
               [max]="currentDate"></ion-datetime>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
+          </ion-item>
+          <ion-item class="field">
+            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
+              (ngModelChange)="registerModel.homePhone"></ion-input>
+          </ion-item>
+
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
+              (ngModelChange)="registerModel.mobile"></ion-input>
           </ion-item>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
             <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
@@ -79,17 +90,8 @@
           <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
             <ion-input placeholder="Branch*" formControlName="branch" maxlength="50"></ion-input>
           </ion-item>
-          <ion-item class="field">
-            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
-          </ion-item>
-          <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
-          </ion-item>
-
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
-              (ngModelChange)="registerModel.mobile"></ion-input>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
+            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
@@ -124,9 +126,6 @@
           </ion-item>
           <ion-item class="field">
             <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30"></ion-input>
-          </ion-item>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
-            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
         </ion-list>
       </ion-col>
