@@ -125,9 +125,9 @@ export class InfluencerAddPage {
         adharback: value.adharback
       }
     }
-    this.auth.editInfluencer(params, 3).subscribe(success => {
+    this.auth.register(params).subscribe(success => {
       if (success) {
-        this.showPopup("Success", "Update successfully.");
+        this.showPopup("Success", "addd successfully.");
         this.nav.push('HomePage');
       } else {
         this.showPopup("Error", "Problem while updating influencer.");
