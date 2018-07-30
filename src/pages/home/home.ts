@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController,LoadingController, Loading } from 'ionic-angular';
+import { NavController, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -16,15 +16,17 @@ export class HomePage {
     users;
     searchKeyWord;
     loading: Loading;
-    influencerType:any = [];
-    influencerFilterData:any=[];
+    influencerType: any = [];
+    influencerFilterData: any = [];
     constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http, private loadingCtrl: LoadingController) {
         this.getUsers();
         this.getInfluencerType();
     }
     public getUsers() {
         this.showLoading()
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1 }).subscribe(allowed => {
+        let userId = localStorage.getItem('id');
+        let groupId = localStorage.getItem('groupId');
+        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId }).subscribe(allowed => {
             if (allowed) {
                 this.loading.dismiss();
                 this.users = allowed.data;
@@ -66,20 +68,22 @@ export class HomePage {
         });
         this.loading.present();
     }
-    
+
     getInfluencerType() {
         this.auth.getInfluencerTypes().subscribe(allowed => {
-           
+
             if (allowed.status) {
                 this.influencerType = allowed.data;
-                console.log("all",this.influencerType);
+                console.log("all", this.influencerType);
             }
         }, error => {
 
         });
     }
-    infoTypeFilter(param){
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, data: { search: { influencer_type: param, status: null } } }).subscribe(allowed => {
+    infoTypeFilter(param) {
+        let userId = localStorage.getItem('id');
+        let groupId = localStorage.getItem('groupId');
+        this.auth.getinfluencerList({ start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1, data: { search: { influencertype_id: param, status: null } } }).subscribe(allowed => {
             if (allowed) {
                 this.users = allowed.data;
             }
