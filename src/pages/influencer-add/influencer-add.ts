@@ -74,7 +74,6 @@ export class InfluencerAddPage {
     console.log('ionViewDidLoad InfluencerAddPage');
   }
   getInfluencer() {
-    console.log("this.influencerId", this.influencerId)
     this.auth.getInfluencerTypes().subscribe(success => {
       if (success.status) {
         console.log
@@ -137,7 +136,7 @@ export class InfluencerAddPage {
     }
     this.auth.register(params).subscribe(success => {
       if (success) {
-        this.showPopup("Success", "Update successfully.");
+        this.showPopup("Success", "addd successfully.");
         this.nav.push('HomePage');
       } else {
         this.showPopup("Error", "Problem while updating influencer.");

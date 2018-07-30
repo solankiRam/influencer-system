@@ -18,7 +18,7 @@ import moment from 'moment';
 export class RegisterPage {
   createSuccess = false;
 
-  private registerForm: FormGroup;
+  private editForm: FormGroup;
   private currentDate = moment().format('YYYY-MM-DD');
 
   imgPreview = 'assets/imgs/logo.png';
@@ -31,7 +31,7 @@ export class RegisterPage {
     private camera: Camera, private imagePicker: ImagePicker, private base64: Base64, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public geocoder: NativeGeocoder) {
 
-    this.registerForm = this.formBuilder.group({
+    this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       influencertype_id: [6, [Validators.required]],
@@ -52,13 +52,22 @@ export class RegisterPage {
       lattitude: [''],
       longitude: [''],
       zone: ['', [Validators.required]],
-      image: ['', [Validators.required]],
+      userimage: ['', [Validators.required]],
       adharfront: ['', [Validators.required]],
-      adharback: ['', [Validators.required]],
+      adharback: ['', [Validators.required]]
     });
   }
 
-  ionViewDidEnter() {
+  getInfluencer() {
+    this.auth.getInfluencerTypes().subscribe(success => {
+      if (success.status) {
+        console.log
+        this.influencerTypes = success.data;
+        console.log("ss", this.influencerTypes[0].InfluencerType);
+      }
+      console.log("success", success);
+      // this.influencerTypes =success
+    });
 
   }
 
@@ -76,55 +85,51 @@ export class RegisterPage {
     this.camera.getPicture(imageOption).then((imageData) => {
       let image = "data:image/jpeg;base64," + imageData;
       this.influencer[param] = image;
-      this.registerForm.controls[param].setValue(image);
+      this.editForm.controls[param].setValue(image);
     });
   }
 
-  public register() {
-    if (this.registerCredentials.password != this.registerCredentials.confirmation_password) {
-      this.showPopup("Error", 'The password confirmation does not match.');
-    } else {
-      let value = this.registerForm.value;
-      let params = {
-        Influencer: {
-          influencertype_id: value.influencertype_id,
-          name: value.firstName,
-          surname: value.lastName,
-          email: value.email,
-          address: value.address1,
-          place: value.place,
-          city: value.city,
-          zipcode: value.zipcode,
-          state: value.state,
-          country: value.country,
-          lattitude: value.lattitude,
-          longitude: value.longitude,
-          home_phone: value.homePhone,
-          work_phone: value.mobile,
-          birthdate: value.birthDate,
-          adhar_card: value.adharNo,
-          bank_account: value.bankAccountNo,
-          ifsc_code: value.ifscCode,
-          branch: value.branch,
-          zone: value.zone,
-          status: 0,
-          image: value.userimage,
-          adharfront: value.adharfront,
-          adharback: value.adharback
-        }
+  register() {
+    let value = this.editForm.value;
+    let params = {
+      Influencer: {
+        influencertype_id: value.influencertype_id,
+        name: value.firstName,
+        surname: value.lastName,
+        email: value.email,
+        address: value.address1,
+        place: value.place,
+        city: value.city,
+        zipcode: value.zipcode,
+        state: value.state,
+        country: value.country,
+        lattitude: value.lattitude,
+        longitude: value.longitude,
+        home_phone: value.homePhone,
+        work_phone: value.mobile,
+        birthdate: value.birthDate,
+        adhar_card: value.adharNo,
+        bank_account: value.bankAccountNo,
+        ifsc_code: value.ifscCode,
+        branch: value.branch,
+        zone: value.zone,
+        status: 0,
+        image: value.userimage,
+        adharfront: value.adharfront,
+        adharback: value.adharback
       }
-      this.auth.register(params).subscribe(success => {
-        if (success) {
-          this.showPopup("Success", "Account created.");
-
-        } else {
-          this.showPopup("Error", "Problem creating account.");
-        }
-      },
-        error => {
-          this.showPopup("Error", error);
-        });
     }
+    this.auth.register(params).subscribe(success => {
+      if (success) {
+        this.showPopup("Success", "addd successfully.");
+        this.nav.push('LoginPage');
+      } else {
+        this.showPopup("Error", "Problem while updating influencer.");
+      }
+    }, error => {
+      this.showPopup("Error", error);
+    });
+
   }
 
   showPopup(title, text) {
@@ -145,19 +150,22 @@ export class RegisterPage {
     alert.present();
   }
 
+
+
   getcountry(lat, lng) {
 
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
-      this.registerForm.controls['address1'].setValue(res[0].subLocality);
-      this.registerForm.controls['place'].setValue(res[0].locality);
-      this.registerForm.controls['city'].setValue(res[0].subAdministrativeArea);
-      this.registerForm.controls['state'].setValue(res[0].administrativeArea);
-      this.registerForm.controls['country'].setValue(res[0].countryName);
-      this.registerForm.controls['zipcode'].setValue(res[0].postalCode);
-      this.registerForm.controls['lattitude'].setValue(lat);
-      this.registerForm.controls['lattitude'].setValue(lng);
+      this.editForm.controls['address1'].setValue(res[0].subLocality);
+      this.editForm.controls['place'].setValue(res[0].locality);
+      this.editForm.controls['city'].setValue(res[0].subAdministrativeArea);
+      this.editForm.controls['state'].setValue(res[0].administrativeArea);
+      this.editForm.controls['country'].setValue(res[0].countryName);
+      this.editForm.controls['zipcode'].setValue(res[0].postalCode);
+      this.editForm.controls['lattitude'].setValue(lat);
+      this.editForm.controls['lattitude'].setValue(lng);
     })
   }
+
 
   getAllAddress() {
     let options = {
