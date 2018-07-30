@@ -47,6 +47,7 @@
         </ion-item>
       </ion-card>
     </ion-item>
+    <ion-item *ngIf="users && users.length==0" class="" text-center no-lines detail-none>No records found!</ion-item>
 
   </ion-list>
   <ion-fab right bottom (click)="goToAdd()">
