@@ -23,7 +23,9 @@ export class HomePage {
     }
     public getUsers() {
         this.showLoading()
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1 }).subscribe(allowed => {
+        let userId = localStorage.getItem('id');
+        let groupId = localStorage.getItem('groupId');
+        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId }).subscribe(allowed => {
             if (allowed) {
                 this.loading.dismiss();
                 this.users = allowed.data;
@@ -78,7 +80,9 @@ export class HomePage {
         });
     }
     infoTypeFilter(param) {
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, data: { search: { influencer_type: param, status: null } } }).subscribe(allowed => {
+        let userId = localStorage.getItem('id');
+        let groupId = localStorage.getItem('groupId');
+        this.auth.getinfluencerList({ start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1, data: { search: { influencertype_id: param, status: null } } }).subscribe(allowed => {
             if (allowed) {
                 this.users = allowed.data;
             }

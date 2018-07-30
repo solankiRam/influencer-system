@@ -97,6 +97,7 @@ export class InfluencerAddPage {
 
   register() {
     let value = this.editForm.value;
+    let userId = localStorage.getItem('id');
     let params = {
       Influencer: {
         influencertype_id: value.influencertype_id,
@@ -122,7 +123,8 @@ export class InfluencerAddPage {
         status: 0,
         image: value.userimage,
         adharfront: value.adharfront,
-        adharback: value.adharback
+        adharback: value.adharback,
+        createdby: userId
       }
     }
     this.auth.register(params).subscribe(success => {
