@@ -98,6 +98,8 @@ export class AuthServiceProvider {
     clearAll() {
 
         localStorage.clear();
+        localStorage.removeItem('id');
+        localStorage.removeItem('groupId');
         this.storage.remove('data');
         localStorage.clear();
     }

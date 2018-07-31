@@ -38,12 +38,16 @@ export class HomePage {
 
     public logout() {
         this.auth.logout().subscribe(succ => {
+            localStorage.clear()
+        
             this.nav.setRoot(LoginPage)
         });
     }
 
     public onInput(keyword) {
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, data: { search: { name: keyword, status: null } } }).subscribe(allowed => {
+        let userId = localStorage.getItem('id');
+        let groupId = localStorage.getItem('groupId');
+        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId, data: { search: { name: keyword, status: null } } }).subscribe(allowed => {
             if (allowed) {
                 this.users = allowed.data;
             }
