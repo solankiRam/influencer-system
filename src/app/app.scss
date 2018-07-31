@@ -209,6 +209,15 @@ ion-header {
   }
 }
 
+ion-avatar {
+  ion-img,
+  img {
+    margin: auto;
+    width: 85px;
+    height: 83px;
+  }
+}
+
 
 .item-md {
   ion-avatar {
