@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Base64 } from '@ionic-native/base64';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -32,7 +31,8 @@ export class InfluencerViewPage {
   influencer = { userimage: '', adharfront: '', adharback: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private formBuilder: FormBuilder, private loadingCtrl: LoadingController,
-    public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
+    public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams,
+    private alertProvider: AlertProvider) {
     this.influencerId = this.navParams.get('insId');
 
     console.log("ID", this.influencerId);
@@ -116,7 +116,7 @@ export class InfluencerViewPage {
     });
   }
 
-  
+
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
@@ -223,6 +223,7 @@ export class InfluencerViewPage {
 
 
   getAllAddress() {
+    this.alertProvider.showLoader('');
     let options = {
       enableHighAccuracy: true
     };

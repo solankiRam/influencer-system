@@ -1,7 +1,7 @@
 .register {
-    background: #9CECFB;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    // background: #9CECFB;  /* fallback for old browsers */
+    // background: -webkit-linear-gradient(to bottom, #0052D4, #65C7F7, #9CECFB);  /* Chrome 10-25, Safari 5.1-6 */
+    // background: linear-gradient(to bottom, #0052D4, #65C7F7, #9CECFB); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     .list-md {
         margin-left: 0;
         margin-right: 0;
@@ -27,7 +27,7 @@
             margin: 0;
             .lbl {
                 font-size: 14px;
-                color: #fff;
+                // color: #fff;
                 text-align: center;
                 display: block;
                 margin: 5px 0 0 0;
@@ -48,7 +48,7 @@
     }
     .field-title .toolbar-title {
         background-color: rgba(0, 0, 0, 0.3);
-        color: #fff;
+        // color: #fff;
         font-size: 16px;
         text-transform: uppercase;
         border-left: solid 5px #cccac9;
@@ -58,16 +58,16 @@
     .field {
         background-color: transparent;
         input {
-            border-bottom: solid 1px #fff;
+            border-bottom: solid 1px #cdcdcd;
             padding-left: 0;
             margin: 0;
             font-size: 14px;
             outline: none;
-            color: #fff;
+            // color: #fff;
             height: 40px;
             width: 100%;
             &::placeholder {
-                color: #fff;
+                // color: #fff;
             }
         } 
         &.ng-invalid {
@@ -82,27 +82,27 @@
                 height: 40px;
                 font-size: 14px;
                 line-height: 40px;
-                color: #fff;
+                // color: #fff;
             }
             .select-icon {
                 .select-icon-inner {
-                    color: #fff;
+                    // color: #fff;
                 }
             }
             .item-cover {
-                border-bottom: solid 1px #fff;
+                border-bottom: solid 1px #cdcdcd;
                 outline: none;
             }
             .select-text {
-                color: #fff;
+                // color: #fff;
                 font-size: 14px;
             }
         }
     }
     .submit-btn {
-        background: #fff;
+        // background: #fff;
         opacity: 1;
-        color: #000;
+        // color: #000;
         box-shadow: none;
         height: 40px;
         line-height: 40px;

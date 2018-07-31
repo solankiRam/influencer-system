@@ -2,20 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImagePicker } from '@ionic-native/image-picker';
-import { Base64 } from '@ionic-native/base64';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
-
-/**
- * Generated class for the InfluencerAddPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -36,7 +28,7 @@ export class InfluencerAddPage {
 
   influencer = { userimage: '', adharfront: '', adharback: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
-    private camera: Camera, private formBuilder: FormBuilder,
+    private camera: Camera, private formBuilder: FormBuilder, private alertProvider: AlertProvider,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
 
     // setTimeout(() => {
@@ -73,12 +65,11 @@ export class InfluencerAddPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad InfluencerAddPage');
   }
+
   getInfluencer() {
     this.auth.getInfluencerTypes().subscribe(success => {
       if (success.status) {
-        console.log
         this.influencerTypes = success.data;
-        console.log("ss", this.influencerTypes[0].InfluencerType);
       }
       console.log("success", success);
       // this.influencerTypes =success
@@ -187,6 +178,7 @@ export class InfluencerAddPage {
 
 
   getAllAddress() {
+    this.alertProvider.showLoader('');
     let options = {
       enableHighAccuracy: true
     };

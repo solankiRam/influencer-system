@@ -4,7 +4,6 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
-import { InfluencerViewPage } from '../influencer-view/influencer-view'
 import 'rxjs/add/operator/map';
 
 @Component({
