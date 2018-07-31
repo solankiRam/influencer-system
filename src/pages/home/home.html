@@ -37,12 +37,14 @@
             <img src="assets/imgs/marty-avatar.png">
           </ion-avatar>
           <h2>{{user.name}}</h2>
+
+          <p>
+            <ion-icon name="call"></ion-icon>
+            <span>{{user.work_phone}}</span>
+          </p>
           <p>{{user.InfluencerType}}</p>
           <b>Address:</b>
           <p>{{user.address}}</p>
-          <div class="phone">
-            <span>{{user.work_phone}}</span>
-          </div>
           <button class="delete"></button>
         </ion-item>
       </ion-card>

@@ -97,3 +97,127 @@ ion-header {
     display: none;
   }
 }
+
+/*********************************add**********************/
+
+.register {
+  .list-md {
+    margin-left: 0;
+    margin-right: 0;
+    .item-block {
+      .item-inner {
+        border-bottom: none;
+        padding: 0;
+      }
+    }
+  }
+  .img-box {
+    background-color: transparent;
+    padding: 0;
+    margin: 5px 0;
+    &.user-img {
+      margin-top: 30px;
+    }
+    .item-inner {
+      padding: 0;
+      border: none;
+    }
+    .label {
+      margin: 0;
+      .lbl {
+        font-size: 14px;
+        text-align: center;
+        display: block;
+        margin: 5px 0 0 0;
+      }
+    }
+  }
+  .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border: none;
+    box-shadow: none;
+  }
+  .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border: none;
+    box-shadow: none;
+  }
+  .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus):last-child {
+    border: none;
+    box-shadow: none;
+  }
+  .field-title .toolbar-title {
+    background-color: rgba(0, 0, 0, 0.3); // color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-left: solid 5px #cccac9;
+    padding: 10px 15px;
+    border-radius: 0 40px 0 0;
+  }
+  .field {
+    background-color: transparent;
+    input {
+      border-bottom: solid 1px #cdcdcd;
+      padding-left: 0;
+      margin: 0;
+      font-size: 14px;
+      outline: none;
+      height: 40px;
+      width: 100%;
+    }
+    &.ng-invalid {
+      input {
+        border-bottom: solid 1px #ce0808;
+      }
+    }
+    &.item-select {
+      padding: 0;
+      .label {
+        margin: 0;
+        height: 40px;
+        font-size: 14px;
+        line-height: 40px;
+      }
+      .item-cover {
+        border-bottom: solid 1px #cdcdcd;
+        outline: none;
+      }
+      .select-text {
+        font-size: 14px;
+      }
+    }
+  }
+  .submit-btn {
+    opacity: 1;
+    box-shadow: none;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    margin: 20px 0 0 0;
+    border-radius: 5px;
+    font-size: 1.5rem;
+  }
+}
+
+.item-md {
+  ion-avatar {
+    ion-img,
+    img {
+      margin: auto;
+      width: 85px;
+      height: 83px;
+    }
+  }
+}
+
+
+.item-md {
+  ion-avatar {
+    &.adharImage {
+      img{
+        border-radius: 0;
+      } 
+    }
+  }
+}
+
+/*****************************************************************/

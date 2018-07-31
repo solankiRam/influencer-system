@@ -35,28 +35,41 @@
           </ion-item>
         </ion-list>
       </ion-col>
+
+      <ion-col col-12>
+        <ion-title class="title field-title title-md">
+          Identity
+        </ion-title>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-list inset>
+          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharfront').valid">
+            <ion-avatar class="avatars adharImage">
+              <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
+              <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
+            </ion-avatar>
+            <label class="lbl">Adhar card front image</label>
+          </ion-item>
+          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid">
+            <ion-avatar class="avatars adharImage">
+              <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
+              <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
+            </ion-avatar>
+            <label class="lbl">Adhar card back image</label>
+          </ion-item>
+
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
+            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
+              limit-to="12"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
       <ion-col col-12>
         <ion-title class="title field-title title-md">
           Personal Information
         </ion-title>
-      </ion-col>
-      <ion-col col-6>
-        <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharfront').valid">
-          <ion-avatar class="avatars">
-            <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
-            <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
-          </ion-avatar>
-          <label class="lbl">Adhar card front image</label>
-        </ion-item>
-      </ion-col>
-      <ion-col col-6>
-        <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid">
-          <ion-avatar class="avatars">
-            <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
-            <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
-          </ion-avatar>
-          <label class="lbl">Adhar card back image</label>
-        </ion-item>
       </ion-col>
       <ion-col col-12>
         <ion-list inset>
@@ -75,10 +88,6 @@
           <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
             <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
               (ngModelChange)="registerModel.mobile"></ion-input>
-          </ion-item>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
-            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
-              limit-to="12"></ion-input>
           </ion-item>
           <ion-item class="field">
             <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
