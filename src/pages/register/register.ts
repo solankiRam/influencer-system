@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
@@ -28,7 +28,7 @@ export class RegisterPage {
   registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private alertProvider: AlertProvider, private formBuilder: FormBuilder,
-    public geolocation: Geolocation, public geocoder: NativeGeocoder) {
+    public geolocation: Geolocation, public navParams: NavParams, public geocoder: NativeGeocoder) {
 
     this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -55,6 +55,7 @@ export class RegisterPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
+    this.getcountry(this.navParams.get("coords").lat, this.navParams.get("coords").lng);
     this.getInfluencer();
   }
 

@@ -2,12 +2,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -20,15 +15,22 @@ export class LoginPage {
     registerCredentials = { username: '', password: '' };
 
     constructor(
-        public nav: NavController,
+        public nav: NavController, public geolocation: Geolocation,
         private auth: AuthServiceProvider,
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
     ) { }
 
     public createAccount() {
-        console.log('RegisterPage')
-        this.nav.push('RegisterPage');
+        let options = {
+            enableHighAccuracy: true
+        };
+
+        this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+            this.nav.push('RegisterPage', {
+                coords: position.coords
+            });
+        });
     }
 
     public login() {
@@ -79,7 +81,7 @@ export class LoginPage {
         });
         alert.present();
     }
-    
+
 
     public goToForgotPassword() {
         this.nav.push('ForgotPasswordPage');
@@ -95,7 +97,7 @@ export class LoginPage {
         let regExp = new RegExp('^[0-9]+$');
         // let regExp = new RegExp('^[A-Za-z0-9? ]+$');
         if (!regExp.test(newValue)) {
-           this.registerCredentials.username = newValue.slice(0, -1);
+            this.registerCredentials.username = newValue.slice(0, -1);
         }
     }
 

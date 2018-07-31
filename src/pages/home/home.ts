@@ -5,6 +5,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { LoginPage } from '../login/login';
 import 'rxjs/add/operator/map';
+import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 
 @Component({
     selector: 'page-home',
@@ -17,7 +18,8 @@ export class HomePage {
     loading: Loading;
     influencerType: any = [];
     influencerFilterData: any = [];
-    constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http, private loadingCtrl: LoadingController) {
+    constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http,
+        private loadingCtrl: LoadingController, private geolocation: Geolocation) {
         this.getUsers();
         this.getInfluencerType();
     }
@@ -38,7 +40,7 @@ export class HomePage {
     public logout() {
         this.auth.logout().subscribe(succ => {
             localStorage.clear()
-        
+
             this.nav.setRoot(LoginPage)
         });
     }
@@ -58,10 +60,18 @@ export class HomePage {
     public goToAdd() {
         this.nav.push('InfluencerAddPage');
     }
+    
     public goToView(user) {
-        console.log("Users", user.id)
-        this.nav.push('InfluencerViewPage', {
-            insId: user.id, param2: 'Johnson'
+
+        let options = {
+            enableHighAccuracy: true
+        };
+
+        this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+            this.nav.push('InfluencerViewPage', {
+                coords: position.coords,
+                insId: user.id, param2: 'Johnson'
+            });
         });
     }
     showLoading() {
