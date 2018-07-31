@@ -31,9 +31,7 @@ export class InfluencerAddPage {
     private camera: Camera, private formBuilder: FormBuilder, private alertProvider: AlertProvider,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
 
-    // setTimeout(() => {
     this.getInfluencer();
-    // }, 5000)
 
     this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -60,6 +58,8 @@ export class InfluencerAddPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
+    
+    this.getcountry(this.navParams.get("coords").lat, this.navParams.get("coords").lng);
   }
 
   ionViewDidLoad() {
