@@ -59,7 +59,7 @@ export class InfluencerAddPage {
       adharback: ['', [Validators.required]]
     });
     
-    this.getcountry(this.navParams.get("coords").lat, this.navParams.get("coords").lng);
+    this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
   }
 
   ionViewDidLoad() {
@@ -172,7 +172,7 @@ export class InfluencerAddPage {
       this.editForm.controls['country'].setValue(res[0].countryName);
       this.editForm.controls['zipcode'].setValue(res[0].postalCode);
       this.editForm.controls['lattitude'].setValue(lat);
-      this.editForm.controls['lattitude'].setValue(lng);
+      this.editForm.controls['longitude'].setValue(lng);
     })
   }
 
