@@ -1,108 +1,105 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, Loading } from 'ionic-angular';
+import { LoadingController, Loading, App, IonicPage } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { Http, RequestOptions, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { LoginPage } from '../login/login';
-import 'rxjs/add/operator/map';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 
+@IonicPage()
 @Component({
-    selector: 'page-home',
-    templateUrl: 'home.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
 export class HomePage {
 
-    users;
-    searchKeyWord;
-    loading: Loading;
-    influencerType: any = [];
-    influencerFilterData: any = [];
-    constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http,
-        private loadingCtrl: LoadingController, private geolocation: Geolocation) {
-        this.getUsers();
-        this.getInfluencerType();
-    }
-    public getUsers() {
-        this.showLoading()
-        let userId = localStorage.getItem('id');
-        let groupId = localStorage.getItem('groupId');
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId }).subscribe(allowed => {
-            if (allowed) {
-                this.loading.dismiss();
-                this.users = allowed.data;
-            }
-        }, error => {
+  users;
+  searchKeyWord;
+  loading: Loading;
+  influencerType: any = [];
+  influencerFilterData: any = [];
+  constructor(private app: App, private auth: AuthServiceProvider,
+    private loadingCtrl: LoadingController, private geolocation: Geolocation) {
+    this.getUsers();
+    this.getInfluencerType();
+  }
+  public getUsers() {
+    this.showLoading()
+    let userId = localStorage.getItem('id');
+    let groupId = localStorage.getItem('groupId');
+    this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId }).subscribe(allowed => {
+      if (allowed) {
+        this.loading.dismiss();
+        this.users = allowed.data;
+      }
+    }, error => {
 
-        });
-    }
+    });
+  }
 
-    public logout() {
-        this.auth.logout().subscribe(succ => {
-            localStorage.clear()
+  public logout() {
+    this.auth.logout().subscribe(succ => {
+      localStorage.clear()
 
-            this.nav.setRoot(LoginPage)
-        });
-    }
+      this.app.getRootNavs()[0].setRoot('LoginPage')
+    });
+  }
 
-    public onInput(keyword) {
-        let userId = localStorage.getItem('id');
-        let groupId = localStorage.getItem('groupId');
-        this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId, data: { search: { name: keyword, status: null } } }).subscribe(allowed => {
-            if (allowed) {
-                this.users = allowed.data;
-            }
-        }, error => {
+  public onInput(keyword) {
+    let userId = localStorage.getItem('id');
+    let groupId = localStorage.getItem('groupId');
+    this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId, data: { search: { name: keyword, status: null } } }).subscribe(allowed => {
+      if (allowed) {
+        this.users = allowed.data;
+      }
+    }, error => {
 
-        });
-    }
+    });
+  }
 
-    public goToAdd() {
-        this.nav.push('InfluencerAddPage');
-    }
-    
-    public goToView(user) {
+  public goToAdd() {
+    this.app.getRootNavs()[0].push('InfluencerAddPage');
+  }
 
-        let options = {
-            enableHighAccuracy: true
-        };
+  public goToView(user) {
 
-        this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-            this.nav.push('InfluencerViewPage', {
-                coords: position.coords,
-                insId: user.id, param2: 'Johnson'
-            });
-        });
-    }
-    showLoading() {
-        this.loading = this.loadingCtrl.create({
-            content: 'Please wait...',
-            dismissOnPageChange: true
-        });
-        this.loading.present();
-    }
+    let options = {
+      enableHighAccuracy: true
+    };
 
-    getInfluencerType() {
-        this.auth.getInfluencerTypes().subscribe(allowed => {
+    this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+      this.app.getRootNavs()[0].push('InfluencerViewPage', {
+        coords: position.coords,
+        insId: user.id, param2: 'Johnson'
+      });
+    });
+  }
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
 
-            if (allowed.status) {
-                this.influencerType = allowed.data;
-                console.log("all", this.influencerType);
-            }
-        }, error => {
+  getInfluencerType() {
+    this.auth.getInfluencerTypes().subscribe(allowed => {
 
-        });
-    }
-    infoTypeFilter(param) {
-        let userId = localStorage.getItem('id');
-        let groupId = localStorage.getItem('groupId');
-        this.auth.getinfluencerList({ start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1, data: { search: { influencertype_id: param, status: null } } }).subscribe(allowed => {
-            if (allowed) {
-                this.users = allowed.data;
-            }
-        }, error => {
+      if (allowed.status) {
+        this.influencerType = allowed.data;
+        console.log("all", this.influencerType);
+      }
+    }, error => {
 
-        });
-    }
+    });
+  }
+  infoTypeFilter(param) {
+    let userId = localStorage.getItem('id');
+    let groupId = localStorage.getItem('groupId');
+    this.auth.getinfluencerList({ start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1, data: { search: { influencertype_id: param, status: null } } }).subscribe(allowed => {
+      if (allowed) {
+        this.users = allowed.data;
+      }
+    }, error => {
+
+    });
+  }
 
 }

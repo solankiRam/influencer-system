@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, App } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
@@ -26,7 +26,7 @@ export class RegisterPage {
   influencer = { userimage: '', adharfront: '', adharback: '' };
 
   registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
+  constructor(private app: App, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private alertProvider: AlertProvider, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public navParams: NavParams, public geocoder: NativeGeocoder) {
 
@@ -55,7 +55,9 @@ export class RegisterPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
-    this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
+    if(this.navParams.get("coords")){
+      this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
+    }
     this.getInfluencer();
   }
 
@@ -119,7 +121,7 @@ export class RegisterPage {
     this.auth.register(params).subscribe(success => {
       if (success) {
         this.showPopup("Success", "addd successfully.");
-        this.nav.push('LoginPage');
+        this.app.getRootNavs()[0].push('LoginPage');
       } else {
         this.showPopup("Error", "Problem while updating influencer.");
       }
@@ -138,7 +140,7 @@ export class RegisterPage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) {
-              this.nav.popToRoot();
+              this.app.getRootNavs()[0].popToRoot();
             }
           }
         }
@@ -171,7 +173,7 @@ export class RegisterPage {
     };
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.nav.push('MapMarkerPage', {
+      this.app.getRootNavs()[0].push('MapMarkerPage', {
         coords: position.coords,
         callback: (data) => {
           return new Promise((resolve, reject) => {

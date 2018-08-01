@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams, LoadingController, Loading } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, LoadingController, Loading, App } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
@@ -29,7 +29,7 @@ export class InfluencerViewPage {
 
 
   influencer = { userimage: '', adharfront: '', adharback: '' };
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
+  constructor(private app: App, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private formBuilder: FormBuilder, private loadingCtrl: LoadingController,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams,
     private alertProvider: AlertProvider) {
@@ -176,7 +176,7 @@ export class InfluencerViewPage {
     this.auth.editInfluencer(params, 3).subscribe(success => {
       if (success) {
         this.showPopup("Success", "Update successfully.");
-        this.nav.push('HomePage');
+        this.app.getRootNavs()[0].pop();
       } else {
         this.showPopup("Error", "Problem while updating influencer.");
       }
@@ -194,7 +194,7 @@ export class InfluencerViewPage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) {
-              this.nav.popToRoot();
+              this.app.getRootNavs()[0].popToRoot();
             }
           }
         }
@@ -229,7 +229,7 @@ export class InfluencerViewPage {
     };
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.nav.push('MapMarkerPage', {
+      this.app.getRootNavs()[0].push('MapMarkerPage', {
         coords: position.coords,
         callback: (data) => {
           return new Promise((resolve, reject) => {
