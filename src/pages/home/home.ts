@@ -18,9 +18,11 @@ export class HomePage {
     loading: Loading;
     influencerType: any = [];
     influencerFilterData: any = [];
+    imageBaseUrl:any = '';
     constructor(private nav: NavController, private auth: AuthServiceProvider, public http: Http,
         private loadingCtrl: LoadingController, private geolocation: Geolocation) {
         this.getUsers();
+        this.imageBaseUrl = "http://54.71.128.110/influencer_system_api/img/files/client_data/";
         this.getInfluencerType();
     }
     public getUsers() {

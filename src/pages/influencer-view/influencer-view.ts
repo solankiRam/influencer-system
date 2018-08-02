@@ -173,7 +173,7 @@ export class InfluencerViewPage {
         adharback: value.adharback
       }
     }
-    this.auth.editInfluencer(params, 3).subscribe(success => {
+    this.auth.editInfluencer(params, this.influencerId).subscribe(success => {
       if (success) {
         this.showPopup("Success", "Update successfully.");
         this.nav.push('HomePage');

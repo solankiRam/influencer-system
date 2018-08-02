@@ -24,6 +24,7 @@ export class InfluencerAddPage {
 
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
+  userAvtar:any = 'assets/imgs/user_avtar.png';
   registerModel: any = {};
 
   influencer = { userimage: '', adharfront: '', adharback: '' };

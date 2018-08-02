@@ -15,7 +15,7 @@
             <img [src]="imgPreview" *ngIf="!influencer?.userimage" (click)="getPhoto('userimage')">
             <img [src]="influencer?.userimage" *ngIf="influencer?.userimage" (click)="getPhoto('userimage')">
           </ion-avatar>
-          <label class="lbl">Change Logo</label>
+          <label class="lbl">Change Logo {{userAvtar}}</label>
         </ion-item>
       </ion-col>
       <ion-col col-8>
