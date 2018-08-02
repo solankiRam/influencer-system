@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, App } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geolocation, Geoposition } from '@ionic-native/geolocation';
@@ -28,13 +28,11 @@ export class InfluencerAddPage {
   registerModel: any = {};
 
   influencer = { userimage: '', adharfront: '', adharback: '' };
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController,
+  constructor(private app: App, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private formBuilder: FormBuilder, private alertProvider: AlertProvider,
     public geolocation: Geolocation, public geocoder: NativeGeocoder, public navParams: NavParams) {
 
-    // setTimeout(() => {
     this.getInfluencer();
-    // }, 5000)
 
     this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -61,6 +59,10 @@ export class InfluencerAddPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
+    
+    if(this.navParams.get("coords")){
+      this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
+    }
   }
 
   ionViewDidLoad() {
@@ -131,7 +133,7 @@ export class InfluencerAddPage {
     this.auth.register(params).subscribe(success => {
       if (success) {
         this.showPopup("Success", "addd successfully.");
-        this.nav.push('HomePage');
+        this.app.getRootNavs()[0].pop();
       } else {
         this.showPopup("Error", "Problem while updating influencer.");
       }
@@ -150,7 +152,7 @@ export class InfluencerAddPage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) {
-              this.nav.popToRoot();
+              this.app.getRootNavs()[0].popToRoot();
             }
           }
         }
@@ -173,7 +175,7 @@ export class InfluencerAddPage {
       this.editForm.controls['country'].setValue(res[0].countryName);
       this.editForm.controls['zipcode'].setValue(res[0].postalCode);
       this.editForm.controls['lattitude'].setValue(lat);
-      this.editForm.controls['lattitude'].setValue(lng);
+      this.editForm.controls['longitude'].setValue(lng);
     })
   }
 
@@ -185,7 +187,7 @@ export class InfluencerAddPage {
     };
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.nav.push('MapMarkerPage', {
+      this.app.getRootNavs()[0].push('MapMarkerPage', {
         coords: position.coords,
         callback: (data) => {
           return new Promise((resolve, reject) => {

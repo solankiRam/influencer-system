@@ -3,10 +3,7 @@ import { Platform, IonicApp } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-// import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'
@@ -21,15 +18,13 @@ export class MyApp {
       this.statusBar.styleBlackTranslucent();
       this.statusBar.backgroundColorByHexString('223a6b');
       this.authService.authenticated().then(tokenStatus => {
+        console.log(tokenStatus)
         if (tokenStatus) {
-          this.rootPage = HomePage;
+          this.rootPage = 'HomePage';
         } else {
-          this.rootPage = LoginPage;
+          this.rootPage = 'LoginPage';
         }
       })
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
       splashScreen.hide();
     });
   }

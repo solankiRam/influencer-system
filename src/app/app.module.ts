@@ -3,16 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
-import { LoginPage } from '../pages/login/login';
-
 import { IonicStorageModule } from '@ionic/storage';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
-// import { InfluencerAddPage } from '../pages/influencer-add/influencer-add';
-// import { ForgotPasswordPage} from '../pages/forgot-password/forgot-password';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -27,51 +19,22 @@ import { LocationsProvider } from '../providers/locations/locations';
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
 import { AlertProvider } from '../providers/alert';
-// import { CommonModule } from '@angular/common'; 
 
 @NgModule({
   declarations: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    LoginPage
-    // InfluencerAddPage
-    // ForgotPasswordPage
+    MyApp
   ],
   imports: [
-    BrowserModule,
-    HttpModule,
-    // CommonModule,
-    IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp)
+    BrowserModule, HttpModule, IonicStorageModule.forRoot(), IonicModule.forRoot(MyApp, {
+      mode: 'md', scrollAssist: false, autoFocusAssist: false
+    })
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-    AboutPage,
-    ContactPage,
-    HomePage,
-    TabsPage,
-    LoginPage,
-    // InfluencerAddPage
-    // ForgotPasswordPage
-  ],
+  entryComponents: [MyApp],
   providers: [
-    StatusBar, AlertProvider,
-    SplashScreen,
-    Camera,
-    ImagePicker,
-    Base64,
-    NativeGeocoder,
-    Geolocation,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthServiceProvider,
-    GoogleMapsProvider,
-    ConnectivityProvider,
-    LocationsProvider,
-    GeocoderProvider
+    StatusBar, AlertProvider, SplashScreen, Camera, ImagePicker, Base64, NativeGeocoder,
+    Geolocation, { provide: ErrorHandler, useClass: IonicErrorHandler }, AuthServiceProvider,
+    GoogleMapsProvider, ConnectivityProvider, LocationsProvider, GeocoderProvider
   ]
 })
 export class AppModule { }

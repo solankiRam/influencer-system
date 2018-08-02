@@ -1,7 +1,6 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavParams, AlertController, LoadingController, Loading, App } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { HomePage } from '../home/home';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
@@ -15,10 +14,8 @@ export class LoginPage {
     registerCredentials = { username: '', password: '' };
 
     constructor(
-        public nav: NavController, public geolocation: Geolocation,
-        private auth: AuthServiceProvider,
-        private alertCtrl: AlertController,
-        private loadingCtrl: LoadingController,
+        private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider,
+        private alertCtrl: AlertController, private loadingCtrl: LoadingController,
     ) { }
 
     public createAccount() {
@@ -27,7 +24,7 @@ export class LoginPage {
         };
 
         this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-            this.nav.push('RegisterPage', {
+            this.app.getRootNavs()[0].push('RegisterPage', {
                 coords: position.coords
             });
         });
@@ -42,7 +39,7 @@ export class LoginPage {
                     localStorage.setItem('id', allowed.id);
                     localStorage.setItem('groupId', allowed.group_id);
                     this.auth.loginData(allowed);
-                    this.nav.setRoot(HomePage);
+                    this.app.getRootNavs()[0].setRoot('HomePage');
                 } else {
                     this.showError("You have no rights to use this app");
                 }
@@ -84,7 +81,7 @@ export class LoginPage {
 
 
     public goToForgotPassword() {
-        this.nav.push('ForgotPasswordPage');
+        this.app.getRootNavs()[0].push('ForgotPasswordPage');
     }
 
     change(value) {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, App } from 'ionic-angular';
 import { GoogleMaps, GoogleMap, GoogleMapsEvent, GoogleMapOptions } from '@ionic-native/google-maps';
 import { AlertProvider } from '../../providers/alert';
 
@@ -14,7 +14,7 @@ export class MapMarkerPage {
     coords: any;
 
     private callback: any;
-    constructor(private nav: NavController, private alertCtrl: AlertController, public navParams: NavParams,
+    constructor(private app: App, private alertCtrl: AlertController, public navParams: NavParams,
         private alertProvider: AlertProvider) {
 
         this.callback = this.navParams.get("callback");
@@ -56,7 +56,7 @@ export class MapMarkerPage {
                         this.callback({
                             "marker": marker.getPosition(),
                         }).then((data) => {
-                            this.nav.pop();
+                            this.app.getRootNavs()[0].pop();
                         })
                         // localStorage.setItem("latt1", this.markerlatlong.lat);
                         // localStorage.setItem("long1", this.markerlatlong.lng);
