@@ -18,7 +18,7 @@ export class HomePage {
   imageBaseUrl: any = '';
   constructor(private app: App, private auth: AuthServiceProvider,
     private loadingCtrl: LoadingController, private geolocation: Geolocation) {
-    this.imageBaseUrl = "http://54.71.128.110/influencer_system_api/img/files/client_data/";
+    this.imageBaseUrl = "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/";
     this.getUsers();
     this.getInfluencerType();
   }

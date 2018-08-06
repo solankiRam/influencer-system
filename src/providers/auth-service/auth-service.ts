@@ -15,13 +15,13 @@ import 'rxjs/add/operator/map';
 export class AuthServiceProvider {
 
     // Change to this http://ed43bb3b.ngrok.io/api/login
-    static readonly LOGIN_URL = 'http://54.71.128.110/influencer_system_api/users/login';
+    static readonly LOGIN_URL = 'http://54.71.128.110/influencer_system_dev_api/users/login';
     // Change to this http://ed43bb3b.ngrok.io/api/register
-    static readonly REGISTER_URL = 'http://54.71.128.110/influencer_system_api/admin/Influencers/add';
-    static readonly EDIT_URL = 'http://54.71.128.110/influencer_system_api/admin/Influencers/edit/';
-    static readonly getInfluencer = 'http://54.71.128.110/influencer_system_api/admin/influencers/search_user';
-    static readonly getInfluencerType = 'http://54.71.128.110/influencer_system_api/admin/influencerTypes/index';
-    static readonly getSingleInfluencer = 'http://54.71.128.110/influencer_system_api/admin/influencers/view/';
+    static readonly REGISTER_URL = 'http://54.71.128.110/influencer_system_dev_api/admin/Influencers/add';
+    static readonly EDIT_URL = 'http://54.71.128.110/influencer_system_dev_api/admin/Influencers/edit/';
+    static readonly getInfluencer = 'http://54.71.128.110/influencer_system_dev_api/admin/influencers/search_user';
+    static readonly getInfluencerType = 'http://54.71.128.110/influencer_system_dev_api/admin/influencerTypes/index';
+    static readonly getSingleInfluencer = 'http://54.71.128.110/influencer_system_dev_api/admin/influencers/view/';
 
     access: boolean;
     token: string;
