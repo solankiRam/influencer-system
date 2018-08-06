@@ -25,6 +25,8 @@ export class InfluencerViewPage {
 
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
+  userAvtar: any = 'assets/imgs/user_avtar.png';
+  imageBaseUrl: any = "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/";
   registerModel: any = {};
 
 
@@ -108,9 +110,9 @@ export class InfluencerViewPage {
         this.editForm.controls['userimage'].setValue(data.userimage);
         this.editForm.controls['adharback'].setValue(data.adharback);
         this.editForm.controls['adharfront'].setValue(data.adharfront);
-        this.influencer.userimage = data.userimage;
-        this.influencer.adharback = data.adharback;
-        this.influencer.adharfront = data.adharfront;
+        this.influencer.userimage = (data.image !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" +data.image : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+'assets/imgs/user_avtar.png';
+        this.influencer.adharback = (data.adharback !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+data.adharback : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + 'assets/imgs/logo.png';
+        this.influencer.adharfront = (data.adharfront !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+data.adharfront : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+'assets/imgs/logo.png';
         this.isEdit = false;
       }
     });

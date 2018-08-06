@@ -21,6 +21,7 @@ export class RegisterPage {
   private currentDate = moment().format('YYYY-MM-DD');
 
   imgPreview = 'assets/imgs/logo.png';
+  userAvtar:any = 'assets/imgs/user_avtar.png';
   registerModel: any = {};
   influencerTypes: any = [];
   influencer = { userimage: '', adharfront: '', adharback: '' };
