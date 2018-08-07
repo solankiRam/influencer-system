@@ -60,20 +60,20 @@ export class HomePage {
   }
 
   public goToAdd() {
-    this.app.getRootNavs()[0].push('InfluencerAddPage');
-  }
-
-  public goToView(user) {
-
     let options = {
       enableHighAccuracy: true
     };
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.app.getRootNavs()[0].push('InfluencerViewPage', {
-        coords: position.coords,
-        insId: user.id, param2: 'Johnson'
+      this.app.getRootNavs()[0].push('InfluencerAddPage', {
+        coords: position.coords
       });
+    });
+  }
+
+  public goToView(user) {
+    this.app.getRootNavs()[0].push('InfluencerViewPage', {
+      insId: user.id
     });
   }
   showLoading() {
