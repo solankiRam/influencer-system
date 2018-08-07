@@ -127,7 +127,7 @@
         </ion-title>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('address1').valid">
-            <ion-input placeholder="Address Line1*" formControlName="address1" maxlength="150"></ion-input>
+            <ion-input placeholder="Street, Nr.*" formControlName="address1" maxlength="150"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.address1.valid">{{validationMessages.required}}</span>
           <ion-item class="field">

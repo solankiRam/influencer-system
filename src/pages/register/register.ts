@@ -23,6 +23,7 @@ export class RegisterPage {
   validationMessages = Constants.validationMessages;
 
   imgPreview = 'assets/imgs/logo.png';
+  userAvtar:any = 'assets/imgs/user_avtar.png';
   registerModel: any = {};
   influencerTypes: any = [];
   influencer = { userimage: '', adharfront: '', adharback: '' };
