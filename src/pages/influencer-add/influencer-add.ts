@@ -101,47 +101,50 @@ export class InfluencerAddPage {
   }
 
   register() {
-    let value = this.editForm.value;
-    let userId = localStorage.getItem('id');
-    let params = {
-      Influencer: {
-        influencertype_id: value.influencertype_id,
-        name: value.firstName,
-        surname: value.lastName,
-        email: value.email,
-        address: value.address1,
-        place: value.place,
-        city: value.city,
-        zipcode: value.zipcode,
-        state: value.state,
-        country: value.country,
-        lattitude: value.lattitude,
-        longitude: value.longitude,
-        home_phone: value.homePhone,
-        work_phone: value.mobile,
-        birthdate: value.birthDate,
-        adhar_card: value.adharNo,
-        bank_account: value.bankAccountNo,
-        ifsc_code: value.ifscCode,
-        branch: value.branch,
-        zone: value.zone,
-        status: 0,
-        image: value.userimage,
-        adharfront: value.adharfront,
-        adharback: value.adharback,
-        createdby: userId
+    if (this.editForm.valid) {
+      let value = this.editForm.value;
+      let userId = localStorage.getItem('id');
+      let params = {
+        Influencer: {
+          influencertype_id: value.influencertype_id,
+          name: value.firstName,
+          surname: value.lastName,
+          email: value.email,
+          address: value.address1,
+          place: value.place,
+          city: value.city,
+          zipcode: value.zipcode,
+          state: value.state,
+          country: value.country,
+          lattitude: value.lattitude,
+          longitude: value.longitude,
+          home_phone: value.homePhone,
+          work_phone: value.mobile,
+          birthdate: value.birthDate,
+          adhar_card: value.adharNo,
+          bank_account: value.bankAccountNo,
+          ifsc_code: value.ifscCode,
+          branch: value.branch,
+          zone: value.zone,
+          status: 0,
+          image: value.userimage,
+          adharfront: value.adharfront,
+          adharback: value.adharback,
+          createdby: userId
+        }
       }
+      this.auth.register(params).subscribe(success => {
+        if (success) {
+          this.createSuccess = true;
+          this.showPopup("Success", "addd successfully.");
+        } else {
+          this.showPopup("Error", "Problem while updating influencer.");
+        }
+      }, error => {
+        this.showPopup("Error", error);
+      });
+
     }
-    this.auth.register(params).subscribe(success => {
-      if (success) {
-        this.showPopup("Success", "addd successfully.");
-        this.app.getRootNavs()[0].pop();
-      } else {
-        this.showPopup("Error", "Problem while updating influencer.");
-      }
-    }, error => {
-      this.showPopup("Error", error);
-    });
 
   }
 
