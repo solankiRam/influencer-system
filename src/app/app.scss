@@ -230,3 +230,11 @@ ion-avatar {
 }
 
 /*****************************************************************/
+
+
+span {
+  &.wrongCredential {
+      color: color($colors, danger);
+      display: block;
+  }
+}

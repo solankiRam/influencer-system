@@ -17,15 +17,18 @@
           </ion-avatar>
           <label class="lbl">Change Logo</label>
         </ion-item>
+        <span class="wrongCredential" *ngIf="!editForm.controls.userimage.valid">{{validationMessages.required}}</span>
       </ion-col>
       <ion-col col-8>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('firstName').valid">
             <ion-input placeholder="First Name*" formControlName="firstName" maxlength="100"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.firstName.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('lastName').valid">
             <ion-input placeholder="Last Name*" formControlName="lastName" maxlength="100"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.lastName.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-label>Type</ion-label>
             <ion-select interface="popover" placeholder="Influencer type*" formControlName="influencertype_id">
@@ -33,6 +36,7 @@
                 {{type?.InfluencerType?.name}}</ion-option>
             </ion-select>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.influencertype_id.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
 
@@ -51,6 +55,7 @@
             </ion-avatar>
             <label class="lbl">Adhar card front image</label>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adharfront.valid">{{validationMessages.required}}</span>
           <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid">
             <ion-avatar class="avatars adharImage">
               <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
@@ -58,11 +63,13 @@
             </ion-avatar>
             <label class="lbl">Adhar card back image</label>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adharback.valid">{{validationMessages.required}}</span>
 
           <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
             <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
               limit-to="12"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adharNo.valid">{{validationMessages.adharNo}}</span>
         </ion-list>
       </ion-col>
 
@@ -77,31 +84,39 @@
             <ion-datetime displayFormat="DD MMM YYYY" placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
               [max]="currentDate"></ion-datetime>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.email.valid">{{validationMessages.email}}</span>
           <ion-item class="field">
             <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
               (ngModelChange)="registerModel.homePhone"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
 
           <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
             <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
               (ngModelChange)="registerModel.mobile"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
             <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
               (ngModelChange)="registerModel.bankAccountNo"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.ifscCode.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
             <ion-input placeholder="Branch*" formControlName="branch" maxlength="50"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
             <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
 
@@ -114,28 +129,36 @@
           <ion-item class="field" [class.ng-invalid]="!editForm.get('address1').valid">
             <ion-input placeholder="Address Line1*" formControlName="address1" maxlength="150"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.address1.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="Place" formControlName="place" maxlength="100"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.place.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('city').valid">
             <ion-input placeholder="City*" formControlName="city" maxlength="50"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.city.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('state').valid">
             <ion-input placeholder="State*" formControlName="state" maxlength="50"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.state.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('country').valid">
             <ion-input placeholder="Country*" formControlName="country" maxlength="50"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.country.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('zipcode').valid">
             <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6" [(ngModel)]="registerModel.zipcode"
               (ngModelChange)="registerModel.zipcode"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.zipcode.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.lattitude.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.longitude.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
 

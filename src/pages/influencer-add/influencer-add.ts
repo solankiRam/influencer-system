@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
 import { AlertProvider } from '../../providers/alert';
+import { Constants } from '../../providers/constant';
 
 @IonicPage()
 @Component({
@@ -21,10 +22,11 @@ export class InfluencerAddPage {
   public influencerId: any;
   private editForm: FormGroup;
   private currentDate = moment().format('YYYY-MM-DD');
+  validationMessages = Constants.validationMessages;
 
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
-  userAvtar:any = 'assets/imgs/user_avtar.png';
+  userAvtar: any = 'assets/imgs/user_avtar.png';
   registerModel: any = {};
 
   influencer = { userimage: '', adharfront: '', adharback: '' };
@@ -59,8 +61,8 @@ export class InfluencerAddPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
-    
-    if(this.navParams.get("coords")){
+
+    if (this.navParams.get("coords")) {
       this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
     }
   }

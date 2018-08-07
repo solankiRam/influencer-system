@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
 import { AlertProvider } from '../../providers/alert';
+import { Constants } from '../../providers/constant';
 
 @IonicPage()
 @Component({
@@ -26,6 +27,7 @@ export class InfluencerViewPage {
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
   registerModel: any = {};
+  validationMessages = Constants.validationMessages;
 
 
   influencer = { userimage: '', adharfront: '', adharback: '' };

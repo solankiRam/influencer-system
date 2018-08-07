@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Validator } from '../../providers/validator/validator';
 import moment from 'moment';
 import { AlertProvider } from '../../providers/alert';
+import { Constants } from '../../providers/constant';
 
 @IonicPage()
 @Component({
@@ -19,6 +20,7 @@ export class RegisterPage {
 
   private editForm: FormGroup;
   private currentDate = moment().format('YYYY-MM-DD');
+  validationMessages = Constants.validationMessages;
 
   imgPreview = 'assets/imgs/logo.png';
   registerModel: any = {};
