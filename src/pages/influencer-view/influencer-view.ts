@@ -179,7 +179,7 @@ export class InfluencerViewPage {
     }
     this.auth.editInfluencer(params, this.influencerId).subscribe(success => {
       if (success) {
-        this.showPopup("Success", "Update successfully.");
+        this.showPopup("Success", "Influencer details Updated successfully.");
         this.app.getRootNavs()[0].pop();
       } else {
         this.showPopup("Error", "Problem while updating influencer.");

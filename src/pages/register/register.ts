@@ -123,10 +123,10 @@ export class RegisterPage {
     }
     this.auth.register(params).subscribe(success => {
       if (success) {
-        this.showPopup("Success", "addd successfully.");
+        this.showPopup("Success", "You are register successfully.");
         this.app.getRootNavs()[0].push('LoginPage');
       } else {
-        this.showPopup("Error", "Problem while updating influencer.");
+        this.showPopup("Error", "Problem while register influencer.");
       }
     }, error => {
       this.showPopup("Error", error);

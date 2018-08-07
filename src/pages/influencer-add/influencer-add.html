@@ -7,7 +7,7 @@
 
   <!-- <button ion-button (click)="geolocate()">Get Location</button> -->
 
-  <form [formGroup]="editForm" name="editForm">
+  <form (ngSubmit)="register()" [formGroup]="editForm" name="editForm">
     <ion-row>
       <ion-col col-4>
         <ion-item class="img-box user-img" [class.ng-invalid]="!editForm.get('userimage').valid">
@@ -17,8 +17,8 @@
           </ion-avatar>
           <label class="lbl">Upload Picture</label>
         </ion-item>
+        <span class="wrongCredential" *ngIf="!editForm.controls.userimage.valid">{{validationMessages.required}}</span>
       </ion-col>
-      <span class="wrongCredential" *ngIf="!editForm.controls.userimage.valid">{{validationMessages.required}}</span>
       <ion-col col-8>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('firstName').valid">
@@ -37,6 +37,94 @@
             </ion-select>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.influencertype_id.valid">{{validationMessages.required}}</span>
+        </ion-list>
+      </ion-col>
+
+
+      <ion-col col-12>
+        <ion-title class="title field-title title-md">
+          Personal Information
+        </ion-title>
+      </ion-col>
+      <ion-col col-12>
+        <ion-list inset>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
+              (ngModelChange)="registerModel.mobile"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid">{{validationMessages.mobileNo}}</span>
+          <ion-item class="field">
+            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
+              (ngModelChange)="registerModel.homePhone"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
+          <ion-item class="field">
+            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.email.valid">{{validationMessages.email}}</span>
+
+
+          <ion-item class="field">
+            <ion-datetime displayFormat="DD MMM YYYY" placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
+              [max]="currentDate"></ion-datetime>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
+            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
+            <ion-input placeholder="Company Branch" formControlName="branch" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span>
+
+
+
+
+
+        </ion-list>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-title class="title field-title title-md">
+          Address details
+          <ion-icon name="map" (click)="getAllAddress()"></ion-icon>
+        </ion-title>
+        <ion-list inset>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('address1').valid">
+            <ion-input placeholder="Street, Nr.*" formControlName="address1" maxlength="150"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.address1.valid">{{validationMessages.required}}</span>
+          <ion-item class="field">
+            <ion-input placeholder="Place" formControlName="place" maxlength="100"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.place.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('city').valid">
+            <ion-input placeholder="City*" formControlName="city" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.city.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('zipcode').valid">
+            <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6" [(ngModel)]="registerModel.zipcode"
+              (ngModelChange)="registerModel.zipcode"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.zipcode.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('state').valid">
+            <ion-input placeholder="State*" formControlName="state" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.state.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('country').valid">
+            <ion-input placeholder="Country*" formControlName="country" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.country.valid">{{validationMessages.required}}</span>
+
+          <ion-item class="field">
+            <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.lattitude.valid">{{validationMessages.required}}</span>
+          <ion-item class="field">
+            <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.longitude.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
       <ion-col col-12>
@@ -70,125 +158,6 @@
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.adharNo.valid">{{validationMessages.adharNo}}</span>
         </ion-list>
-
-      </ion-col>
-      <ion-col col-12>
-        <ion-title class="title field-title title-md">
-          Personal Information
-        </ion-title>
-      </ion-col>
-      <ion-col col-12>
-        <ion-list inset>
-          <ion-item class="field">
-            <ion-datetime displayFormat="DD MMM YYYY" placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
-              [max]="currentDate"></ion-datetime>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid">{{validationMessages.required}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.email.valid">{{validationMessages.email}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
-
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
-              (ngModelChange)="registerModel.mobile"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid">{{validationMessages.required}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
-          </ion-item>
-
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
-            <ion-input placeholder="Company Branch*" formControlName="branch" maxlength="50"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
-            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span>
-        </ion-list>
-      </ion-col>
-
-      <ion-col col-12>
-        <ion-title class="title field-title title-md">
-          Address details
-          <ion-icon name="map" (click)="getAllAddress()"></ion-icon>
-        </ion-title>
-        <ion-list inset>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('address1').valid">
-            <ion-input placeholder="Street, Nr." formControlName="address1" maxlength="150"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.address1.valid">{{validationMessages.required}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Place" formControlName="place" maxlength="100"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.place.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('city').valid">
-            <ion-input placeholder="City*" formControlName="city" maxlength="50"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.city.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('state').valid">
-            <ion-input placeholder="State*" formControlName="state" maxlength="50"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.state.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('country').valid">
-            <ion-input placeholder="Country*" formControlName="country" maxlength="50"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.country.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('zipcode').valid">
-            <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6" [(ngModel)]="registerModel.zipcode"
-              (ngModelChange)="registerModel.zipcode"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.zipcode.valid">{{validationMessages.required}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.lattitude.valid">{{validationMessages.required}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.longitude.valid">{{validationMessages.required}}</span>
-        </ion-list>
-      </ion-col>
-      <ion-col col-12>
-        <ion-title class="title field-title title-md">
-          Identity
-        </ion-title>
-      </ion-col>
-
-      <ion-col col-12>
-        <ion-list inset>
-          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharfront').valid">
-            <ion-avatar class="avatars adharImage">
-              <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
-              <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
-            </ion-avatar>
-            <label class="lbl">Adhar card front image</label>
-          </ion-item>
-          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid">
-            <ion-avatar class="avatars adharImage">
-              <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
-              <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
-            </ion-avatar>
-            <label class="lbl">Adhar card back image</label>
-          </ion-item>
-
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
-            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
-              limit-to="12"></ion-input>
-          </ion-item>
-        </ion-list>
-
       </ion-col>
       <ion-col col-12>
         <ion-title class="title field-title title-md">
@@ -199,25 +168,22 @@
             <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
               (ngModelChange)="registerModel.bankAccountNo"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.ifscCode.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
-      <!-- <ion-item class="field">
-          <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
-            (ngModelChange)="registerModel.bankAccountNo"></ion-input>
-        </ion-item>
-        <ion-item class="field">
-          <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
-        </ion-item> -->
+
+
 
 
     </ion-row>
 
     <ion-row>
       <ion-col class="signup-col">
-        <button ion-button class="submit-btn" full (click)="register()" [disabled]="!editForm.valid">Save </button>
+        <button ion-button class="submit-btn" full type="submit" [disabled]="!editForm.valid">Save </button>
       </ion-col>
     </ion-row>
 

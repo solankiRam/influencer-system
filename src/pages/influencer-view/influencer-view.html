@@ -15,69 +15,36 @@
   <form (ngSubmit)="register()" [formGroup]="editForm" name="editForm">
     <ion-row>
       <ion-col col-4>
-        <ion-item class="img-box user-img" [class.ng-invalid]="!editForm.get('userimage').valid && isEdit">
+        <ion-item class="img-box user-img" [class.ng-invalid]="!editForm.get('userimage').valid">
           <ion-avatar class="avatars">
-            <img [src]="imgPreview" *ngIf="!influencer?.userimage" (click)="getPhoto('userimage')">
+            <img [src]="influencer.userimage" *ngIf="!influencer?.userimage" (click)="getPhoto('userimage')">
             <img [src]="influencer?.userimage" *ngIf="influencer?.userimage" (click)="getPhoto('userimage')">
           </ion-avatar>
-          <label class="lbl">Change Logo</label>
+          <label class="lbl">Upload Picture</label>
         </ion-item>
-        <span class="wrongCredential" *ngIf="!editForm.controls.userimage.valid && isEdit">{{validationMessages.required}}</span>
+        <span class="wrongCredential" *ngIf="!editForm.controls.userimage.valid">{{validationMessages.required}}</span>
       </ion-col>
       <ion-col col-8>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('firstName').valid">
-            <ion-input placeholder="First Name*" [disabled]='!isEdit' formControlName="firstName" maxlength="100"></ion-input>
+            <ion-input placeholder="First Name*" formControlName="firstName" maxlength="100"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.firstName.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.firstName.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('lastName').valid">
-            <ion-input placeholder="Last Name*" [disabled]='!isEdit' formControlName="lastName" maxlength="100"></ion-input>
+            <ion-input placeholder="Last Name*" formControlName="lastName" maxlength="100"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.lastName.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.lastName.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-label>Type</ion-label>
-            <ion-select interface="popover" placeholder="Influencer type*" [disabled]='!isEdit' formControlName="influencertype_id">
+            <ion-select interface="popover" placeholder="Influencer type*" formControlName="influencertype_id">
               <ion-option [value]="type?.InfluencerType?.id" *ngFor="let type of influencerTypes">
                 {{type?.InfluencerType?.name}}</ion-option>
             </ion-select>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.influencertype_id.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.influencertype_id.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
 
-      <ion-col col-12>
-        <ion-title class="title field-title title-md">
-          Identity
-        </ion-title>
-      </ion-col>
-
-      <ion-col col-12>
-        <ion-list inset>
-          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharfront').valid && isEdit">
-            <ion-avatar class="avatars adharImage">
-              <img [src]="imgPreview" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
-              <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
-            </ion-avatar>
-            <label class="lbl">Adhar card front image</label>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.adharfront.valid && isEdit">{{validationMessages.required}}</span>
-          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid && isEdit">
-            <ion-avatar class="avatars adharImage">
-              <img [src]="imgPreview" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
-              <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
-            </ion-avatar>
-            <label class="lbl">Adhar card back image</label>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.adharback.valid && isEdit">{{validationMessages.required}}</span>
-
-
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
-            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" [disabled]='!isEdit' type="number" [(ngModel)]="registerModel.adharNo"
-              (ngModelChange)="registerModel.adharNo" limit-to="12"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.adharNo.valid && isEdit">{{validationMessages.adharNo}}</span>
-        </ion-list>
-      </ion-col>
 
       <ion-col col-12>
         <ion-title class="title field-title title-md">
@@ -85,45 +52,41 @@
         </ion-title>
       </ion-col>
       <ion-col col-12>
-
         <ion-list inset>
-
-          <ion-item class="field">
-            <ion-datetime displayFormat="DD MMM YYYY" [disabled]='!isEdit' placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
-              [max]="currentDate"></ion-datetime>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid && isEdit">{{validationMessages.required}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Email" [disabled]='!isEdit' formControlName="email" maxlength="100"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.email.valid && isEdit">{{validationMessages.email}}</span>
-          <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" [disabled]='!isEdit' type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid && isEdit">{{validationMessages.mobileNo}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" [disabled]='!isEdit' limit-to="10" [(ngModel)]="registerModel.mobile"
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
               (ngModelChange)="registerModel.mobile"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid && isEdit">{{validationMessages.mobileNo}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
-            <ion-input placeholder="Bank Account No" type="number" [disabled]='!isEdit' limit-to="30" formControlName="bankAccountNo"
-              [(ngModel)]="registerModel.bankAccountNo" (ngModelChange)="registerModel.bankAccountNo"></ion-input>
+            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
+              (ngModelChange)="registerModel.homePhone"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
-            <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12" [disabled]='!isEdit'></ion-input>
+            <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.ifscCode.valid && isEdit">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
-            <ion-input placeholder="Branch*" formControlName="branch" maxlength="50" [disabled]='!isEdit'></ion-input>
+          <span class="wrongCredential" *ngIf="!editForm.controls.email.valid">{{validationMessages.email}}</span>
+
+
+          <ion-item class="field">
+            <ion-datetime displayFormat="DD MMM YYYY" placeholder="Birth Date" pickerFormat="DD MMM YYYY" formControlName="birthDate"
+              [max]="currentDate"></ion-datetime>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
-            <ion-input placeholder="Zone*" [disabled]='!isEdit' formControlName="zone" maxlength="100"></ion-input>
+            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
+            <ion-input placeholder="Company Branch" formControlName="branch" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span>
+
+
+
+
+
         </ion-list>
       </ion-col>
 
@@ -134,46 +97,98 @@
         </ion-title>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('address1').valid">
-            <ion-input placeholder="Street, Nr.*" formControlName="address1" maxlength="150" [disabled]='!isEdit'></ion-input>
+            <ion-input placeholder="Street, Nr.*" formControlName="address1" maxlength="150"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.address1.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.address1.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
-            <ion-input placeholder="Place" formControlName="place" maxlength="100" [disabled]='!isEdit'></ion-input>
+            <ion-input placeholder="Place" formControlName="place" maxlength="100"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.place.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.place.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('city').valid">
-            <ion-input placeholder="City*" formControlName="city" maxlength="50" [disabled]='!isEdit'></ion-input>
+            <ion-input placeholder="City*" formControlName="city" maxlength="50"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.city.valid && isEdit">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('state').valid">
-            <ion-input placeholder="State*" formControlName="state" maxlength="50" [disabled]='!isEdit'></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.state.valid && isEdit">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('country').valid">
-            <ion-input placeholder="Country*" formControlName="country" maxlength="50" [disabled]='!isEdit'></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.country.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.city.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('zipcode').valid">
             <ion-input placeholder="Pin Code*" formControlName="zipcode" type="number" limit-to="6" [(ngModel)]="registerModel.zipcode"
-              (ngModelChange)="registerModel.zipcode" [disabled]='!isEdit'></ion-input>
+              (ngModelChange)="registerModel.zipcode"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.zipcode.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.zipcode.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('state').valid">
+            <ion-input placeholder="State*" formControlName="state" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.state.valid">{{validationMessages.required}}</span>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('country').valid">
+            <ion-input placeholder="Country*" formControlName="country" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.country.valid">{{validationMessages.required}}</span>
+
           <ion-item class="field">
-            <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30" [disabled]='!isEdit'></ion-input>
+            <ion-input placeholder="Lattitude" formControlName="lattitude" maxlength="30"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.lattitude.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.lattitude.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
-            <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30" [disabled]='!isEdit'></ion-input>
+            <ion-input placeholder="Longitude" formControlName="longitude" maxlength="30"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.longitude.valid && isEdit">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.longitude.valid">{{validationMessages.required}}</span>
+        </ion-list>
+      </ion-col>
+      <ion-col col-12>
+        <ion-title class="title field-title title-md">
+          Identity
+        </ion-title>
+      </ion-col>
+
+      <ion-col col-12>
+        <ion-list inset>
+          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharfront').valid">
+            <ion-avatar class="avatars adharImage">
+              <img [src]="influencer.adharfront" *ngIf="!influencer?.adharfront" (click)="getPhoto('adharfront')">
+              <img [src]="influencer?.adharfront" *ngIf="influencer?.adharfront" (click)="getPhoto('adharfront')">
+            </ion-avatar>
+            <label class="lbl">Adhar card front image</label>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adharfront.valid">{{validationMessages.required}}</span>
+          <ion-item class="img-box" [class.ng-invalid]="!editForm.get('adharback').valid">
+            <ion-avatar class="avatars adharImage">
+              <img [src]="influencer.adharback" *ngIf="!influencer?.adharback" (click)="getPhoto('adharback')">
+              <img [src]="influencer?.adharback" *ngIf="influencer?.adharback" (click)="getPhoto('adharback')">
+            </ion-avatar>
+            <label class="lbl">Adhar card back image</label>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adharback.valid">{{validationMessages.required}}</span>
+
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
+            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
+              limit-to="12"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adharNo.valid">{{validationMessages.adharNo}}</span>
+        </ion-list>
+      </ion-col>
+      <ion-col col-12>
+        <ion-title class="title field-title title-md">
+          Bank details
+        </ion-title>
+        <ion-list inset>
+          <ion-item class="field">
+            <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
+              (ngModelChange)="registerModel.bankAccountNo"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid">{{validationMessages.required}}</span>
+          <ion-item class="field">
+            <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.ifscCode.valid">{{validationMessages.required}}</span>
         </ion-list>
       </ion-col>
 
+
+
+
     </ion-row>
 
-    <ion-row *ngIf="isEdit">
+    <ion-row>
       <ion-col class="signup-col">
-        <button ion-button class="submit-btn" full type="submit" [disabled]="!editForm.valid">Update</button>
+        <button ion-button class="submit-btn" full type="submit" [disabled]="!editForm.valid">Save </button>
       </ion-col>
     </ion-row>
 
