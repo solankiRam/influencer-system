@@ -19,9 +19,14 @@ export class HomePage {
   constructor(private app: App, private auth: AuthServiceProvider,
     private loadingCtrl: LoadingController, private geolocation: Geolocation) {
     this.imageBaseUrl = "http://54.71.128.110/influencer_system_api/img/files/client_data/";
+
+  }
+
+  ionViewWillEnter() {
     this.getUsers();
     this.getInfluencerType();
   }
+
   public getUsers() {
     this.showLoading()
     let userId = localStorage.getItem('id');
@@ -38,8 +43,6 @@ export class HomePage {
 
   public logout() {
     this.auth.logout().subscribe(succ => {
-      localStorage.clear()
-
       this.app.getRootNavs()[0].setRoot('LoginPage')
     });
   }
