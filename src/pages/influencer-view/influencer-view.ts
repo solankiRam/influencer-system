@@ -112,9 +112,9 @@ export class InfluencerViewPage {
         this.editForm.controls['userimage'].setValue(data.userimage);
         this.editForm.controls['adharback'].setValue(data.adharback);
         this.editForm.controls['adharfront'].setValue(data.adharfront);
-        this.influencer.userimage = (data.image !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" +data.image : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+'assets/imgs/user_avtar.png';
-        this.influencer.adharback = (data.adharback !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+data.adharback : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + 'assets/imgs/logo.png';
-        this.influencer.adharfront = (data.adharfront !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+data.adharfront : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/"+'assets/imgs/logo.png';
+        this.influencer.userimage = (data.image !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + data.image : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + 'assets/imgs/user_avtar.png';
+        this.influencer.adharback = (data.adharback !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + data.adharback : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + 'assets/imgs/logo.png';
+        this.influencer.adharfront = (data.adharfront !== '') ? "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + data.adharfront : "http://54.71.128.110/influencer_system_dev_api/img/files/client_data/" + 'assets/imgs/logo.png';
         this.isEdit = false;
       }
     });
@@ -212,9 +212,13 @@ export class InfluencerViewPage {
   }
 
   getcountry(lat, lng) {
-
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
-      this.editForm.controls['address1'].setValue(res[0].subLocality);
+      if (res[0].thoroughfare) {
+        this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+      }
+      else {
+        this.editForm.controls['address1'].setValue(res[0].subLocality);
+      }
       this.editForm.controls['place'].setValue(res[0].locality);
       this.editForm.controls['city'].setValue(res[0].subAdministrativeArea);
       this.editForm.controls['state'].setValue(res[0].administrativeArea);

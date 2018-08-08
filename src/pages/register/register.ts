@@ -23,7 +23,7 @@ export class RegisterPage {
   validationMessages = Constants.validationMessages;
 
   imgPreview = 'assets/imgs/logo.png';
-  userAvtar:any = 'assets/imgs/user_avtar.png';
+  userAvtar: any = 'assets/imgs/user_avtar.png';
   registerModel: any = {};
   influencerTypes: any = [];
   influencer = { userimage: '', adharfront: '', adharback: '' };
@@ -58,7 +58,7 @@ export class RegisterPage {
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
-    if(this.navParams.get("coords")){
+    if (this.navParams.get("coords")) {
       this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
     }
     this.getInfluencer();
@@ -155,9 +155,13 @@ export class RegisterPage {
 
 
   getcountry(lat, lng) {
-
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
-      this.editForm.controls['address1'].setValue(res[0].subLocality);
+      if (res[0].thoroughfare) {
+        this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+      }
+      else {
+        this.editForm.controls['address1'].setValue(res[0].subLocality);
+      }
       this.editForm.controls['place'].setValue(res[0].locality);
       this.editForm.controls['city'].setValue(res[0].subAdministrativeArea);
       this.editForm.controls['state'].setValue(res[0].administrativeArea);

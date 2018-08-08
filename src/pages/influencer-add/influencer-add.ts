@@ -173,7 +173,12 @@ export class InfluencerAddPage {
   getcountry(lat, lng) {
 
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
-      this.editForm.controls['address1'].setValue(res[0].subLocality);
+      if (res[0].thoroughfare) {
+        this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+      }
+      else {
+        this.editForm.controls['address1'].setValue(res[0].subLocality);
+      }
       this.editForm.controls['place'].setValue(res[0].locality);
       this.editForm.controls['city'].setValue(res[0].subAdministrativeArea);
       this.editForm.controls['state'].setValue(res[0].administrativeArea);
