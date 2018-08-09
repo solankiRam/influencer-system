@@ -22,7 +22,7 @@ export class InfluencerViewPage {
   loading: Loading;
   public influencerId: any;
   private editForm: FormGroup;
-  private currentDate = moment().format('YYYY-MM-DD');
+  private currentDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
 
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
@@ -62,7 +62,7 @@ export class InfluencerViewPage {
       state: ['', [Validators.required]],
       country: ['', [Validators.required]],
       zipcode: ['', [Validators.required]],
-      lattitude: [''],
+      latitude: [''],
       longitude: [''],
       zone: ['', [Validators.required]],
       userimage: ['', [Validators.required]],
@@ -102,7 +102,7 @@ export class InfluencerViewPage {
         this.editForm.controls['branch'].setValue(data.branch);
         this.editForm.controls['zone'].setValue(data.zone);
         this.editForm.controls['longitude'].setValue(data.longitude);
-        this.editForm.controls['lattitude'].setValue(data.lattitude);
+        this.editForm.controls['latitude'].setValue(data.lattitude);
         this.editForm.controls['address1'].setValue(data.address);
         this.editForm.controls['place'].setValue(data.place);
         this.editForm.controls['city'].setValue(data.city);
@@ -161,7 +161,7 @@ export class InfluencerViewPage {
         zipcode: value.zipcode,
         state: value.state,
         country: value.country,
-        lattitude: value.lattitude,
+        latitude: value.latitude,
         longitude: value.longitude,
         home_phone: value.homePhone,
         work_phone: value.mobile,
@@ -224,7 +224,7 @@ export class InfluencerViewPage {
       this.editForm.controls['state'].setValue(res[0].administrativeArea);
       this.editForm.controls['country'].setValue(res[0].countryName);
       this.editForm.controls['zipcode'].setValue(res[0].postalCode);
-      this.editForm.controls['lattitude'].setValue(lat);
+      this.editForm.controls['latitude'].setValue(lat);
       this.editForm.controls['longitude'].setValue(lng);
     })
   }

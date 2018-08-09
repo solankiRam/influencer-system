@@ -65,8 +65,9 @@ export class HomePage {
     };
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.app.getRootNavs()[0].push('InfluencerAddPage', {
-        coords: position.coords
+      this.app.getRootNavs()[0].push('RegisterPage', {
+        coords: position.coords, 
+        title: 'Add' 
       });
     });
   }
