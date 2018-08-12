@@ -94,7 +94,7 @@ export class RegisterPage {
 
   register() {
     let value = this.editForm.value;
-    let params = {
+    let params: any = {
       Influencer: {
         influencertype_id: value.influencertype_id,
         name: value.firstName,
@@ -121,6 +121,10 @@ export class RegisterPage {
         adharfront: value.adharfront,
         adharback: value.adharback
       }
+    }
+
+    if (this.title == 'Add') {
+      params.createdby = localStorage.getItem('id');
     }
     this.auth.register(params).subscribe(success => {
 
