@@ -19,20 +19,21 @@ export class RegisterPage {
   createSuccess = false;
 
   private editForm: FormGroup;
-  private currentDate = moment().format('YYYY-MM-DD');
+  private currentDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
   validationMessages = Constants.validationMessages;
 
   imgPreview = 'assets/imgs/logo.png';
-  userAvtar:any = 'assets/imgs/user_avtar.png';
+  userAvtar: any = 'assets/imgs/user_avtar.png';
   registerModel: any = {};
   influencerTypes: any = [];
   influencer = { userimage: '', adharfront: '', adharback: '' };
+  title: string;
 
-  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', lattitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
+  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private app: App, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private alertProvider: AlertProvider, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public navParams: NavParams, public geocoder: NativeGeocoder) {
-
+    this.title = navParams.get('title');
     this.editForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -51,14 +52,14 @@ export class RegisterPage {
       state: ['', [Validators.required]],
       country: ['', [Validators.required]],
       zipcode: ['', [Validators.required]],
-      lattitude: [''],
+      latitude: [''],
       longitude: [''],
       zone: ['', [Validators.required]],
       userimage: ['', [Validators.required]],
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
     });
-    if(this.navParams.get("coords")){
+    if (this.navParams.get("coords")) {
       this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
     }
     this.getInfluencer();
@@ -105,7 +106,7 @@ export class RegisterPage {
         zipcode: value.zipcode,
         state: value.state,
         country: value.country,
-        lattitude: value.lattitude,
+        latitude: value.latitude,
         longitude: value.longitude,
         home_phone: value.homePhone,
         work_phone: value.mobile,
@@ -122,11 +123,22 @@ export class RegisterPage {
       }
     }
     this.auth.register(params).subscribe(success => {
-      if (success) {
-        this.showPopup("Success", "You are register successfully.");
-        this.app.getRootNavs()[0].push('LoginPage');
-      } else {
-        this.showPopup("Error", "Problem while register influencer.");
+
+      if (this.title == 'Add') {
+        if (success) {
+          this.createSuccess = true;
+          this.showPopup("Success", "Added successfully.");
+        } else {
+          this.showPopup("Error", "Problem while updating influencer.");
+        }
+      }
+      else {
+        if (success) {
+          this.createSuccess = true;
+          this.showPopup("Success", "You are registerd successfully.");
+        } else {
+          this.showPopup("Error", "Problem while register influencer.");
+        }
       }
     }, error => {
       this.showPopup("Error", error);
@@ -143,7 +155,7 @@ export class RegisterPage {
           text: 'OK',
           handler: data => {
             if (this.createSuccess) {
-              this.app.getRootNavs()[0].popToRoot();
+              this.app.getRootNavs()[0].pop();
             }
           }
         }
@@ -155,15 +167,19 @@ export class RegisterPage {
 
 
   getcountry(lat, lng) {
-
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
-      this.editForm.controls['address1'].setValue(res[0].subLocality);
+      if (res[0].thoroughfare) {
+        this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+      }
+      else {
+        this.editForm.controls['address1'].setValue(res[0].subLocality);
+      }
       this.editForm.controls['place'].setValue(res[0].locality);
       this.editForm.controls['city'].setValue(res[0].subAdministrativeArea);
       this.editForm.controls['state'].setValue(res[0].administrativeArea);
       this.editForm.controls['country'].setValue(res[0].countryName);
       this.editForm.controls['zipcode'].setValue(res[0].postalCode);
-      this.editForm.controls['lattitude'].setValue(lat);
+      this.editForm.controls['latitude'].setValue(lat);
       this.editForm.controls['longitude'].setValue(lng);
     })
   }

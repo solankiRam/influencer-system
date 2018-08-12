@@ -1,6 +1,6 @@
 {
   "name": "influencersystem",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "author": "Bigbanginnovations Pvt.Ltd",
   "homepage": "http://bigbanginnovations.in/",
   "private": true,
@@ -40,7 +40,7 @@
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.0.1",
-    "cordova-plugin-googlemaps": "^2.3.8",
+    "cordova-plugin-googlemaps": "^2.3.10",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-nativegeocoder": "^3.1.2",
@@ -80,7 +80,9 @@
       "cordova-plugin-geolocation": {},
       "cordova-plugin-googlemaps": {
         "API_KEY_FOR_ANDROID": "AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc",
-        "API_KEY_FOR_IOS": "AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc"
+        "API_KEY_FOR_IOS": "AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc",
+        "PLAY_SERVICES_VERSION": "15.0.1",
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
       }
     },
     "platforms": [

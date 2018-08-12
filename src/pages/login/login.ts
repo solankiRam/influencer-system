@@ -25,7 +25,8 @@ export class LoginPage {
 
         this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
             this.app.getRootNavs()[0].push('RegisterPage', {
-                coords: position.coords
+                coords: position.coords, 
+                title: 'Register'
             });
         });
     }

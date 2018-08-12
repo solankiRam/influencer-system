@@ -5,7 +5,7 @@ export namespace Constants {
 
   export const validationMessages = {
     required: '*Required.',
-    adharNo: 'Please enter valid Adhar number.',
+    adharNo: 'Please enter 12 digit adharcard number.',
     mobileNo: 'Please enter valid Mobile number.',
     landlineNo: 'Please enter valid landline number.',
     email: 'Please enter valid email.',
