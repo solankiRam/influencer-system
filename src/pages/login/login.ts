@@ -31,6 +31,10 @@ export class LoginPage {
         });
     }
 
+    scan(){
+        this.app.getActiveNavs()[0].push('BarCodeScannerPage');
+    }
+
     public login() {
         this.showLoading()
         this.auth.login(this.registerCredentials).subscribe(allowed => {
