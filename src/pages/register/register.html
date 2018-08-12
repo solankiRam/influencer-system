@@ -69,16 +69,23 @@
               [max]="currentDate"></ion-datetime>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
+          <!-- <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
             <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
+          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span> -->
+          <!-- <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
             <ion-input placeholder="Company Branch" formControlName="branch" maxlength="50"></ion-input>
           </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span> -->
+
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
+            <ion-label>Company Branch</ion-label>
+            <ion-select placeholder="Company Branch" formControlName="branch">
+              <ion-option [value]="branch?.CompanyBranch?.id" *ngFor="let branch of companyBranch">
+                {{branch?.CompanyBranch?.name}}</ion-option>
+            </ion-select>
+          </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span>
-
-
 
 
 

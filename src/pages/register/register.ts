@@ -28,8 +28,9 @@ export class RegisterPage {
   influencerTypes: any = [];
   influencer = { userimage: '', adharfront: '', adharback: '' };
   title: string;
+  companyBranch:any = [];
 
-  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', zone: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
+  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '',  avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private app: App, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private alertProvider: AlertProvider, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public navParams: NavParams, public geocoder: NativeGeocoder) {
@@ -54,7 +55,6 @@ export class RegisterPage {
       zipcode: ['', [Validators.required]],
       latitude: [''],
       longitude: [''],
-      zone: ['', [Validators.required]],
       userimage: ['', [Validators.required]],
       adharfront: ['', [Validators.required]],
       adharback: ['', [Validators.required]]
@@ -69,6 +69,14 @@ export class RegisterPage {
     this.auth.getInfluencerTypes().subscribe(success => {
       if (success.status) {
         this.influencerTypes = success.data;
+      }
+    });
+
+    this.auth.comapanyBranches().subscribe(success => {
+      console.log("success",success)
+      if (success.status) {
+        this.companyBranch = success.data;
+        console.log("companyBranch",this.companyBranch)
       }
     });
 
@@ -115,7 +123,6 @@ export class RegisterPage {
         bank_account: value.bankAccountNo,
         ifsc_code: value.ifscCode,
         branch: value.branch,
-        zone: value.zone,
         status: 0,
         image: value.userimage,
         adharfront: value.adharfront,

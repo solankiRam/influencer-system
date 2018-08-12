@@ -22,6 +22,7 @@ export class AuthServiceProvider {
     static readonly getInfluencer = 'http://54.71.128.110/influencer_system_dev_api/admin/influencers/search_user';
     static readonly getInfluencerType = 'http://54.71.128.110/influencer_system_dev_api/admin/influencerTypes/index';
     static readonly getSingleInfluencer = 'http://54.71.128.110/influencer_system_dev_api/admin/influencers/view/';
+    static readonly getCompanyBranch = 'http://54.71.128.110/influencer_system_dev_api/admin/companyBranches/';
 
     access: boolean;
     token: string;
@@ -163,5 +164,17 @@ export class AuthServiceProvider {
                 }
             });
         });
+    }
+
+    comapanyBranches() {
+        return Observable.create(observer => {
+            let headers = new Headers();
+            headers.append('Content-Type', 'application/json');
+            this.http.get(AuthServiceProvider.getCompanyBranch)
+                .map(res => res.json())
+                .subscribe(data => {
+                    observer.next(data);
+                });
+        }, err => console.error(err));
     }
 }
