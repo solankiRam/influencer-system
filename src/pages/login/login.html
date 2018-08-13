@@ -1,23 +1,23 @@
-
 <ion-content class="login" padding>
-<ion-row>
+  <ion-row>
     <ion-col>
-        <ion-avatar class="avatars logo-img" (click)="scan()">
-            <img src="assets/imgs/logo.png">
-          </ion-avatar>
+      <ion-avatar class="avatars logo-img">
+        <img src="assets/imgs/logo.png">
+      </ion-avatar>
     </ion-col>
-</ion-row>
+  </ion-row>
   <form #registerForm="ngForm">
     <ion-row>
       <ion-col>
         <ion-list inset>
 
           <ion-item class="email">
-            <ion-input type="tel" maxlength="10" (keyup)="onKeyUp($event)" placeholder="Username" name="username"  [(ngModel)]="registerCredentials.username" required></ion-input>
+            <ion-input type="tel" maxlength="10" (keyup)="onKeyUp($event)" placeholder="Username" name="username" [(ngModel)]="registerCredentials.username"
+              required></ion-input>
           </ion-item>
 
           <ion-item class="password">
-            <ion-input type="password"    placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
           </ion-item>
 
         </ion-list>
@@ -28,13 +28,13 @@
       <button ion-button class="submit-btn" full (click)="login()" [disabled]="!registerForm.form.valid">Login</button>
       <button ion-button class="forgot" (click)="goToForgotPassword()">Forgot password?</button>
     </ion-row>
-    
+
     <ion-row class="signup-box">
-        <label class="lbl">Don't have an account?</label>
-        <button ion-button class="register-btn" block clear (click)="createAccount()">Sign Up</button>
-      </ion-row>
+      <label class="lbl">Don't have an account?</label>
+      <button ion-button class="register-btn" block clear (click)="createAccount()">Sign Up</button>
+    </ion-row>
 
   </form>
 
-  
+
 </ion-content>

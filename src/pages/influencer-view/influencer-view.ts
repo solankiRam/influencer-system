@@ -109,7 +109,7 @@ export class InfluencerViewPage {
         this.editForm.controls['state'].setValue(data.state);
         this.editForm.controls['country'].setValue(data.country);
         this.editForm.controls['zipcode'].setValue(data.zipcode);
-        this.editForm.controls['userimage'].setValue(data.userimage);
+        this.editForm.controls['userimage'].setValue(data.image);
         this.editForm.controls['adharback'].setValue(data.adharback);
         this.editForm.controls['adharfront'].setValue(data.adharfront);
         this.influencer.userimage = (data.image !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.image : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/user_avtar.png';
