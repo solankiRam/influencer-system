@@ -30,6 +30,8 @@ export class InfluencerViewPage {
   imageBaseUrl: any = "http://54.71.128.110/influencer_system_dev/img/files/client_data/";
   registerModel: any = {};
   validationMessages = Constants.validationMessages;
+  companyBranch: any = [];
+  userData: any = [];
 
 
   influencer = { userimage: '', adharfront: '', adharback: '' };
@@ -64,7 +66,6 @@ export class InfluencerViewPage {
       zipcode: ['', [Validators.required]],
       latitude: [''],
       longitude: [''],
-      zone: ['', [Validators.required]],
       userimage: ['', [Validators.required]],
       adharback: ['', [Validators.required]],
       adharfront: ['', [Validators.required]],
@@ -85,9 +86,16 @@ export class InfluencerViewPage {
       }
       // this.influencerTypes =success
     });
+
+    this.auth.comapanyBranches().subscribe(success => {
+      if (success.status) {
+        this.companyBranch = success.data;
+      }
+    });
     this.auth.getInfluencer(this.influencerId).subscribe(success => {
       this.loading.dismiss();
       if (success.status) {
+        this.userData = success.data.Influencer;
         let data = success.data.Influencer;
         this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
         this.editForm.controls['firstName'].setValue(data.name);
@@ -100,7 +108,6 @@ export class InfluencerViewPage {
         this.editForm.controls['bankAccountNo'].setValue(data.bank_account);
         this.editForm.controls['ifscCode'].setValue(data.ifsc_code);
         this.editForm.controls['branch'].setValue(data.branch);
-        this.editForm.controls['zone'].setValue(data.zone);
         this.editForm.controls['longitude'].setValue(data.longitude);
         this.editForm.controls['latitude'].setValue(data.lattitude);
         this.editForm.controls['address1'].setValue(data.address);
@@ -115,6 +122,9 @@ export class InfluencerViewPage {
         this.influencer.userimage = (data.image !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.image : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/user_avtar.png';
         this.influencer.adharback = (data.adharback !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.adharback : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/logo.png';
         this.influencer.adharfront = (data.adharfront !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.adharfront : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/logo.png';
+        // this.influencer.userimage = 'assets/imgs/user_avtar.png';
+        // this.influencer.adharback = 'assets/imgs/logo.png';
+        // this.influencer.adharfront = 'assets/imgs/logo.png';
         this.isEdit = false;
       }
     });
@@ -149,6 +159,8 @@ export class InfluencerViewPage {
   }
   public register() {
     let value = this.editForm.value;
+    console.log('this.userData',this.userData.image)
+    console.log('Value',value.userimage)
     let params = {
       Influencer: {
         influencertype_id: value.influencertype_id,
@@ -170,11 +182,10 @@ export class InfluencerViewPage {
         bank_account: value.bankAccountNo,
         ifsc_code: value.ifscCode,
         branch: value.branch,
-        zone: value.zone,
         status: 0,
-        image: value.userimage,
-        adharfront: value.adharfront,
-        adharback: value.adharback
+        image: (this.userData.image != value.userimage) ? value.userimage : '',
+        adharfront: (this.userData.adharfront != value.adharfront) ? value.adharfront : '',
+        adharback: (this.userData.adharback != value.adharback) ? value.adharback : '',
       }
     }
     this.auth.editInfluencer(params, this.influencerId).subscribe(success => {
