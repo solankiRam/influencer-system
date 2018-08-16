@@ -66,8 +66,12 @@ export class HomePage {
 
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
       this.app.getRootNavs()[0].push('RegisterPage', {
-        coords: position.coords, 
-        title: 'Add' 
+        coords: position.coords,
+        title: 'Add'
+      });
+    }).catch(err => {
+      this.app.getRootNavs()[0].push('RegisterPage', {
+        title: 'Add'
       });
     });
   }

@@ -18,24 +18,28 @@ export class LoginPage {
         private alertCtrl: AlertController, private loadingCtrl: LoadingController,
     ) { }
 
-    public createAccount() {
+    createAccount() {
         let options = {
             enableHighAccuracy: true
         };
 
         this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
             this.app.getRootNavs()[0].push('RegisterPage', {
-                coords: position.coords, 
+                coords: position.coords,
+                title: 'Register'
+            });
+        }).catch(err => {
+            this.app.getRootNavs()[0].push('RegisterPage', {
                 title: 'Register'
             });
         });
     }
 
-    scan(){
+    scan() {
         this.app.getActiveNavs()[0].push('BarCodeScannerPage');
     }
 
-    public login() {
+    login() {
         this.showLoading()
         this.auth.login(this.registerCredentials).subscribe(allowed => {
             if (allowed !== undefined && allowed.group_id !== undefined) {
@@ -85,7 +89,7 @@ export class LoginPage {
     }
 
 
-    public goToForgotPassword() {
+    goToForgotPassword() {
         this.app.getRootNavs()[0].push('ForgotPasswordPage');
     }
 
@@ -94,7 +98,7 @@ export class LoginPage {
         this.registerCredentials.username = value.length > 8 ? value.substring(0, 8) : value;
     }
 
-    public onKeyUp(event: any) {
+    onKeyUp(event: any) {
         let newValue = event.target.value;
         let regExp = new RegExp('^[0-9]+$');
         // let regExp = new RegExp('^[A-Za-z0-9? ]+$');
@@ -102,7 +106,4 @@ export class LoginPage {
             this.registerCredentials.username = newValue.slice(0, -1);
         }
     }
-
-
-
 }
