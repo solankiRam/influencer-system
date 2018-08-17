@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { LoadingController, Loading, App, IonicPage } from 'ionic-angular';
+import { LoadingController, Loading, App, IonicPage, ActionSheetController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
+import { Constants } from '../../providers/constant';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,7 @@ export class HomePage {
   influencerType: any = [];
   influencerFilterData: any = [];
   imageBaseUrl: any = '';
-  constructor(private app: App, private auth: AuthServiceProvider,
+  constructor(private app: App, private auth: AuthServiceProvider, public actionSheetCtrl: ActionSheetController,
     private loadingCtrl: LoadingController, private geolocation: Geolocation) {
     this.imageBaseUrl = "http://54.71.128.110/influencer_system_dev/img/files/client_data/";
 
@@ -42,9 +43,23 @@ export class HomePage {
   }
 
   public logout() {
-    this.auth.logout().subscribe(succ => {
-      this.app.getRootNavs()[0].setRoot('LoginPage')
+    let alert = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: Constants.confirmMessages.logout,
+          handler: () => {
+            this.auth.logout().subscribe(succ => {
+              this.app.getRootNavs()[0].setRoot('LoginPage');
+            });
+          }
+        },
+        {
+          text: Constants.successMessages.cancel,
+          cssClass: 'removeColor'
+        }],
+      enableBackdropDismiss: true
     });
+    alert.present();
   }
 
   public onInput(keyword) {

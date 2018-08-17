@@ -48,32 +48,13 @@ export class AuthServiceProvider {
     }
     // Register
     public register(credentials) {
-        if (credentials.name === null || credentials.email === null || credentials.password === null) {
-            return Observable.throw("Please insert credentials");
-        } else {
-            return Observable.create(observer => {
-                this.http.post(AuthServiceProvider.REGISTER_URL, credentials)
-                    .map(res => res.json())
-                    .subscribe(data => {
-                        console.log(data);
-                    });
-                observer.next(true);
-                observer.complete();
-            });
-        }
+        return this.http.post(AuthServiceProvider.REGISTER_URL, credentials).map(res => res.json());
     }
 
     public editInfluencer(credentials, id) {
-        return Observable.create(observer => {
-            this.http.post(AuthServiceProvider.EDIT_URL + id, credentials)
-                .map(res => res.json())
-                .subscribe(data => {
-                    observer.next(true);
-                    observer.complete();
-                });
-
-        });
+        return this.http.post(AuthServiceProvider.EDIT_URL + id, credentials).map(res => res.json());
     }
+
     // Get Token
     public getToken() {
         return 'hjghghj123456';
