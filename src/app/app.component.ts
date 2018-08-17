@@ -20,7 +20,7 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, splashScreen: SplashScreen, private menu: MenuController,
     private authService: AuthServiceProvider, private ionicApp: IonicApp, private alertProvider: AlertProvider) {
     platform.ready().then(() => {
-
+      this.registeryBackButton()
       this.statusBar.styleBlackTranslucent();
       this.statusBar.backgroundColorByHexString('223a6b');
       this.authService.authenticated().then(tokenStatus => {

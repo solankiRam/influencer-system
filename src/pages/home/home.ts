@@ -3,6 +3,7 @@ import { LoadingController, Loading, App, IonicPage, ActionSheetController } fro
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 import { Constants } from '../../providers/constant';
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class HomePage {
   influencerFilterData: any = [];
   imageBaseUrl: any = '';
   constructor(private app: App, private auth: AuthServiceProvider, public actionSheetCtrl: ActionSheetController,
-    private loadingCtrl: LoadingController, private geolocation: Geolocation) {
+    private loadingCtrl: LoadingController, private geolocation: Geolocation, private alertProvider: AlertProvider) {
     this.imageBaseUrl = "http://54.71.128.110/influencer_system_dev/img/files/client_data/";
 
   }
@@ -79,12 +80,15 @@ export class HomePage {
       enableHighAccuracy: true
     };
 
+    this.alertProvider.showLoader('');
     this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+      this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
         coords: position.coords,
         title: 'Add'
       });
     }).catch(err => {
+      this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
         title: 'Add'
       });
