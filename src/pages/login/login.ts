@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavParams, AlertController, LoadingController, Loading, App } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -15,20 +16,22 @@ export class LoginPage {
 
     constructor(
         private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider,
-        private alertCtrl: AlertController, private loadingCtrl: LoadingController,
+        private alertCtrl: AlertController, private loadingCtrl: LoadingController, private alertProvider: AlertProvider
     ) { }
 
     createAccount() {
         let options = {
             enableHighAccuracy: true
         };
-
+        this.alertProvider.showLoader('');
         this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
+            this.alertProvider.hideLoader();
             this.app.getRootNavs()[0].push('RegisterPage', {
                 coords: position.coords,
                 title: 'Register'
             });
         }).catch(err => {
+            this.alertProvider.hideLoader();
             this.app.getRootNavs()[0].push('RegisterPage', {
                 title: 'Register'
             });
