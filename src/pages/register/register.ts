@@ -28,9 +28,9 @@ export class RegisterPage {
   influencerTypes: any = [];
   influencer = { userimage: '', adharfront: '', adharback: '' };
   title: string;
-  companyBranch:any = [];
+  companyBranch: any = [];
 
-  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '',  avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
+  registerCredentials = { 'homePhone': '', 'birthDate': '', influencertype_id: '', adharNo: '', bankAccountNo: '', ifscCode: '', branch: '', avatar: '', name: '', surname: '', mapAddress: '', address: '', place: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '', username: '', email: '', password: '', confirmation_password: '' };
   constructor(private app: App, private auth: AuthServiceProvider, private alertCtrl: AlertController,
     private camera: Camera, private alertProvider: AlertProvider, private formBuilder: FormBuilder,
     public geolocation: Geolocation, public navParams: NavParams, public geocoder: NativeGeocoder) {
@@ -73,10 +73,10 @@ export class RegisterPage {
     });
 
     this.auth.comapanyBranches().subscribe(success => {
-      console.log("success",success)
+      console.log("success", success)
       if (success.status) {
         this.companyBranch = success.data;
-        console.log("companyBranch",this.companyBranch)
+        console.log("companyBranch", this.companyBranch)
       }
     });
 
@@ -138,21 +138,21 @@ export class RegisterPage {
       if (this.title == 'Add') {
         if (success) {
           this.createSuccess = true;
-          this.showPopup("Success", "Added successfully.");
+          this.alertProvider.showToast("Added successfully.");
         } else {
-          this.showPopup("Error", "Problem while updating influencer.");
+          this.alertProvider.showToast("Problem while updating influencer.");
         }
       }
       else {
         if (success) {
           this.createSuccess = true;
-          this.showPopup("Success", "You are registerd successfully.");
+          this.alertProvider.showToast("You are registerd successfully.");
         } else {
-          this.showPopup("Error", "Problem while register influencer.");
+          this.alertProvider.showToast("Problem while register influencer.");
         }
       }
     }, error => {
-      this.showPopup("Error", error);
+      this.alertProvider.showToast("Error");
     });
 
   }

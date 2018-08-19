@@ -13,228 +13,291 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 ion-app.md [padding] {
-  .scroll-content {
-    padding: 5px 10px;
-  }
+    .scroll-content {
+        padding: 5px 10px;
+    }
 }
 
 .item-md {
-  padding-left: 0;
-  .datetime-md {
-    padding: 13px 8px 13px 0px;
-    width: 100%;
-    border-bottom: solid 1px #cdcdcd;
     padding-left: 0;
-    margin: 0;
-    font-size: 14px;
-    outline: none; // color: #fff;
-    height: 40px;
-    width: 100%;
-    .datetime-placeholder {
-      // color: #fff;
-    }
-  }
-  &.ng-invalid {
     .datetime-md {
-      border-bottom: solid 1px #ce0808;
+        padding: 13px 8px 13px 0px;
+        width: 100%;
+        border-bottom: solid 1px #cdcdcd;
+        padding-left: 0;
+        margin: 0;
+        font-size: 14px;
+        outline: none; // color: #fff;
+        height: 40px;
+        width: 100%;
+        .datetime-placeholder {
+            // color: #fff;
+        }
     }
-    img {
-      border: solid 1px #ce0808;
+    &.ng-invalid {
+        .datetime-md {
+            border-bottom: solid 1px #ce0808;
+        }
+        img {
+            border: solid 1px #ce0808;
+        }
+        .lbl {
+            color: #ce0808 !important;
+        }
     }
-    .lbl {
-      color: #ce0808 !important;
-    }
-  }
 }
 
 .toolbar-background {
-  background-color: color($colors, primary);
+    background-color: color($colors, primary);
 }
 
 ion-header {
-  ion-navbar {
-    .back-button-text {
-      display: none;
+    ion-navbar {
+        .back-button-text {
+            display: none;
+        }
     }
-  }
-  ion-title {
-    span,
-    div,
-    .toolbar-title-md {
-      color: color($colors, light);
-      font-weight: normal;
-      font-size: 17px;
+    ion-title {
+        span,
+        div,
+        .toolbar-title-md {
+            color: color($colors, light);
+            font-weight: normal;
+            font-size: 17px;
+        }
+        div {
+            font-size: 15px;
+        }
     }
-    div {
-      font-size: 15px;
+    ion-icon {
+        color: color($colors, light);
+        vertical-align: middle;
     }
-  }
-  ion-icon {
-    color: color($colors, light);
-    vertical-align: middle;
-  }
 }
 
 .popover-md {
-  .popover-content {
-    border-radius: 7px;
-    .item-md {
-      padding-left: 10px;
-      background-color: #cdcdcd;
-    }
-    .list-md {
-      .item-block {
-        .item-inner {
-          border-bottom: 0;
+    .popover-content {
+        border-radius: 7px;
+        .item-md {
+            padding-left: 10px;
+            background-color: #cdcdcd;
         }
-      }
+        .list-md {
+            .item-block {
+                .item-inner {
+                    border-bottom: 0;
+                }
+            }
+        }
     }
-  }
 }
 
 .item-md {
-  .radio-icon {
-    display: none;
-  }
+    .radio-icon {
+        display: none;
+    }
 }
 
 /*********************************add**********************/
 
 .register {
-  .list-md {
-    margin-left: 0;
-    margin-right: 0;
-    .item-block {
-      .item-inner {
-        border-bottom: none;
+    .list-md {
+        margin-left: 0;
+        margin-right: 0;
+        .item-block {
+            .item-inner {
+                border-bottom: none;
+                padding: 0;
+            }
+        }
+    }
+    .img-box {
+        background-color: transparent;
         padding: 0;
-      }
+        margin: 5px 0;
+        &.user-img {
+            margin-top: 30px;
+        }
+        .item-inner {
+            padding: 0;
+            border: none;
+        }
+        .label {
+            margin: 0;
+            .lbl {
+                font-size: 14px;
+                text-align: center;
+                display: block;
+                margin: 5px 0 0 0;
+            }
+        }
     }
-  }
-  .img-box {
-    background-color: transparent;
-    padding: 0;
-    margin: 5px 0;
-    &.user-img {
-      margin-top: 30px;
+    .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border: none;
+        box-shadow: none;
     }
-    .item-inner {
-      padding: 0;
-      border: none;
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border: none;
+        box-shadow: none;
     }
-    .label {
-      margin: 0;
-      .lbl {
-        font-size: 14px;
-        text-align: center;
-        display: block;
-        margin: 5px 0 0 0;
-      }
+    .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus):last-child {
+        border: none;
+        box-shadow: none;
     }
-  }
-  .item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-    border: none;
-    box-shadow: none;
-  }
-  .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
-  .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
-    border: none;
-    box-shadow: none;
-  }
-  .list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):not(.item-input-has-focus):last-child {
-    border: none;
-    box-shadow: none;
-  }
-  .field-title .toolbar-title {
-    background-color: rgba(0, 0, 0, 0.3); // color: #fff;
-    font-size: 16px;
-    text-transform: uppercase;
-    border-left: solid 5px #cccac9;
-    padding: 10px 15px;
-    border-radius: 0 40px 0 0;
-  }
-  .field {
-    background-color: transparent;
-    input {
-      border-bottom: solid 1px #cdcdcd;
-      padding-left: 0;
-      margin: 0;
-      font-size: 14px;
-      outline: none;
-      height: 40px;
-      width: 100%;
+    .field-title .toolbar-title {
+        background-color: rgba(0, 0, 0, 0.3); // color: #fff;
+        font-size: 16px;
+        text-transform: uppercase;
+        border-left: solid 5px #cccac9;
+        padding: 10px 15px;
+        border-radius: 0 40px 0 0;
     }
-    &.ng-invalid {
-      input {
-        border-bottom: solid 1px #ce0808;
-      }
+    .field {
+        background-color: transparent;
+        input {
+            border-bottom: solid 1px #cdcdcd;
+            padding-left: 0;
+            margin: 0;
+            font-size: 14px;
+            outline: none;
+            height: 40px;
+            width: 100%;
+        }
+        &.ng-invalid {
+            input {
+                border-bottom: solid 1px #ce0808;
+            }
+        }
+        &.item-select {
+            padding: 0;
+            .label {
+                margin: 0;
+                height: 40px;
+                font-size: 14px;
+                line-height: 40px;
+            }
+            .item-cover {
+                border-bottom: solid 1px #cdcdcd;
+                outline: none;
+            }
+            .select-text {
+                font-size: 14px;
+            }
+        }
     }
-    &.item-select {
-      padding: 0;
-      .label {
-        margin: 0;
+    .submit-btn {
+        opacity: 1;
+        box-shadow: none;
         height: 40px;
-        font-size: 14px;
         line-height: 40px;
-      }
-      .item-cover {
-        border-bottom: solid 1px #cdcdcd;
-        outline: none;
-      }
-      .select-text {
-        font-size: 14px;
-      }
+        padding: 0;
+        margin: 20px 0 0 0;
+        border-radius: 5px;
+        font-size: 1.5rem;
     }
-  }
-  .submit-btn {
-    opacity: 1;
-    box-shadow: none;
-    height: 40px;
-    line-height: 40px;
-    padding: 0;
-    margin: 20px 0 0 0;
-    border-radius: 5px;
-    font-size: 1.5rem;
-  }
 }
 
 .item-md {
-  ion-avatar {
-    ion-img,
-    img {
-      margin: auto;
-      width: 85px;
-      height: 83px;
+    ion-avatar {
+        ion-img,
+        img {
+            margin: auto;
+            width: 85px;
+            height: 83px;
+        }
     }
-  }
 }
 
 ion-avatar {
-  ion-img,
-  img {
-    margin: auto;
-    width: 85px;
-    height: 83px;
-  }
+    ion-img,
+    img {
+        margin: auto;
+        width: 85px;
+        height: 83px;
+    }
 }
 
-
 .item-md {
-  ion-avatar {
-    &.adharImage {
-      img{
-        border-radius: 0;
-      } 
+    ion-avatar {
+        &.adharImage {
+            img {
+                border-radius: 0;
+            }
+        }
     }
-  }
 }
 
 /*****************************************************************/
 
-
 span {
-  &.wrongCredential {
-      color: color($colors, danger);
-      display: block;
-  }
+    &.wrongCredential {
+        color: color($colors, danger);
+        display: block;
+    }
+}
+
+.action-sheet-md {
+    .action-sheet-title {
+        text-align: center;
+        color: color($colors, heading);
+        margin-bottom: 5px;
+        background-color: color($colors, light);
+        border-radius: 10px;
+        min-height: 50px;
+        padding: 17px 16px;
+        font-size: 20px;
+    }
+    .action-sheet-group {
+        background-color: transparent;
+        padding-bottom: 5px;
+        .button-inner {
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+        }
+        .removeColor {
+            color: color($colors, wrongCredential);
+        }
+        .inverseColor {
+            background-color: color($colors, primary);
+            color: color($colors, light);
+        }
+        &.action-sheet-group-cancel {
+            button {
+                font-weight: bold;
+                color: color($colors, wrongCredential);
+            }
+        }
+    }
+    .action-sheet-container {
+        padding: 0px 10px;
+    }
+    .action-sheet-button {
+        background: color($colors, light);
+        color: color($colors, primary);
+        height: 50px;
+        font-size: 20px;
+        border-bottom: 1px solid color($colors, borderBottom);
+        span {
+            text-align: center;
+        }
+    }
+    &.flagIconSelect {
+        .action-sheet-button {
+            background-repeat: no-repeat;
+            background-position: 39% center;
+            background-size: 18px;
+        }
+    }
+    .action-sheet-button:first-of-type {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .action-sheet-button:last-of-type {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-bottom: none;
+    }
 }

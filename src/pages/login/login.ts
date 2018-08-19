@@ -15,8 +15,8 @@ export class LoginPage {
     registerCredentials = { username: '', password: '' };
 
     constructor(
-        private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider,
-        private alertCtrl: AlertController, private loadingCtrl: LoadingController, private alertProvider: AlertProvider
+        private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider, private alertProvider: AlertProvider,
+        private alertCtrl: AlertController, private loadingCtrl: LoadingController,
     ) { }
 
     createAccount() {

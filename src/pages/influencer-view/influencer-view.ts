@@ -159,8 +159,8 @@ export class InfluencerViewPage {
   }
   public register() {
     let value = this.editForm.value;
-    console.log('this.userData',this.userData.image)
-    console.log('Value',value.userimage)
+    console.log('this.userData', this.userData.image)
+    console.log('Value', value.userimage)
     let params = {
       Influencer: {
         influencertype_id: value.influencertype_id,
@@ -190,13 +190,13 @@ export class InfluencerViewPage {
     }
     this.auth.editInfluencer(params, this.influencerId).subscribe(success => {
       if (success) {
-        this.showPopup("Success", "Influencer details Updated successfully.");
+        this.alertProvider.showToast("Influencer details Updated successfully.");
         this.app.getRootNavs()[0].pop();
       } else {
-        this.showPopup("Error", "Problem while updating influencer.");
+        this.alertProvider.showToast("Problem while updating influencer.");
       }
     }, error => {
-      this.showPopup("Error", error);
+      this.alertProvider.showToast("Error");
     });
   }
 
