@@ -133,7 +133,7 @@ export class HomePage {
   }
 
   fromFilter(param) {
-
+    this.alertProvider.showLoader('Loading...');
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
     let inputparam = {
@@ -144,8 +144,9 @@ export class HomePage {
       if (allowed) {
         this.users = allowed.data;
       }
+      this.alertProvider.hideLoader();
     }, error => {
-
+      this.alertProvider.hideLoader();
     });
   }
 

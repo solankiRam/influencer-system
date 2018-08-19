@@ -23,6 +23,7 @@ export class AuthServiceProvider {
     static readonly getInfluencerType = 'http://54.71.128.110/influencer_system_dev_api/admin/influencerTypes/index';
     static readonly getSingleInfluencer = 'http://54.71.128.110/influencer_system_dev_api/admin/influencers/view/';
     static readonly getCompanyBranch = 'http://54.71.128.110/influencer_system_dev_api/admin/companyBranches/';
+    static readonly forgotPassword = 'http://54.71.128.110/influencer_system_dev_api/users/forgetpwd/';
 
     access: boolean;
     token: string;
@@ -49,6 +50,10 @@ export class AuthServiceProvider {
     // Register
     public register(credentials) {
         return this.http.post(AuthServiceProvider.REGISTER_URL, credentials).map(res => res.json());
+    }
+
+    public forgotPassword(credentials) {
+        return this.http.post(AuthServiceProvider.forgotPassword, credentials).map(res => res.json());
     }
 
     public editInfluencer(credentials, id) {

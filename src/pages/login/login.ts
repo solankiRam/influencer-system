@@ -46,7 +46,7 @@ export class LoginPage {
 
             this.alertProvider.hideLoader();
             if (allowed !== undefined && allowed.group_id !== undefined) {
-                if (allowed.group_id == "3" || allowed.group_id == "4") {
+                if (allowed.group_id == "4") {
                     localStorage.setItem('token', allowed.token);
                     localStorage.setItem('id', allowed.id);
                     localStorage.setItem('groupId', allowed.group_id);
