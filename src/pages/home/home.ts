@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingController, Loading, App, IonicPage, ActionSheetController } from 'ionic-angular';
+import { LoadingController, Loading, App, IonicPage, ActionSheetController, Keyboard } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 import { Constants } from '../../providers/constant';
@@ -14,36 +14,42 @@ export class HomePage {
 
   users;
   searchKeyWord;
-  loading: Loading;
   influencerType: any = [];
   influencerFilterData: any = [];
   imageBaseUrl: any = '';
   constructor(private app: App, private auth: AuthServiceProvider, public actionSheetCtrl: ActionSheetController,
-    private loadingCtrl: LoadingController, private geolocation: Geolocation, private alertProvider: AlertProvider) {
+    private loadingCtrl: LoadingController, private geolocation: Geolocation, private alertProvider: AlertProvider,
+    private keyboard: Keyboard) {
     this.imageBaseUrl = "http://54.71.128.110/influencer_system_dev/img/files/client_data/";
 
   }
 
-  ionViewWillEnter() {
-    this.getUsers();
+  ionViewWillEnter(refresher) {
+    this.getUsers(refresher);
     this.getInfluencerType();
   }
 
-  public getUsers() {
-    this.showLoading()
+  getUsers(refresher) {
+    this.alertProvider.showLoader('Loading...');
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
-    this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId }).subscribe(allowed => {
+    let inputparam = { start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId };
+    this.auth.getinfluencerList(inputparam).subscribe(allowed => {
+      this.alertProvider.hideLoader();
+      if (refresher) {
+        setTimeout(() => {
+          refresher.complete();
+        }, 500);
+      }
       if (allowed) {
-        this.loading.dismiss();
         this.users = allowed.data;
       }
     }, error => {
-
+      this.alertProvider.hideLoader();
     });
   }
 
-  public logout() {
+  logout() {
     let alert = this.actionSheetCtrl.create({
       buttons: [
         {
@@ -63,7 +69,7 @@ export class HomePage {
     alert.present();
   }
 
-  public onInput(keyword) {
+  onInput(keyword) {
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
     this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId, data: { search: { name: keyword, status: null } } }).subscribe(allowed => {
@@ -75,7 +81,7 @@ export class HomePage {
     });
   }
 
-  public goToAdd() {
+  goToAdd() {
     let options = {
       enableHighAccuracy: true
     };
@@ -84,27 +90,20 @@ export class HomePage {
       this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
         coords: position.coords,
-        title: 'Add'
+        title: 'Add influencer'
       });
     }).catch(err => {
       this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
-        title: 'Add'
+        title: 'Add influencer'
       });
     });
   }
 
-  public goToView(user) {
+  goToView(user) {
     this.app.getRootNavs()[0].push('InfluencerViewPage', {
       insId: user.id
     });
-  }
-  showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
-    });
-    this.loading.present();
   }
 
   getInfluencerType() {
@@ -112,16 +111,36 @@ export class HomePage {
 
       if (allowed.status) {
         this.influencerType = allowed.data;
-        console.log("all", this.influencerType);
+        this.influencerType.push({ InfluencerType: { name: 'Reset' } })
       }
     }, error => {
 
     });
   }
+
   infoTypeFilter(param) {
+    if (param) {
+      this.fromFilter(param);
+    }
+    else {
+      this.searchKeyWord = '';
+      this.getUsers(null);
+    }
+  }
+
+  onCancel() {
+    this.keyboard.close();
+  }
+
+  fromFilter(param) {
+
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
-    this.auth.getinfluencerList({ start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1, data: { search: { influencertype_id: param, status: null } } }).subscribe(allowed => {
+    let inputparam = {
+      start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1,
+      data: { search: { influencertype_id: param, status: null } }
+    }
+    this.auth.getinfluencerList(inputparam).subscribe(allowed => {
       if (allowed) {
         this.users = allowed.data;
       }

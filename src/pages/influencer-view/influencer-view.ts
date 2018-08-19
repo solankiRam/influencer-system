@@ -158,9 +158,8 @@ export class InfluencerViewPage {
     }
   }
   public register() {
+    this.alertProvider.showLoader('Updating');
     let value = this.editForm.value;
-    console.log('this.userData', this.userData.image)
-    console.log('Value', value.userimage)
     let params = {
       Influencer: {
         influencertype_id: value.influencertype_id,
@@ -189,6 +188,7 @@ export class InfluencerViewPage {
       }
     }
     this.auth.editInfluencer(params, this.influencerId).subscribe(success => {
+      this.alertProvider.hideLoader();
       if (success) {
         this.alertProvider.showToast("Influencer details Updated successfully.");
         this.app.getRootNavs()[0].pop();
@@ -196,26 +196,9 @@ export class InfluencerViewPage {
         this.alertProvider.showToast("Problem while updating influencer.");
       }
     }, error => {
+      this.alertProvider.hideLoader();
       this.alertProvider.showToast("Error");
     });
-  }
-
-  showPopup(title, text) {
-    let alert = this.alertCtrl.create({
-      title: title,
-      subTitle: text,
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            if (this.createSuccess) {
-              this.app.getRootNavs()[0].popToRoot();
-            }
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
   editEnable() {
@@ -225,7 +208,12 @@ export class InfluencerViewPage {
   getcountry(lat, lng) {
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
       if (res[0].thoroughfare) {
-        this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+        if (res[0].subThoroughfare) {
+          this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+        }
+        else {
+          this.editForm.controls['address1'].setValue(res[0].thoroughfare);
+        }
       }
       else {
         this.editForm.controls['address1'].setValue(res[0].subLocality);

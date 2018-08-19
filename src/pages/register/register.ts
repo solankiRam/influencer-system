@@ -73,10 +73,8 @@ export class RegisterPage {
     });
 
     this.auth.comapanyBranches().subscribe(success => {
-      console.log("success", success)
       if (success.status) {
         this.companyBranch = success.data;
-        console.log("companyBranch", this.companyBranch)
       }
     });
 
@@ -101,6 +99,7 @@ export class RegisterPage {
   }
 
   register() {
+    this.alertProvider.showLoader('Saving');
     let value = this.editForm.value;
     let params: any = {
       Influencer: {
@@ -134,53 +133,38 @@ export class RegisterPage {
       params.createdby = localStorage.getItem('id');
     }
     this.auth.register(params).subscribe(success => {
-
+      this.alertProvider.hideLoader();
       if (this.title == 'Add') {
         if (success) {
-          this.createSuccess = true;
           this.alertProvider.showToast("Added successfully.");
+          this.app.getRootNavs()[0].pop();
         } else {
           this.alertProvider.showToast("Problem while updating influencer.");
         }
       }
       else {
         if (success) {
-          this.createSuccess = true;
           this.alertProvider.showToast("You are registerd successfully.");
+          this.app.getRootNavs()[0].pop();
         } else {
           this.alertProvider.showToast("Problem while register influencer.");
         }
       }
     }, error => {
+      this.alertProvider.hideLoader();
       this.alertProvider.showToast("Error");
     });
-
   }
-
-  showPopup(title, text) {
-    let alert = this.alertCtrl.create({
-      title: title,
-      subTitle: text,
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            if (this.createSuccess) {
-              this.app.getRootNavs()[0].pop();
-            }
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
-
 
   getcountry(lat, lng) {
     this.geocoder.reverseGeocode(lat, lng).then((res: any) => {
       if (res[0].thoroughfare) {
-        this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+        if (res[0].subThoroughfare) {
+          this.editForm.controls['address1'].setValue(res[0].subThoroughfare + " " + res[0].thoroughfare);
+        }
+        else {
+          this.editForm.controls['address1'].setValue(res[0].thoroughfare);
+        }
       }
       else {
         this.editForm.controls['address1'].setValue(res[0].subLocality);

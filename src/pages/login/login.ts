@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavParams, AlertController, LoadingController, Loading, App } from 'ionic-angular';
+import { IonicPage, AlertController, LoadingController, App } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 import { AlertProvider } from '../../providers/alert';
@@ -10,14 +10,12 @@ import { AlertProvider } from '../../providers/alert';
     templateUrl: 'login.html',
 })
 export class LoginPage {
-
-    loading: Loading;
     registerCredentials = { username: '', password: '' };
 
-    constructor(
-        private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider, private alertProvider: AlertProvider,
-        private alertCtrl: AlertController, private loadingCtrl: LoadingController,
-    ) { }
+    constructor(private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider,
+        private alertProvider: AlertProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
+
+    }
 
     createAccount() {
         let options = {
@@ -43,8 +41,10 @@ export class LoginPage {
     }
 
     login() {
-        this.showLoading()
+        this.alertProvider.showLoader('Please wait...');
         this.auth.login(this.registerCredentials).subscribe(allowed => {
+
+            this.alertProvider.hideLoader();
             if (allowed !== undefined && allowed.group_id !== undefined) {
                 if (allowed.group_id == "3" || allowed.group_id == "4") {
                     localStorage.setItem('token', allowed.token);
@@ -60,29 +60,12 @@ export class LoginPage {
                 this.showError("These credentials do not match our records");
             }
         }, error => {
+            this.alertProvider.hideLoader();
             this.showError(error);
         });
     }
 
-    showLoading() {
-        this.loading = this.loadingCtrl.create({
-            content: 'Please wait...',
-            dismissOnPageChange: true
-        });
-        this.loading.present();
-    }
-
-    hideLoading() {
-        this.loading = this.loadingCtrl.create({
-            content: 'Please wait...',
-            dismissOnPageChange: true
-        });
-        this.loading.present();
-    }
-
     showError(text) {
-        this.loading.dismiss();
-
         let alert = this.alertCtrl.create({
             title: 'Fail',
             subTitle: text,
@@ -97,7 +80,6 @@ export class LoginPage {
     }
 
     change(value) {
-        console.log("value", value.length);
         this.registerCredentials.username = value.length > 8 ? value.substring(0, 8) : value;
     }
 

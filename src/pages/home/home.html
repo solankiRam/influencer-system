@@ -13,9 +13,14 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher (ionRefresh)="ionViewWillEnter($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-row class="search-box">
     <ion-col col-11>
-      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" (ionCancel)="onCancel($event)">
+      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" 
+      (ionCancel)="onCancel($event)">
       </ion-searchbar>
     </ion-col>
     <ion-col col-1>

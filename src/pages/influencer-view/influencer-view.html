@@ -54,7 +54,7 @@
       <ion-col col-12>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
+            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" disabled limit-to="10" [(ngModel)]="registerModel.mobile"
               (ngModelChange)="registerModel.mobile"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid">{{validationMessages.mobileNo}}</span>
@@ -171,7 +171,7 @@
         </ion-title>
         <ion-list inset>
           <ion-item class="field">
-            <ion-input placeholder="Bank Account No" type="number" limit-to="30" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
+            <ion-input placeholder="Bank Account No" type="number" limit-to="16" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
               (ngModelChange)="registerModel.bankAccountNo"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid">{{validationMessages.required}}</span>
