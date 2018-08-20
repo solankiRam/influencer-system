@@ -57,7 +57,7 @@ export class LoginPage {
                 }
 
             } else {
-                this.showError("These credentials do not match our records");
+                this.showError("User Mobile number or password is incorrect.");
             }
         }, error => {
             this.alertProvider.hideLoader();

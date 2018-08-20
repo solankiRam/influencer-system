@@ -1,5 +1,5 @@
 export namespace Constants {
-  export const version = 'Version: 0.0.q';
+  export const version = 'Version: 0.0.6';
   export const notificationBarColor = '223a6b';
   export const successMessages = {
     exitFromApp: 'Press again to exit!',
