@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams,App } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, App } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Validator } from '../../providers/validator/validator';
@@ -28,15 +28,15 @@ export class ForgotPasswordPage {
   register() {
     this.alertProvider.showLoader('Sending');
     let value = this.editForm.value;
-    let params: any = { User: { username : value.mobile } };
+    let params: any = { User: { username: value.mobile } };
     this.auth.forgotPassword(params).subscribe(success => {
-     if(success.status){
-      this.alertProvider.showToast("Forgot Password successfully.");
-      this.app.getRootNavs()[0].pop();
-     }else{
-      this.alertProvider.showToast(success.message);
-     }
-     this.alertProvider.hideLoader();
+      if (success.status) {
+        this.alertProvider.showToast("Forgot Password successfully.");
+        this.app.getRootNavs()[0].pop();
+      } else {
+        this.alertProvider.showToast('Please enter registerd mobile number.');
+      }
+      this.alertProvider.hideLoader();
     }, error => {
       this.alertProvider.hideLoader();
       this.alertProvider.showToast("Error");
