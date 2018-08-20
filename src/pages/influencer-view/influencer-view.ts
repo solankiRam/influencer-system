@@ -240,6 +240,14 @@ export class InfluencerViewPage {
         coords: position.coords,
         callback: (data) => {
           return new Promise((resolve, reject) => {
+            this.editForm.controls['address1'].setValue('');
+            this.editForm.controls['place'].setValue('');
+            this.editForm.controls['city'].setValue('');
+            this.editForm.controls['state'].setValue('');
+            this.editForm.controls['country'].setValue('');
+            this.editForm.controls['zipcode'].setValue('');
+            this.editForm.controls['latitude'].setValue('');
+            this.editForm.controls['longitude'].setValue('');
             this.getcountry(data.marker.lat, data.marker.lng)
             resolve();
           });

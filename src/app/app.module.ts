@@ -16,7 +16,6 @@ import { Base64 } from '@ionic-native/base64';
 import { GoogleMapsProvider } from '../providers/google-maps/google-maps';
 import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
-import { Geolocation } from '@ionic-native/geolocation';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
 import { AlertProvider } from '../providers/alert';
 
@@ -33,7 +32,7 @@ import { AlertProvider } from '../providers/alert';
   entryComponents: [MyApp],
   providers: [
     StatusBar, AlertProvider, SplashScreen, Camera, ImagePicker, Base64, NativeGeocoder,
-    Geolocation, { provide: ErrorHandler, useClass: IonicErrorHandler }, AuthServiceProvider,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }, AuthServiceProvider,
     GoogleMapsProvider, ConnectivityProvider, LocationsProvider, GeocoderProvider
   ]
 })
