@@ -149,5 +149,4 @@ export class HomePage {
       this.alertProvider.hideLoader();
     });
   }
-
 }
