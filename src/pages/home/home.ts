@@ -55,7 +55,7 @@ export class HomePage {
         {
           text: Constants.confirmMessages.logout,
           handler: () => {
-            this.auth.logout().subscribe(succ => {
+            this.auth.logout().then(succ => {
               this.app.getRootNavs()[0].setRoot('LoginPage');
             });
           }
@@ -72,7 +72,11 @@ export class HomePage {
   onInput(keyword) {
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
-    this.auth.getinfluencerList({ start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId, data: { search: { name: keyword, status: null } } }).subscribe(allowed => {
+    let inputparam = {
+      start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId,
+      data: { search: { name: keyword, status: null } }
+    }
+    this.auth.getinfluencerList(inputparam).subscribe(allowed => {
       if (allowed) {
         this.users = allowed.data;
       }
