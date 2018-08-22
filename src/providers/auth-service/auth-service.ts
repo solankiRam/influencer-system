@@ -16,6 +16,7 @@ export class AuthServiceProvider {
 
     // Change to this http://ed43bb3b.ngrok.io/api/login
     static readonly LOGIN_URL = 'http://54.71.128.110/influencer_system_dev_api/users/login';
+    static readonly LOGOUT_URL = 'http://54.71.128.110/influencer_system_dev_api/users/logout';
     // Change to this http://ed43bb3b.ngrok.io/api/register
     static readonly REGISTER_URL = 'http://54.71.128.110/influencer_system_dev_api/admin/Influencers/add';
     static readonly EDIT_URL = 'http://54.71.128.110/influencer_system_dev_api/admin/Influencers/edit/';
@@ -32,7 +33,8 @@ export class AuthServiceProvider {
 
     // Login
     public login(credentials) {
-        if (credentials.username === null || credentials.password === null) {
+        console.log("Cre",credentials)
+        if (credentials.User.username === null || credentials.User.password === null) {
             return Observable.throw("Please insert credentials.");
         } else {
             return Observable.create(observer => {
@@ -76,6 +78,12 @@ export class AuthServiceProvider {
     // Logout
     public logout() {
         return Observable.create(observer => {
+            this.http.get(AuthServiceProvider.LOGOUT_URL)
+                .map(res => res.json())
+                .subscribe(data => {
+                    console.log("Datat")
+                    observer.next(data);
+                });
             observer.next(true);
             this.clearAll();
             observer.complete();

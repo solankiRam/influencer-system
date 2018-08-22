@@ -42,7 +42,8 @@ export class LoginPage {
 
     login() {
         this.alertProvider.showLoader('Please wait...');
-        this.auth.login(this.registerCredentials).subscribe(allowed => {
+        let param = {'User':this.registerCredentials};
+        this.auth.login(param).subscribe(allowed => {
 
             this.alertProvider.hideLoader();
             if (allowed !== undefined && allowed.group_id !== undefined) {
