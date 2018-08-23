@@ -1,7 +1,8 @@
 export namespace Constants {
-  export const version = 'Version: 1.0.9';
+  export const version = 'Version: 1.0.10';
   export const notificationBarColor = '223a6b';
-  export const baseUrl = 'http://54.71.128.110/influencer_system_live_api/';
+  export const baseUrl = 'http://54.71.128.110/influencer_system_dev_api/';
+  export const baseUrlImg = 'http://54.71.128.110/influencer_system_dev/';
   export const successMessages = {
     exitFromApp: 'Press again to exit!',
     cancel: 'Cancel',

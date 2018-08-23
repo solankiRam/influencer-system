@@ -31,7 +31,7 @@ export class InfluencerViewPage {
   registerModel: any = {};
   validationMessages = Constants.validationMessages;
   companyBranch: any = [];
-  userData: any = [];
+  userData: any;
 
 
   influencer = { userimage: '', adharfront: '', adharback: '' };

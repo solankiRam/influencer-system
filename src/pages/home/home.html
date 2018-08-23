@@ -1,8 +1,7 @@
 <ion-header>
   <ion-navbar>
-
     <ion-title>
-      Influencer List
+      {{userData.name}}
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="logout()">
@@ -19,8 +18,7 @@
   </ion-refresher>
   <ion-row class="search-box">
     <ion-col col-11>
-      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" 
-      (ionCancel)="onCancel($event)">
+      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" (ionClear)="onCancel($event)">
       </ion-searchbar>
     </ion-col>
     <ion-col col-1>

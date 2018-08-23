@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 import { Constants } from '../../providers/constant';
 import { AlertProvider } from '../../providers/alert';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -17,11 +18,15 @@ export class HomePage {
   influencerType: any = [];
   influencerFilterData: any = [];
   imageBaseUrl: any = '';
+  userData: any = {};
   constructor(private app: App, private auth: AuthServiceProvider, public actionSheetCtrl: ActionSheetController,
-    private loadingCtrl: LoadingController, private geolocation: Geolocation, private alertProvider: AlertProvider,
-    private keyboard: Keyboard) {
-    this.imageBaseUrl = "http://54.71.128.110/influencer_system_dev/img/files/client_data/";
-
+    private geolocation: Geolocation, private alertProvider: AlertProvider, private keyboard: Keyboard,
+    private storage: Storage) {
+    this.imageBaseUrl = Constants.baseUrlImg + "img/files/client_data/";
+    this.storage.get('data').then(data => {
+      console.log(data);
+      this.userData = data;
+    })
   }
 
   ionViewWillEnter(refresher) {
@@ -94,12 +99,12 @@ export class HomePage {
       this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
         coords: position.coords,
-        title: 'Add influencer'
+        title: 'Influencer registration form'
       });
     }).catch(err => {
       this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
-        title: 'Add influencer'
+        title: 'Influencer registration form'
       });
     });
   }

@@ -31,12 +31,12 @@ export class LoginPage {
             this.alertProvider.hideLoader();
             this.app.getRootNavs()[0].push('RegisterPage', {
                 coords: position.coords,
-                title: 'Register'
+                title: 'Influencer registration form'
             });
         }).catch(err => {
             this.alertProvider.hideLoader();
             this.app.getRootNavs()[0].push('RegisterPage', {
-                title: 'Register'
+                title: 'Influencer registration form'
             });
         });
     }
