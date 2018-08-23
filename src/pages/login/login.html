@@ -6,18 +6,17 @@
       </ion-avatar>
     </ion-col>
   </ion-row>
-  <form #registerForm="ngForm">
+  <form [formGroup]="loginForm">
     <ion-row>
       <ion-col>
         <ion-list inset>
 
           <ion-item class="email">
-            <ion-input type="tel" maxlength="10" (keyup)="onKeyUp($event)" placeholder="Username" name="username" [(ngModel)]="registerCredentials.username"
-              required></ion-input>
+            <ion-input type="tel" maxlength="10" placeholder="Username*" formControlName="username"></ion-input>
           </ion-item>
 
           <ion-item class="password">
-            <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+            <ion-input type="password" placeholder="Password*" formControlName="password"></ion-input>
           </ion-item>
 
         </ion-list>
@@ -25,7 +24,7 @@
     </ion-row>
 
     <ion-row>
-      <button ion-button class="submit-btn" full (click)="login()" [disabled]="!registerForm.form.valid">Login</button>
+      <button ion-button class="submit-btn" full (click)="login()" [disabled]="!loginForm.valid">Login</button>
       <button ion-button class="forgot" (click)="goToForgotPassword()">Forgot password?</button>
     </ion-row>
 

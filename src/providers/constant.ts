@@ -1,6 +1,7 @@
 export namespace Constants {
-  export const version = 'Version: 0.0.6';
+  export const version = 'Version: 1.0.9';
   export const notificationBarColor = '223a6b';
+  export const baseUrl = 'http://54.71.128.110/influencer_system_live_api/';
   export const successMessages = {
     exitFromApp: 'Press again to exit!',
     cancel: 'Cancel',

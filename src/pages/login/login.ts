@@ -3,6 +3,8 @@ import { IonicPage, AlertController, LoadingController, App } from 'ionic-angula
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Geoposition, Geolocation } from '@ionic-native/geolocation';
 import { AlertProvider } from '../../providers/alert';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Validator } from '../../providers/validator/validator';
 
 @IonicPage()
 @Component({
@@ -10,11 +12,14 @@ import { AlertProvider } from '../../providers/alert';
     templateUrl: 'login.html',
 })
 export class LoginPage {
-    registerCredentials = { username: '', password: '' };
 
-    constructor(private app: App, public geolocation: Geolocation, private auth: AuthServiceProvider,
+    private loginForm: FormGroup;
+    constructor(private app: App, private formBuilder: FormBuilder, public geolocation: Geolocation, private auth: AuthServiceProvider,
         private alertProvider: AlertProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
-
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required],
+        });
     }
 
     createAccount() {
@@ -42,9 +47,11 @@ export class LoginPage {
 
     login() {
         this.alertProvider.showLoader('Please wait...');
-        let param = {'User':this.registerCredentials};
-        this.auth.login(param).subscribe(allowed => {
-
+        let inputparam = { User:{username: this.loginForm.value['username'], password: this.loginForm.value['password'] }};
+        // alert(JSON.stringify(inputparam))
+        this.auth.login(inputparam).subscribe(allowed => {
+            allowed = allowed.data;
+            // alert(JSON.stringify(allowed))
             this.alertProvider.hideLoader();
             if (allowed !== undefined && allowed.group_id !== undefined) {
                 if (allowed.group_id == "4") {
@@ -80,16 +87,4 @@ export class LoginPage {
         this.app.getRootNavs()[0].push('ForgotPasswordPage');
     }
 
-    change(value) {
-        this.registerCredentials.username = value.length > 8 ? value.substring(0, 8) : value;
-    }
-
-    onKeyUp(event: any) {
-        let newValue = event.target.value;
-        let regExp = new RegExp('^[0-9]+$');
-        // let regExp = new RegExp('^[A-Za-z0-9? ]+$');
-        if (!regExp.test(newValue)) {
-            this.registerCredentials.username = newValue.slice(0, -1);
-        }
-    }
 }
