@@ -31,7 +31,7 @@
     </ion-col>
   </ion-row>
   <ion-list>
-    <ion-item *ngFor="let user of users" (click)='goToView(user)'>
+    <ion-item *ngFor="let user of users | orderbyfilter : 'created'" (click)='goToView(user)'>
 
       <ion-card [ngClass]="{'active':user.status == 'Active'}">
 

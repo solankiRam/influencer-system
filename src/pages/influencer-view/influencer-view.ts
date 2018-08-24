@@ -27,7 +27,7 @@ export class InfluencerViewPage {
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
   userAvtar: any = 'assets/imgs/user_avtar.png';
-  imageBaseUrl: any =  Constants.baseUrlImg + "img/files/client_data/";;
+  imageBaseUrl: any = Constants.baseUrlImg + "img/files/client_data/";;
   registerModel: any = {};
   validationMessages = Constants.validationMessages;
   companyBranch: any = [];
@@ -51,13 +51,13 @@ export class InfluencerViewPage {
       lastName: ['', [Validators.required]],
       influencertype_id: [6, [Validators.required]],
       birthDate: [''],
-      adharNo: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]],
-      bankAccountNo: [''],
+      adhar_card: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]],
+      bank_account: [''],
       ifscCode: [''],
       branch: ['', [Validators.required]],
       email: Validator.emailNotReqValidator,
-      homePhone: ['', [Validators.minLength(10), Validators.maxLength(10)]],
-      mobile: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      home_phone: ['', [Validators.minLength(10), Validators.maxLength(10)]],
+      work_phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
       address1: ['', [Validators.required]],
       place: [''],
       city: ['', [Validators.required]],
@@ -76,7 +76,9 @@ export class InfluencerViewPage {
     console.log('ionViewDidLoad InfluencerViewPage');
   }
 
-
+  test(form) {
+    console.log(form)
+  }
   getInfluencer() {
     this.showLoading();
     console.log("this.influencerId", this.influencerId)
@@ -97,15 +99,16 @@ export class InfluencerViewPage {
       if (success.status) {
         this.userData = success.data.Influencer;
         let data = success.data.Influencer;
+        this.registerModel = data;
         this.editForm.controls['influencertype_id'].setValue(data.influencertype_id);
         this.editForm.controls['firstName'].setValue(data.name);
         this.editForm.controls['lastName'].setValue(data.surname);
         this.editForm.controls['email'].setValue(data.email);
-        this.editForm.controls['homePhone'].setValue(data.home_phone);
-        this.editForm.controls['mobile'].setValue(data.work_phone);
+        this.editForm.controls['home_phone'].setValue(data.home_phone);
+        this.editForm.controls['work_phone'].setValue(data.work_phone);
         this.editForm.controls['birthDate'].setValue(data.birthdate);
-        this.editForm.controls['adharNo'].setValue(data.adhar_card);
-        this.editForm.controls['bankAccountNo'].setValue(data.bank_account);
+        this.editForm.controls['adhar_card'].setValue(data.adhar_card);
+        this.editForm.controls['bank_account'].setValue(data.bank_account);
         this.editForm.controls['ifscCode'].setValue(data.ifsc_code);
         this.editForm.controls['branch'].setValue(data.branch);
         this.editForm.controls['longitude'].setValue(data.longitude);
@@ -119,9 +122,9 @@ export class InfluencerViewPage {
         this.editForm.controls['userimage'].setValue(data.image);
         this.editForm.controls['adharback'].setValue(data.adharback);
         this.editForm.controls['adharfront'].setValue(data.adharfront);
-        this.influencer.userimage = (data.image !== '') ?  Constants.baseUrlImg + "img/files/client_data/" + data.image :  'assets/imgs/user_avtar.png';
-        this.influencer.adharback = (data.adharback !== '') ?  Constants.baseUrlImg + "img/files/client_data/" + data.adharback :  'assets/imgs/logo.png';
-        this.influencer.adharfront = (data.adharfront !== '') ?  Constants.baseUrlImg + "img/files/client_data/" + data.adharfront :'assets/imgs/logo.png';
+        this.influencer.userimage = (data.image !== '') ? Constants.baseUrlImg + "img/files/client_data/" + data.image : 'assets/imgs/user_avtar.png';
+        this.influencer.adharback = (data.adharback !== '') ? Constants.baseUrlImg + "img/files/client_data/" + data.adharback : 'assets/imgs/logo.png';
+        this.influencer.adharfront = (data.adharfront !== '') ? Constants.baseUrlImg + "img/files/client_data/" + data.adharfront : 'assets/imgs/logo.png';
         // this.influencer.userimage = 'assets/imgs/user_avtar.png';
         // this.influencer.adharback = 'assets/imgs/logo.png';
         // this.influencer.adharfront = 'assets/imgs/logo.png';
@@ -174,11 +177,11 @@ export class InfluencerViewPage {
         country: value.country,
         latitude: value.latitude,
         longitude: value.longitude,
-        home_phone: value.homePhone,
-        work_phone: value.mobile,
+        home_phone: value.home_phone,
+        work_phone: value.work_phone,
         birthdate: value.birthDate,
-        adhar_card: value.adharNo,
-        bank_account: value.bankAccountNo,
+        adhar_card: value.adhar_card,
+        bank_account: value.bank_account,
         ifsc_code: value.ifscCode,
         branch: value.branch,
         status: 0,

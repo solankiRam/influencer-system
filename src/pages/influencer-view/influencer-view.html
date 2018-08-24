@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Update</ion-title>
+    <ion-title (click)="test(editForm)">Update</ion-title>
     <ion-buttons *ngIf="!isEdit" end>
       <button ion-button (click)="editEnable()">
         <ion-icon name="create"></ion-icon>
@@ -53,16 +53,16 @@
       </ion-col>
       <ion-col col-12>
         <ion-list inset>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" disabled limit-to="10" [(ngModel)]="registerModel.mobile"
-              (ngModelChange)="registerModel.mobile"></ion-input>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('work_phone').valid">
+            <ion-input placeholder="Mobile*" formControlName="work_phone" type="number" disabled limit-to="10" [(ngModel)]="registerModel.work_phone"
+              (ngModelChange)="registerModel.work_phone"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid">{{validationMessages.mobileNo}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.work_phone.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
+            <ion-input placeholder="Landline" formControlName="home_phone" type="number" limit-to="10" [(ngModel)]="registerModel.home_phone"
+              (ngModelChange)="registerModel.home_phone"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.home_phone.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
             <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
           </ion-item>
@@ -158,11 +158,11 @@
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.adharback.valid">{{validationMessages.required}}</span>
 
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('adharNo').valid">
-            <ion-input placeholder="Adhar Card No*" formControlName="adharNo" type="number" [(ngModel)]="registerModel.adharNo" (ngModelChange)="registerModel.adharNo"
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('adhar_card').valid">
+            <ion-input placeholder="Adhar Card No*" formControlName="adhar_card" type="number" [(ngModel)]="registerModel.adhar_card" (ngModelChange)="registerModel.adhar_card"
               limit-to="12"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.adharNo.valid">{{validationMessages.adharNo}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.adhar_card.valid">{{validationMessages.adharNo}}</span>
         </ion-list>
       </ion-col>
       <ion-col col-12>
@@ -171,10 +171,10 @@
         </ion-title>
         <ion-list inset>
           <ion-item class="field">
-            <ion-input placeholder="Bank Account No" type="number" limit-to="16" formControlName="bankAccountNo" [(ngModel)]="registerModel.bankAccountNo"
-              (ngModelChange)="registerModel.bankAccountNo"></ion-input>
+            <ion-input placeholder="Bank Account No" type="number" limit-to="16" formControlName="bank_account" [(ngModel)]="registerModel.bank_account"
+              (ngModelChange)="registerModel.bank_account"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.bankAccountNo.valid">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.bank_account.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
             <ion-input placeholder="IFSC Code" formControlName="ifscCode" maxlength="12"></ion-input>
           </ion-item>
