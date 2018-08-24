@@ -27,7 +27,7 @@ export class InfluencerViewPage {
   isEdit: boolean;
   imgPreview = 'assets/imgs/logo.png';
   userAvtar: any = 'assets/imgs/user_avtar.png';
-  imageBaseUrl: any = "http://54.71.128.110/influencer_system_dev/img/files/client_data/";
+  imageBaseUrl: any =  Constants.baseUrlImg + "img/files/client_data/";;
   registerModel: any = {};
   validationMessages = Constants.validationMessages;
   companyBranch: any = [];
@@ -119,9 +119,9 @@ export class InfluencerViewPage {
         this.editForm.controls['userimage'].setValue(data.image);
         this.editForm.controls['adharback'].setValue(data.adharback);
         this.editForm.controls['adharfront'].setValue(data.adharfront);
-        this.influencer.userimage = (data.image !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.image : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/user_avtar.png';
-        this.influencer.adharback = (data.adharback !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.adharback : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/logo.png';
-        this.influencer.adharfront = (data.adharfront !== '') ? "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + data.adharfront : "http://54.71.128.110/influencer_system_dev/img/files/client_data/" + 'assets/imgs/logo.png';
+        this.influencer.userimage = (data.image !== '') ?  Constants.baseUrlImg + "img/files/client_data/" + data.image :  'assets/imgs/user_avtar.png';
+        this.influencer.adharback = (data.adharback !== '') ?  Constants.baseUrlImg + "img/files/client_data/" + data.adharback :  'assets/imgs/logo.png';
+        this.influencer.adharfront = (data.adharfront !== '') ?  Constants.baseUrlImg + "img/files/client_data/" + data.adharfront :'assets/imgs/logo.png';
         // this.influencer.userimage = 'assets/imgs/user_avtar.png';
         // this.influencer.adharback = 'assets/imgs/logo.png';
         // this.influencer.adharfront = 'assets/imgs/logo.png';

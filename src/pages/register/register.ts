@@ -128,12 +128,12 @@ export class RegisterPage {
         adharback: value.adharback
       }
     }
-    if (this.title == 'Add influencer') {
+    if (localStorage.getItem('id')) {
       params.createdby = localStorage.getItem('id');
     }
     this.auth.register(params).subscribe(success => {
       this.alertProvider.hideLoader();
-      if (this.title == 'Add influencer') {
+      if (localStorage.getItem('id')) {
         if (success) {
           this.alertProvider.showToast("Added successfully.");
           this.app.getRootNavs()[0].pop();
