@@ -24,7 +24,6 @@ export class HomePage {
     private storage: Storage) {
     this.imageBaseUrl = Constants.baseUrlImg + "img/files/client_data/";
     this.storage.get('data').then(data => {
-      console.log(data);
       this.userData = data;
     })
   }
@@ -99,12 +98,12 @@ export class HomePage {
       this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
         coords: position.coords,
-        title: 'Influencer registration form'
+        title: 'Add Influencer'
       });
     }).catch(err => {
       this.alertProvider.hideLoader();
       this.app.getRootNavs()[0].push('RegisterPage', {
-        title: 'Influencer registration form'
+        title: 'Add Influencer'
       });
     });
   }
