@@ -47,7 +47,7 @@ export class LoginPage {
 
     login() {
         this.alertProvider.showLoader('Please wait...');
-        let inputparam = { User:{username: this.loginForm.value['username'], password: this.loginForm.value['password'] }};
+        let inputparam = { User: { username: this.loginForm.value['username'], password: this.loginForm.value['password'] } };
         // alert(JSON.stringify(inputparam))
         this.auth.login(inputparam).subscribe(allowed => {
             allowed = allowed.data;
@@ -85,6 +85,10 @@ export class LoginPage {
 
     goToForgotPassword() {
         this.app.getRootNavs()[0].push('ForgotPasswordPage');
+    }
+
+    gotoCloudVisionPage() {
+        this.app.getRootNavs()[0].push('CloudVisionPage');
     }
 
 }
