@@ -3,11 +3,8 @@ export namespace Constants {
   export const notificationBarColor = '223a6b';
   export const baseUrl = 'http://54.71.128.110/influencer_system_live_api/';
   export const baseUrlImg = 'http://54.71.128.110/influencer_system_live/';
-<<<<<<< HEAD
-=======
   export const cloudVision = 'AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc';
 
->>>>>>> 00484450ab9ec6c3f04d551745651dc1dd6c44e5
   export const successMessages = {
     exitFromApp: 'Press again to exit!',
     cancel: 'Cancel',

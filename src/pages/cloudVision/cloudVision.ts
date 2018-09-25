@@ -4,6 +4,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { GoogleCloudVisionServiceProvider } from '../../providers/cloudVisionProvider';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { AlertProvider } from '../../providers/alert';
 
 @IonicPage()
 @Component({
@@ -12,8 +14,9 @@ import { GoogleCloudVisionServiceProvider } from '../../providers/cloudVisionPro
 })
 export class CloudVisionPage {
 
-  constructor(public navCtrl: NavController, private camera: Camera,
-    private vision: GoogleCloudVisionServiceProvider,
+  items: any = [];
+  constructor(public navCtrl: NavController, private camera: Camera, public alertProvider: AlertProvider,
+    private vision: GoogleCloudVisionServiceProvider, private auth: AuthServiceProvider,
     private alert: AlertController) {
 
   }
@@ -28,9 +31,8 @@ export class CloudVisionPage {
       mediaType: this.camera.MediaType.PICTURE
     }
     this.camera.getPicture(options).then((imageData) => {
-      console.log(imageData)
       this.vision.getLabels(imageData).subscribe((result) => {
-        alert(JSON.stringify(result));
+        this.items = result;
       }, err => {
         this.showAlert(err);
       });
@@ -53,5 +55,16 @@ export class CloudVisionPage {
   //     .then(_ => { })
   //     .catch(err => { this.showAlert(err) });
   // }
+
+  checkLabel(label) {
+
+    let inputparam = { search: { searchserial: label } };
+    this.auth.getProductNo(inputparam).subscribe(data => {
+      this.alertProvider.hideLoader();
+      alert(JSON.stringify(data));
+    }, error => {
+      this.alertProvider.hideLoader();
+    });
+  }
 
 }

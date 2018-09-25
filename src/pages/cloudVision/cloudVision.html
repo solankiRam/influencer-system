@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Bar Code Scanner
+      Search Influencer
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -12,7 +12,7 @@
     <ion-card-content>
       <ion-list no-lines>
         <ion-list-header>Labels</ion-list-header>
-        <ion-item *ngFor="let label of item.results[0].labelAnnotations">{{label.description}}</ion-item>
+        <ion-item *ngFor="let label of item.results[0].labelAnnotations" (click)="checkLabel(label.description)">{{label.description}}</ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>

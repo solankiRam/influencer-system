@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{userData.name}}
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher (ionRefresh)="ionViewWillEnter($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-row class="search-box">
+    <ion-col col-11>
+      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" (ionClear)="onCancel($event)">
+      </ion-searchbar>
+    </ion-col>
+    <ion-col col-1>
+      <div class="filter-box">
+        <i class="ion-ios-funnel-outline"></i>
+        <ion-select interface="popover" (ionChange)="infoTypeFilter($event)" [(ngModel)]="influencerFilterData">
+          <ion-option *ngFor="let type of influencerType" value="{{type.InfluencerType.id}}">{{type.InfluencerType.name}}</ion-option>
+        </ion-select>
+      </div>
+    </ion-col>
+  </ion-row>
+  <ion-list>
+    <ion-item *ngFor="let user of users | orderbyfilter : 'id'" (click)='goToView(user)'>
+
+      <ion-card [ngClass]="{'active':user.status == 'Active'}">
+
+        <ion-item class="card-detail">
+          <ion-avatar item-start>
+            <img src="assets/imgs/user_avtar.png" *ngIf="user.image == ''">
+            <img src="{{imageBaseUrl}}{{user.image}}" *ngIf="user.image != ''">
+          </ion-avatar>
+          <h2>{{user.name}}</h2>
+
+          <p>
+            <ion-icon name="call"></ion-icon>
+            <span>{{user.work_phone}}</span>
+          </p>
+          <p>{{user.InfluencerType}}</p>
+          <b>Address:</b>
+          <p>{{user.address}}</p>
+        </ion-item>
+      </ion-card>
+    </ion-item>
+    <ion-item *ngIf="users && users.length==0" class="" text-center no-lines detail-none>No records found!</ion-item>
+
+  </ion-list>
+  <ion-fab right bottom (click)="goToAdd()">
+    <button ion-fab>
+      <ion-icon name="add-circle"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
