@@ -40,6 +40,9 @@ export class AuthServiceProvider {
         return this.http.post(Constants.baseUrl + 'admin/installations/get_product_no', data).map(res => res.json())
     }
 
+    addInfluencer(data) {
+        return this.http.post(Constants.baseUrl + 'admin/installations/add', data).map(res => res.json())
+    }
 
     getinstallationsList(data) {
         return this.http.post(Constants.baseUrl + 'admin/installations/search_user', data).map(res => res.json())
