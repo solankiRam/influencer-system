@@ -23,51 +23,48 @@
       </ion-col>
 
 
-      <ion-col col-12>
+      <!-- <ion-col col-12>
         <ion-title class="title field-title title-md">
           Personal Information
         </ion-title>
-      </ion-col>
+      </ion-col> -->
       <ion-col col-12>
         <ion-list inset>
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('mobile').valid">
-            <ion-input placeholder="Mobile*" formControlName="mobile" type="number" limit-to="10" [(ngModel)]="registerModel.mobile"
-              (ngModelChange)="registerModel.mobile"></ion-input>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('work_phone').valid">
+            <ion-input placeholder="Mobile*" formControlName="work_phone" type="number" limit-to="10" [(ngModel)]="registerModel.work_phone"
+              (ngModelChange)="registerModel.work_phone"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.mobile.valid">{{validationMessages.mobileNo}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.work_phone.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
-            <ion-input placeholder="Landline" formControlName="homePhone" type="number" limit-to="10" [(ngModel)]="registerModel.homePhone"
-              (ngModelChange)="registerModel.homePhone"></ion-input>
+            <ion-input placeholder="Landline" formControlName="home_phone" type="number" limit-to="10" [(ngModel)]="registerModel.home_phone"
+              (ngModelChange)="registerModel.home_phone"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.homePhone.valid">{{validationMessages.mobileNo}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.home_phone.valid">{{validationMessages.mobileNo}}</span>
           <ion-item class="field">
             <ion-input placeholder="Email" formControlName="email" maxlength="100"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.email.valid">{{validationMessages.email}}</span>
 
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('customersegment_id').valid">
+            <ion-input placeholder="Customer Segment id*" formControlName="customersegment_id" disabled maxlength="100"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.customersegment_id.valid">{{validationMessages.required}}</span>
 
-          <ion-item class="field">
-            <ion-datetime displayFormat="DD MMM YYYY" placeholder="Birth Date" pickerFormat="DD MMM YYYY"
-              formControlName="birthDate" [max]="currentDate"></ion-datetime>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('retailer_name').valid">
+            <ion-input placeholder="Retailer name" formControlName="retailer_name" maxlength="50"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.birthDate.valid">{{validationMessages.required}}</span>
-          <!-- <ion-item class="field" [class.ng-invalid]="!editForm.get('zone').valid">
-            <ion-input placeholder="Zone*" formControlName="zone" maxlength="100"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.zone.valid">{{validationMessages.required}}</span> -->
-          <!-- <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
-            <ion-input placeholder="Company Branch" formControlName="branch" maxlength="50"></ion-input>
-          </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span> -->
+          <span class="wrongCredential" *ngIf="!editForm.controls.retailer_name.valid">{{validationMessages.required}}</span>
 
-          <ion-item class="field" [class.ng-invalid]="!editForm.get('branch').valid">
-            <ion-label>Company Branch</ion-label>
-            <ion-select placeholder="Company Branch" formControlName="branch">
-              <ion-option [value]="branch?.CompanyBranch?.id" *ngFor="let branch of companyBranch">
-                {{branch?.CompanyBranch?.name}}</ion-option>
-            </ion-select>
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('retailer_mobile').valid">
+            <ion-input placeholder="Retailer mobile" formControlName="retailer_mobile" maxlength="50"></ion-input>
           </ion-item>
-          <span class="wrongCredential" *ngIf="!editForm.controls.branch.valid">{{validationMessages.required}}</span>
+          <span class="wrongCredential" *ngIf="!editForm.controls.retailer_mobile.valid">{{validationMessages.required}}</span>
+
+          <ion-item class="field" [class.ng-invalid]="!editForm.get('retailer_city').valid">
+            <ion-input placeholder="Retailer City" formControlName="retailer_city" maxlength="50"></ion-input>
+          </ion-item>
+          <span class="wrongCredential" *ngIf="!editForm.controls.retailer_city.valid">{{validationMessages.required}}</span>
+
         </ion-list>
       </ion-col>
 
@@ -112,11 +109,6 @@
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.longitude.valid">{{validationMessages.required}}</span>
         </ion-list>
-      </ion-col>
-      <ion-col col-12>
-        <ion-title class="title field-title title-md">
-          Identity
-        </ion-title>
       </ion-col>
     </ion-row>
 

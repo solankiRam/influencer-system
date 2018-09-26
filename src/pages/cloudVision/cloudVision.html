@@ -7,6 +7,23 @@
 </ion-header>
 
 <ion-content padding>
+  <form [formGroup]="serialSearchForm" ngInvalidAutoFocus>
+    <ion-row>
+      <ion-col col-10>
+        <ion-input autocomplete="off" placeholder="Serial number" formControlName="serialNumber" type="number"></ion-input>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button (click)="takePhoto()">
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </form>
+  <ion-item>
+    <button ion-button item-right block (click)="checkLabel()">
+      Send
+    </button>
+  </ion-item>
   <ion-card *ngFor="let item of items">
     <img [src]="'data:image/png;base64,' + item.imageData" />
     <ion-card-content>
@@ -16,9 +33,4 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-fab bottom right>
-    <button ion-fab (click)="takePhoto()">
-      <ion-icon name="camera"></ion-icon>
-    </button>
-  </ion-fab>
 </ion-content>

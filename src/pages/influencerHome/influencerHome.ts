@@ -90,7 +90,6 @@ export class InfluencerHomePage {
   }
 
   goToAdd() {
-    alert('test')
     this.app.getRootNavs()[0].push('CloudVisionPage');
   }
 

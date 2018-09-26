@@ -21,6 +21,7 @@ export class AddInfluencerPage {
   private editForm: FormGroup;
   private currentDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
   validationMessages = Constants.validationMessages;
+  registerModel: any = {home_phone : '', work_phone: '', retailer_mobile: ''};
 
   title: string;
 
@@ -34,8 +35,8 @@ export class AddInfluencerPage {
       surname: ['', [Validators.required]],
       email: Validator.emailNotReqValidator,
       home_phone: ['', [Validators.minLength(10), Validators.maxLength(10)]],
-      work_home: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      customersegment_id: ['', [Validators.required]],
+      work_phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      customersegment_id: [navParams.get('serialNumber'), [Validators.required]],
       retailer_name: ['', [Validators.required]],
       retailer_mobile: ['', [Validators.required]],
       retailer_city: ['', [Validators.required]],
@@ -85,7 +86,7 @@ export class AddInfluencerPage {
       this.alertProvider.hideLoader();
       if (success) {
         this.alertProvider.showToast("Added successfully.");
-        this.app.getRootNavs()[0].pop();
+        this.app.getRootNavs()[0].popToRoot();
       } else {
         this.alertProvider.showToast("Problem while updating influencer.");
       }

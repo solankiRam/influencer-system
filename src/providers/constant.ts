@@ -1,8 +1,8 @@
 export namespace Constants {
   export const version = 'Version: 1.0.11';
   export const notificationBarColor = '223a6b';
-  export const baseUrl = 'http://54.71.128.110/influencer_system_live_api/';
-  export const baseUrlImg = 'http://54.71.128.110/influencer_system_live/';
+  export const baseUrl = 'http://54.71.128.110/influencer_system_dev_api/';
+  export const baseUrlImg = 'http://54.71.128.110/influencer_system_dev/';
   export const cloudVision = 'AIzaSyC-wfgtg9oaiOaLPrr3AnH0W8n-9Ts20Lc';
 
   export const successMessages = {
