@@ -17,8 +17,8 @@ export class CloudVisionPage {
   items: any = [];
   constructor(public navCtrl: NavController, private camera: Camera, public alertProvider: AlertProvider,
     private vision: GoogleCloudVisionServiceProvider, private auth: AuthServiceProvider,
-    private alert: AlertController) {
-
+    private alertCtrl: AlertController) {
+      alert('test1')
   }
 
   takePhoto() {
@@ -31,9 +31,13 @@ export class CloudVisionPage {
       mediaType: this.camera.MediaType.PICTURE
     }
     this.camera.getPicture(options).then((imageData) => {
+      alert(JSON.stringify(imageData))
       this.vision.getLabels(imageData).subscribe((result) => {
+        alert('result')
+        alert(JSON.stringify(result))
         this.items = result;
       }, err => {
+        alert(JSON.stringify('err'))
         this.showAlert(err);
       });
     }, err => {
@@ -42,7 +46,7 @@ export class CloudVisionPage {
   }
 
   showAlert(message) {
-    let alert = this.alert.create({
+    let alert = this.alertCtrl.create({
       title: 'Error',
       subTitle: message,
       buttons: ['OK']

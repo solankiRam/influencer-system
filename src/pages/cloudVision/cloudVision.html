@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let item of items | async">
+  <ion-card *ngFor="let item of items">
     <img [src]="'data:image/png;base64,' + item.imageData" />
     <ion-card-content>
       <ion-list no-lines>
