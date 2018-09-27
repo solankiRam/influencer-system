@@ -22,11 +22,15 @@ export class MyApp {
     platform.ready().then(() => {
       this.registeryBackButton()
       this.statusBar.styleBlackTranslucent();
-      this.statusBar.backgroundColorByHexString('223a6b');
+      this.statusBar.backgroundColorByHexString('#223a6b');
       this.authService.authenticated().then(tokenStatus => {
         console.log(tokenStatus)
         if (tokenStatus) {
-          this.rootPage = 'HomePage';
+          if (localStorage.getItem('groupId') == "4") {
+            this.rootPage = 'HomePage';
+          } else if (localStorage.getItem('groupId') == '3') {
+            this.rootPage = 'InfluencerHomePage';
+          }
         } else {
           this.rootPage = 'LoginPage';
         }
