@@ -77,11 +77,13 @@ export class AddInfluencerPage {
         country: value.country,
         lattitude: value.lattitude,
         longitude: value.longitude,
+        pid: "2951"
       }
     }
     if (localStorage.getItem('id')) {
       params.createdby = localStorage.getItem('id');
     }
+    console.log('params', params);
     this.auth.addInfluencer(params).subscribe(success => {
       this.alertProvider.hideLoader();
       if (success) {
