@@ -60,6 +60,8 @@ export class LoginPage {
                     localStorage.setItem('groupId', allowed.group_id);
                     this.auth.loginData(allowed);
                     this.app.getRootNavs()[0].setRoot('HomePage');
+                } else if(allowed.group_id == "3") {
+                    console.log('Solanki ram enter check this.')
                 } else {
                     this.showError("You have no rights to use this app");
                 }
