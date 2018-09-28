@@ -67,6 +67,7 @@ export class CloudVisionPage {
       if (data.status == 1) {
         this.app.getRootNavs()[0].push('AddInfluencerPage', {
           title: "Add Influencer",
+          pid: data.pid,
           serialNumber: this.serialSearchForm.value['serialNumber']
         });
       } else {

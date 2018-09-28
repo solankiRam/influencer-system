@@ -77,7 +77,7 @@ export class AddInfluencerPage {
         country: value.country,
         lattitude: value.lattitude,
         longitude: value.longitude,
-        pid: "2951"
+        pid: this.navParams.get('pid')
       }
     }
     if (localStorage.getItem('id')) {
