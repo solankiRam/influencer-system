@@ -38,7 +38,7 @@ export class InfluencerHomePage {
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
     let inputparam = { start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId };
-    this.auth.getinstallationsList(inputparam).subscribe(allowed => {
+    this.auth.getinstallationsList(inputparam).subscribe((allowed: any) => {
       this.alertProvider.hideLoader();
       if (refresher) {
         setTimeout(() => {

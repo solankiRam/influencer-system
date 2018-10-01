@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Constants } from './constant';
+import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class GoogleCloudVisionServiceProvider {
-    constructor(public http: Http) { }
+    constructor(public http: HttpClient) { }
     getLabels(base64Image) {
         const body = {
             "requests": [
@@ -14,7 +15,8 @@ export class GoogleCloudVisionServiceProvider {
                     },
                     "features": [
                         {
-                            "type": "TEXT_DETECTION"
+                            "type": "TEXT_DETECTION",
+                            "maxResults":1
                         }
                     ]
                 }

@@ -18,13 +18,15 @@ import { ConnectivityProvider } from '../providers/connectivity/connectivity';
 import { LocationsProvider } from '../providers/locations/locations';
 import { GeocoderProvider } from '../providers/geocoder/geocoder';
 import { AlertProvider } from '../providers/alert';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     MyApp
   ],
   imports: [
-    BrowserModule, HttpModule, IonicStorageModule.forRoot(), IonicModule.forRoot(MyApp, {
+    BrowserModule, 
+    HttpClientModule, IonicStorageModule.forRoot(), IonicModule.forRoot(MyApp, {
       mode: 'md', scrollAssist: false, autoFocusAssist: false
     })
   ],

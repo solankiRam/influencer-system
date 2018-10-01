@@ -20,16 +20,15 @@
     </ion-row>
   </form>
   <ion-item>
-    <button ion-button item-right block (click)="checkLabel()">
+    <button ion-button item-right block (click)="checkLabel(serialSearchForm.value['serialNumber'])">
       Send
     </button>
   </ion-item>
   <ion-card *ngFor="let item of items">
-    <img [src]="'data:image/png;base64,' + item.imageData" />
     <ion-card-content>
       <ion-list no-lines>
         <ion-list-header>Labels</ion-list-header>
-        <ion-item *ngFor="let label of item.results[0].labelAnnotations" (click)="checkLabel(label.description)">{{label.description}}</ion-item>
+        <ion-item *ngFor="let label of item.textAnnotations" (click)="checkLabel(label.description)">{{label.description}}</ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
