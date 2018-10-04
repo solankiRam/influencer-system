@@ -1,5 +1,5 @@
 export namespace Constants {
-  export const version = 'Version: 1.0.13';
+  export const version = 'Version: 1.0.14';
   export const notificationBarColor = '223a6b';
   export const baseUrl = 'http://54.71.128.110/influencer_system_dev_api/';
   export const baseUrlImg = 'http://54.71.128.110/influencer_system_dev/';

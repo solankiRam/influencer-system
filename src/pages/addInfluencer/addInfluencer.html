@@ -36,7 +36,11 @@
           <span class="wrongCredential" *ngIf="!editForm.controls.email.valid">{{validationMessages.email}}</span>
 
           <ion-item class="field" [class.ng-invalid]="!editForm.get('customersegment_id').valid">
-            <ion-input placeholder="Customer Segment id" formControlName="customersegment_id" disabled maxlength="100"></ion-input>
+            <ion-select interface="popover" placeholder="Customer Segment id" formControlName="customersegment_id">
+              <ion-option *ngFor="let customerSegment of customerSegments" [value]="customerSegment.CustomerSegment.id">
+                {{customerSegment.CustomerSegment.name}}
+              </ion-option>
+            </ion-select>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.customersegment_id.valid">{{validationMessages.required}}</span>
 
@@ -46,7 +50,8 @@
           <span class="wrongCredential" *ngIf="!editForm.controls.retailer_name.valid">{{validationMessages.required}}</span>
 
           <ion-item class="field" [class.ng-invalid]="!editForm.get('retailer_mobile').valid">
-            <ion-input placeholder="Retailer mobile" formControlName="retailer_mobile" maxlength="50"></ion-input>
+            <ion-input placeholder="Retailer mobile" formControlName="retailer_mobile" type="number" limit-to="10"
+              [(ngModel)]="registerModel.retailer_mobile"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.retailer_mobile.valid">{{validationMessages.required}}</span>
 

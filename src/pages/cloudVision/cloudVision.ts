@@ -69,7 +69,7 @@ export class CloudVisionPage {
       this.alertProvider.hideLoader();
       if (data.status == 1) {
         this.app.getRootNavs()[0].push('AddInfluencerPage', {
-          title: "Add Influencer",
+          title: "Customer details",
           pid: data.data.pid,
           serialNumber: val
         });

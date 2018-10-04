@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>View Details</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="register" padding>
+
+  <ion-row>
+    <ion-col col-12>
+      <ion-list inset>
+        <ion-item class="field" *ngIf="installation.name">
+          <ion-label>Name:</ion-label>
+          <ion-label>{{installation.name}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.surname">
+          <ion-label>Last Name:</ion-label>
+          <ion-label>{{installation.surname}}</ion-label>
+        </ion-item>
+
+        <ion-item class="field" *ngIf="installation.work_phone">
+          <ion-label>Mobile:</ion-label>
+          <ion-label>{{installation.work_phone}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.home_phone">
+          <ion-label>Landline:</ion-label>
+          <ion-label>{{installation.home_phone}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.email">
+          <ion-label>Email:</ion-label>
+          <ion-label>{{installation.email}}</ion-label>
+        </ion-item>
+
+        <ion-item class="field" *ngIf="installation.customersegment_id">
+          <ion-label>Customer Segment id: </ion-label>
+          <ion-label>{{installation.customersegment_id}}</ion-label>
+        </ion-item>
+
+        <ion-item class="field" *ngIf="installation.retailer_name">
+          <ion-label>Retailer name: </ion-label>
+          <ion-label>{{installation.retailer_name}}</ion-label>
+        </ion-item>
+
+        <ion-item class="field" *ngIf="installation.retailer_mobile">
+          <ion-label>Retailer mobile:</ion-label>
+          <ion-label>{{installation.retailer_mobile}}</ion-label>
+        </ion-item>
+
+        <ion-item class="field" *ngIf="installation.retailer_city">
+          <ion-label>Retailer City:</ion-label>
+          <ion-label>{{installation.retailer_city}}</ion-label>
+        </ion-item>
+
+      </ion-list>
+    </ion-col>
+
+    <ion-col col-12>
+      <ion-title class="title field-title title-md">
+        Address details
+      </ion-title>
+      <ion-list inset>
+        <ion-item class="field" *ngIf="installation.address">
+          <ion-label>Street, Nr.:</ion-label>
+          <ion-label>{{installation.address}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.place">
+          <ion-label>Place:</ion-label>
+          <ion-label>{{installation.place}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.city">
+          <ion-label>City:</ion-label>
+          <ion-label>{{installation.city}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.zipcode">
+          <ion-label>Pin Code:</ion-label>
+          <ion-label>{{installation.zipcode}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.state">
+          <ion-label>State:</ion-label>
+          <ion-label>{{installation.state}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.country">
+          <ion-label>Country:</ion-label>
+          <ion-label>{{installation.country}}</ion-label>
+        </ion-item>
+
+        <ion-item class="field" *ngIf="installation.lattitude">
+          <ion-label>Lattitude:</ion-label>
+          <ion-label>{{installation.lattitude}}</ion-label>
+        </ion-item>
+        <ion-item class="field" *ngIf="installation.longitude">
+          <ion-label>Longitude:</ion-label>
+          <ion-label>{{installation.longitude}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

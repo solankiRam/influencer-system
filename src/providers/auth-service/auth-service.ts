@@ -45,6 +45,14 @@ export class AuthServiceProvider {
         return this.http.post(Constants.baseUrl + 'admin/installations/add', data).map(res => res)
     }
 
+    getCustomerSegments(): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/customerSegments/index').map(res => res)
+    }
+
+    getInstallationDetails(id): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/installations/view/' + id).map(res => res)
+    }
+
     getinstallationsList(data): Observable<any> {
         return this.http.post(Constants.baseUrl + 'admin/installations/search_user', data).map(res => res)
     }

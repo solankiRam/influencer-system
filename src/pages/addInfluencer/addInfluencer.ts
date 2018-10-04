@@ -18,10 +18,12 @@ import { Constants } from '../../providers/constant';
 export class AddInfluencerPage {
   createSuccess = false;
 
+  customerSegments: any = [];
+
   private editForm: FormGroup;
   private currentDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
   validationMessages = Constants.validationMessages;
-  registerModel: any = {home_phone : '', work_phone: '', retailer_mobile: ''};
+  registerModel: any = { home_phone: '', work_phone: '', retailer_mobile: '' };
 
   title: string;
 
@@ -36,7 +38,7 @@ export class AddInfluencerPage {
       email: Validator.emailNotReqValidator,
       home_phone: ['', [Validators.minLength(10), Validators.maxLength(10)]],
       work_phone: ['', [, Validators.minLength(10), Validators.maxLength(10)]],
-      customersegment_id: [navParams.get('serialNumber'), []],
+      customersegment_id: ['', []],
       retailer_name: ['', []],
       retailer_mobile: ['', []],
       retailer_city: ['', []],
@@ -52,6 +54,12 @@ export class AddInfluencerPage {
     if (this.navParams.get("coords")) {
       this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
     }
+    this.auth.getCustomerSegments().subscribe(data => {
+      this.customerSegments = data.data;
+    }, error => {
+      this.alertProvider.showToast("Error");
+    });
+
   }
 
 
