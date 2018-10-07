@@ -22,7 +22,7 @@ export class MyApp {
     platform.ready().then(() => {
       this.registeryBackButton()
       this.statusBar.styleBlackTranslucent();
-      this.statusBar.backgroundColorByHexString('#223a6b');
+      this.statusBar.backgroundColorByHexString('223a6b');
       this.authService.authenticated().then(tokenStatus => {
         console.log(tokenStatus)
         if (tokenStatus) {

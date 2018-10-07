@@ -30,7 +30,6 @@ export class InfluencerHomePage {
 
   ionViewWillEnter(refresher) {
     this.getUsers(refresher);
-    this.getInfluencerType();
   }
 
   getUsers(refresher) {
@@ -38,7 +37,7 @@ export class InfluencerHomePage {
     let userId = localStorage.getItem('id');
     let groupId = localStorage.getItem('groupId');
     let inputparam = { start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId };
-    this.auth.getinstallationsList(inputparam).subscribe(allowed => {
+    this.auth.getinstallationsList(inputparam).subscribe((allowed: any) => {
       this.alertProvider.hideLoader();
       if (refresher) {
         setTimeout(() => {
@@ -80,7 +79,7 @@ export class InfluencerHomePage {
       start: 0, length: 50, draw: 1, group_id: groupId, user_id: userId,
       data: { search: { name: keyword, status: null } }
     }
-    this.auth.getinfluencerList(inputparam).subscribe(allowed => {
+    this.auth.getinstallationsList(inputparam).subscribe(allowed => {
       if (allowed) {
         this.users = allowed.data;
       }
@@ -93,72 +92,9 @@ export class InfluencerHomePage {
     this.app.getRootNavs()[0].push('CloudVisionPage');
   }
 
-  addInfluencer() {
-    let options = {
-      enableHighAccuracy: true
-    };
-    this.alertProvider.showLoader('');
-    this.geolocation.getCurrentPosition(options).then((position: Geoposition) => {
-      this.alertProvider.hideLoader();
-      this.app.getRootNavs()[0].push('AddInfluencerPage', {
-        coords: position.coords,
-        title: 'Add Influencer'
-      });
-    }).catch(err => {
-      this.alertProvider.hideLoader();
-      this.app.getRootNavs()[0].push('AddInfluencerPage', {
-        title: 'Add Influencer'
-      });
-    });
-  }
-
   goToView(user) {
-    this.app.getRootNavs()[0].push('InfluencerViewPage', {
-      insId: user.id
-    });
-  }
-
-  getInfluencerType() {
-    this.auth.getInfluencerTypes().subscribe(allowed => {
-
-      if (allowed.status) {
-        this.influencerType = allowed.data;
-        this.influencerType.push({ InfluencerType: { name: 'Reset' } })
-      }
-    }, error => {
-
-    });
-  }
-
-  infoTypeFilter(param) {
-    if (param) {
-      this.fromFilter(param);
-    }
-    else {
-      this.searchKeyWord = '';
-      this.getUsers(null);
-    }
-  }
-
-  onCancel() {
-    this.keyboard.close();
-  }
-
-  fromFilter(param) {
-    this.alertProvider.showLoader('Loading...');
-    let userId = localStorage.getItem('id');
-    let groupId = localStorage.getItem('groupId');
-    let inputparam = {
-      start: 0, length: 50, group_id: groupId, user_id: userId, draw: 1,
-      data: { search: { influencertype_id: param, status: null } }
-    }
-    this.auth.getinfluencerList(inputparam).subscribe(allowed => {
-      if (allowed) {
-        this.users = allowed.data;
-      }
-      this.alertProvider.hideLoader();
-    }, error => {
-      this.alertProvider.hideLoader();
+    this.app.getRootNavs()[0].push('InstallationViewPage', {
+      insId: user.cnt
     });
   }
 }

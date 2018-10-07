@@ -18,10 +18,12 @@ import { Constants } from '../../providers/constant';
 export class AddInfluencerPage {
   createSuccess = false;
 
+  customerSegments: any = [];
+
   private editForm: FormGroup;
   private currentDate = moment().subtract(1, 'day').format('YYYY-MM-DD');
   validationMessages = Constants.validationMessages;
-  registerModel: any = {home_phone : '', work_phone: '', retailer_mobile: ''};
+  registerModel: any = { home_phone: '', work_phone: '', retailer_mobile: '' };
 
   title: string;
 
@@ -32,26 +34,32 @@ export class AddInfluencerPage {
     this.title = navParams.get('title');
     this.editForm = this.formBuilder.group({
       name: ['', [Validators.required]],
-      surname: ['', [Validators.required]],
+      surname: ['', []],
       email: Validator.emailNotReqValidator,
       home_phone: ['', [Validators.minLength(10), Validators.maxLength(10)]],
-      work_phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-      customersegment_id: [navParams.get('serialNumber'), [Validators.required]],
-      retailer_name: ['', [Validators.required]],
-      retailer_mobile: ['', [Validators.required]],
-      retailer_city: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      work_phone: ['', [, Validators.minLength(10), Validators.maxLength(10)]],
+      customersegment_id: ['', []],
+      retailer_name: ['', []],
+      retailer_mobile: ['', []],
+      retailer_city: ['', []],
+      address: ['', []],
       place: [''],
-      city: ['', [Validators.required]],
-      zipcode: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      country: ['', [Validators.required]],
+      city: ['', []],
+      zipcode: ['', []],
+      state: ['', []],
+      country: ['', []],
       latitude: [''],
       longitude: [''],
     });
     if (this.navParams.get("coords")) {
       this.getcountry(this.navParams.get("coords").latitude, this.navParams.get("coords").longitude);
     }
+    this.auth.getCustomerSegments().subscribe(data => {
+      this.customerSegments = data.data;
+    }, error => {
+      this.alertProvider.showToast("Error");
+    });
+
   }
 
 

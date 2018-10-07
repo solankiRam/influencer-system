@@ -5,59 +5,68 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Constants } from '../constant';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class AuthServiceProvider {
 
-    constructor(public http: Http, private storage: Storage) { }
+    constructor(public http: HttpClient, private storage: Storage) { }
 
     // Login
     login(inputparam): Observable<any> {
         // alert(JSON.stringify(inputparam));
         return this.http.post(Constants.baseUrl + 'users/login', inputparam).map(res => {
             // alert(JSON.stringify(res));
-            return res.json()
+            return res
         })
     }
 
-    register(credentials) {
-        return this.http.post(Constants.baseUrl + 'admin/Influencers/add', credentials).map(res => res.json());
+    register(credentials): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'admin/Influencers/add', credentials).map(res => res);
     }
 
-    forgotPassword(credentials) {
-        return this.http.post(Constants.baseUrl + 'users/forgetpwd/', credentials).map(res => res.json());
+    forgotPassword(credentials): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'users/forgetpwd/', credentials).map(res => res);
     }
 
-    editInfluencer(credentials, id) {
-        return this.http.post(Constants.baseUrl + 'admin/Influencers/edit/' + id, credentials).map(res => res.json());
+    editInfluencer(credentials, id): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'admin/Influencers/edit/' + id, credentials).map(res => res);
     }
 
-    getinfluencerList(data) {
-        return this.http.post(Constants.baseUrl + 'admin/influencers/search_user', data).map(res => res.json())
+    getinfluencerList(data): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'admin/influencers/search_user', data).map(res => res)
     }
 
-    getProductNo(data) {
-        return this.http.post(Constants.baseUrl + 'admin/installations/get_product_no', data).map(res => res.json())
+    getProductNo(data): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'admin/installations/get_product_no', data).map(res => res)
     }
 
-    addInfluencer(data) {
-        return this.http.post(Constants.baseUrl + 'admin/installations/add', data).map(res => res.json())
+    addInfluencer(data): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'admin/installations/add', data).map(res => res)
     }
 
-    getinstallationsList(data) {
-        return this.http.post(Constants.baseUrl + 'admin/installations/search_user', data).map(res => res.json())
+    getCustomerSegments(): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/customerSegments/index').map(res => res)
     }
 
-    getInfluencer(id) {
-        return this.http.get(Constants.baseUrl + 'admin/influencers/view/' + id).map(res => res.json())
+    getInstallationDetails(id): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/installations/view/' + id).map(res => res)
     }
 
-    getInfluencerTypes() {
-        return this.http.get(Constants.baseUrl + 'admin/influencerTypes/index').map(res => res.json())
+    getinstallationsList(data): Observable<any> {
+        return this.http.post(Constants.baseUrl + 'admin/installations/search_user', data).map(res => res)
     }
 
-    comapanyBranches() {
-        return this.http.get(Constants.baseUrl + 'admin/companyBranches/').map(res => res.json())
+    getInfluencer(id): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/influencers/view/' + id).map(res => res)
+    }
+
+    getInfluencerTypes(): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/influencerTypes/index').map(res => res)
+    }
+
+    comapanyBranches(): Observable<any> {
+        return this.http.get(Constants.baseUrl + 'admin/companyBranches/').map(res => res)
     }
 
     loginData(data): void {
@@ -68,10 +77,10 @@ export class AuthServiceProvider {
     }
 
     // Logout
-    public logout() {
+    public logout(): Observable<any> {
         return Observable.create(observer => {
             this.http.get(Constants.baseUrl + 'users/logout')
-                .map(res => res.json())
+                .map(res => res)
                 .subscribe(data => {
                     observer.next(true);
                     this.clearAll();

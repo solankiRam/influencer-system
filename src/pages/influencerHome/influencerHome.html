@@ -17,17 +17,10 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <ion-row class="search-box">
-    <ion-col col-11>
-      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)" (ionClear)="onCancel($event)">
+    <ion-col col-12>
+      <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)"
+        (ionClear)="onCancel($event)">
       </ion-searchbar>
-    </ion-col>
-    <ion-col col-1>
-      <div class="filter-box">
-        <i class="ion-ios-funnel-outline"></i>
-        <ion-select interface="popover" (ionChange)="infoTypeFilter($event)" [(ngModel)]="influencerFilterData">
-          <ion-option *ngFor="let type of influencerType" value="{{type.InfluencerType.id}}">{{type.InfluencerType.name}}</ion-option>
-        </ion-select>
-      </div>
     </ion-col>
   </ion-row>
   <ion-list>
@@ -37,8 +30,8 @@
 
         <ion-item class="card-detail">
           <ion-avatar item-start>
-            <img src="assets/imgs/user_avtar.png" *ngIf="user.image == ''">
-            <img src="{{imageBaseUrl}}{{user.image}}" *ngIf="user.image != ''">
+            <img src="assets/imgs/user_avtar.png" *ngIf="user.image == '' || user.image == undefined">
+            <img src="{{imageBaseUrl}}{{user.image}}" *ngIf="user.image">
           </ion-avatar>
           <h2>{{user.name}}</h2>
 
