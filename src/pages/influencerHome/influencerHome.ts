@@ -88,13 +88,17 @@ export class InfluencerHomePage {
     });
   }
 
+  onCancel(){
+    this.getUsers(null);
+  }
+
   goToAdd() {
     this.app.getRootNavs()[0].push('CloudVisionPage');
   }
 
   goToView(user) {
     this.app.getRootNavs()[0].push('InstallationViewPage', {
-      insId: user.cnt
+      insId: user.id
     });
   }
 }

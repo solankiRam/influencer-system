@@ -16,26 +16,22 @@
   <ion-refresher (ionRefresh)="ionViewWillEnter($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-row class="search-box">
+  <!-- <ion-row class="search-box">
     <ion-col col-12>
       <ion-searchbar [(ngModel)]="searchKeyWord" [showCancelButton]="shouldShowCancel" (ionInput)="onInput(searchKeyWord)"
         (ionClear)="onCancel($event)">
       </ion-searchbar>
     </ion-col>
-  </ion-row>
+  </ion-row> -->
   <ion-list>
     <ion-item *ngFor="let user of users | orderbyfilter : 'id'" (click)='goToView(user)'>
 
       <ion-card [ngClass]="{'active':user.status == 'Active'}">
 
         <ion-item class="card-detail">
-          <ion-avatar item-start>
-            <img src="assets/imgs/user_avtar.png" *ngIf="user.image == '' || user.image == undefined">
-            <img src="{{imageBaseUrl}}{{user.image}}" *ngIf="user.image">
-          </ion-avatar>
           <h2>{{user.name}}</h2>
 
-          <p>
+          <p *ngIf="user.work_phone">
             <ion-icon name="call"></ion-icon>
             <span>{{user.work_phone}}</span>
           </p>
