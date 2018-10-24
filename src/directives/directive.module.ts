@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { LimitToDirective } from './number.directive';
+import { CapitalizeDirective } from './capitalize';
 
 export const AllDirectives = [
-  LimitToDirective
+  LimitToDirective, CapitalizeDirective
 ]
 
 @NgModule({

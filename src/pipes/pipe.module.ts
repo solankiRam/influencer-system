@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { OrderByPipe } from './sort';
+import { OrderByPipe, CapitalizePipe } from './sort';
 
 
 export const AllPipes = [
-  OrderByPipe
+  OrderByPipe, CapitalizePipe
 ];
 
 @NgModule({
