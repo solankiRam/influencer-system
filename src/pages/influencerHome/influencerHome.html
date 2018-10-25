@@ -29,7 +29,7 @@
       <ion-card [ngClass]="{'active':user.status == 'Active'}">
 
         <ion-item class="card-detail">
-          <h2>{{user.name}}</h2>
+          <h2>{{user.name}} {{user.surname}}</h2>
 
           <p *ngIf="user.work_phone">
             <ion-icon name="call"></ion-icon>

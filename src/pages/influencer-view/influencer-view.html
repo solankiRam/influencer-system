@@ -159,7 +159,7 @@
           <span class="wrongCredential" *ngIf="!editForm.controls.adharback.valid">{{validationMessages.required}}</span>
 
           <ion-item class="field" [class.ng-invalid]="!editForm.get('adhar_card').valid">
-            <ion-input placeholder="Adhar Card No*" formControlName="adhar_card" type="number" [(ngModel)]="registerModel.adhar_card" (ngModelChange)="registerModel.adhar_card"
+            <ion-input placeholder="Adhar Card No.*" formControlName="adhar_card" type="number" [(ngModel)]="registerModel.adhar_card" (ngModelChange)="registerModel.adhar_card"
               limit-to="12"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.adhar_card.valid">{{validationMessages.adharNo}}</span>
@@ -171,7 +171,7 @@
         </ion-title>
         <ion-list inset>
           <ion-item class="field">
-            <ion-input placeholder="Bank Account No" type="number" limit-to="16" formControlName="bank_account" [(ngModel)]="registerModel.bank_account"
+            <ion-input placeholder="Bank Account No." type="number" limit-to="16" formControlName="bank_account" [(ngModel)]="registerModel.bank_account"
               (ngModelChange)="registerModel.bank_account"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.bank_account.valid">{{validationMessages.required}}</span>

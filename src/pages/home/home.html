@@ -40,7 +40,7 @@
             <img src="assets/imgs/user_avtar.png" *ngIf="user.image == ''">
             <img src="{{imageBaseUrl}}{{user.image}}" *ngIf="user.image != ''">
           </ion-avatar>
-          <h2>{{user.name}}</h2>
+          <h2>{{user.name}} {{user.surname}}</h2>
 
           <p>
             <ion-icon name="call"></ion-icon>
