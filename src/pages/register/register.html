@@ -22,11 +22,11 @@
       <ion-col col-8>
         <ion-list inset>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('firstName').valid">
-            <ion-input placeholder="First Name*" formControlName="firstName" maxlength="100"></ion-input>
+            <ion-input placeholder="First Name*" capitalize formControlName="firstName" maxlength="100"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.firstName.valid">{{validationMessages.required}}</span>
           <ion-item class="field" [class.ng-invalid]="!editForm.get('lastName').valid">
-            <ion-input placeholder="Last Name*" formControlName="lastName" maxlength="100"></ion-input>
+            <ion-input placeholder="Last Name*" capitalize formControlName="lastName" maxlength="100"></ion-input>
           </ion-item>
           <span class="wrongCredential" *ngIf="!editForm.controls.lastName.valid">{{validationMessages.required}}</span>
           <ion-item class="field">
